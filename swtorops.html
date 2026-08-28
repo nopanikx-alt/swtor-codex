@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Codex des Opérations SWTOR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#eef1f7; --surface:#ffffff; --surface-2:#f4f7fc; --raised:#ffffff;
+  --border:#d9deea; --border-strong:#c1cbdd;
+  --ink:#171c27; --muted:#586074; --faint:#8b93a6;
+  --brand:#0d7fa4; --brand-2:#0b6787;
+  --histoire:#2c8a58; --veteran:#a8720f; --maitre:#c23a3a;
+  --shadow:0 1px 2px rgba(20,28,45,.06),0 8px 24px rgba(20,28,45,.08);
+  --shadow-sm:0 1px 2px rgba(20,28,45,.06);
+  --font-display:'Chakra Petch',ui-sans-serif,system-ui,sans-serif;
+  --font-body:'Barlow',ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --maxw:1120px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0a0d15; --surface:#111725; --surface-2:#0d121e; --raised:#151d2e;
+    --border:#212a3e; --border-strong:#31405a;
+    --ink:#e6ecf6; --muted:#98a4bc; --faint:#697488;
+    --brand:#54c6e8; --brand-2:#7ad3ef;
+    --histoire:#5fc186; --veteran:#e4a63f; --maitre:#ef5f59;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 34px rgba(0,0,0,.5);
+    --shadow-sm:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0a0d15; --surface:#111725; --surface-2:#0d121e; --raised:#151d2e;
+  --border:#212a3e; --border-strong:#31405a;
+  --ink:#e6ecf6; --muted:#98a4bc; --faint:#697488;
+  --brand:#54c6e8; --brand-2:#7ad3ef;
+  --histoire:#5fc186; --veteran:#e4a63f; --maitre:#ef5f59;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 34px rgba(0,0,0,.5);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:var(--font-body);font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+:root[data-theme="dark"] body,
+body{background-image:none}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) body{
+    background-image:radial-gradient(1200px 620px at 78% -8%,rgba(84,198,232,.09),transparent 60%),radial-gradient(900px 500px at 8% 4%,rgba(120,90,200,.08),transparent 60%);
+    background-attachment:fixed;
+  }
+}
+:root[data-theme="dark"] body{
+  background-image:radial-gradient(1200px 620px at 78% -8%,rgba(84,198,232,.09),transparent 60%),radial-gradient(900px 500px at 8% 4%,rgba(120,90,200,.08),transparent 60%);
+  background-attachment:fixed;
+}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:4px}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;text-wrap:balance;margin:0;line-height:1.18}
+
+/* ---------- Top bar ---------- */
+.topbar{
+  position:sticky;top:0;z-index:40;
+  background:color-mix(in srgb,var(--surface) 88%,transparent);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+}
+.topbar-in{max-width:var(--maxw);margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.crest{
+  width:38px;height:38px;flex:none;border-radius:9px;display:grid;place-items:center;
+  background:linear-gradient(150deg,var(--brand),color-mix(in srgb,var(--brand) 40%,#7a5bd0));
+  color:#04141a;font-family:var(--font-display);font-weight:700;font-size:20px;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);
+}
+.wordmark{display:flex;flex-direction:column;line-height:1.05;min-width:0}
+.wordmark b{font-family:var(--font-display);font-weight:700;font-size:1.06rem;letter-spacing:.3px}
+.wordmark span{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+.top-spacer{flex:1 1 auto}
+
+.modefilter{display:flex;align-items:center;gap:6px;background:var(--surface-2);border:1px solid var(--border);padding:4px;border-radius:11px}
+.modefilter .lbl{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);padding:0 6px}
+.chip{
+  font-family:var(--font-mono);font-size:.72rem;font-weight:500;letter-spacing:.04em;
+  border:1px solid transparent;background:transparent;color:var(--muted);
+  padding:5px 10px;border-radius:8px;cursor:pointer;transition:.15s;white-space:nowrap;
+}
+.chip:hover{color:var(--ink);background:color-mix(in srgb,var(--ink) 7%,transparent)}
+.chip[aria-pressed="true"]{background:var(--raised);color:var(--ink);box-shadow:var(--shadow-sm)}
+.chip.c-histoire[aria-pressed="true"]{color:var(--histoire);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--histoire) 45%,transparent)}
+.chip.c-veteran[aria-pressed="true"]{color:var(--veteran);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--veteran) 45%,transparent)}
+.chip.c-maitre[aria-pressed="true"]{color:var(--maitre);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--maitre) 45%,transparent)}
+.chip.c-all[aria-pressed="true"]{color:var(--brand);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--brand) 45%,transparent)}
+.iconbtn{
+  width:38px;height:38px;flex:none;border-radius:9px;border:1px solid var(--border);
+  background:var(--surface-2);color:var(--muted);cursor:pointer;display:grid;place-items:center;transition:.15s;
+}
+.iconbtn:hover{color:var(--ink);border-color:var(--border-strong)}
+.menutoggle{display:none}
+
+/* ---------- Shell ---------- */
+.shell{max-width:var(--maxw);margin:0 auto;padding:0 20px;display:grid;grid-template-columns:262px 1fr;gap:28px;align-items:start}
+.sidebar{position:sticky;top:75px;align-self:start;max-height:calc(100vh - 90px);overflow:auto;padding:18px 0 40px}
+.side-scrim{display:none}
+.navgroup{margin-bottom:16px}
+.navgroup > h4{
+  font-family:var(--font-mono);font-size:.62rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--faint);padding:0 10px 7px;
+}
+.navitem{
+  width:100%;text-align:left;border:0;background:transparent;cursor:pointer;
+  display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:8px;
+  padding:7px 10px;border-radius:9px;color:var(--muted);transition:.14s;margin-bottom:2px;
+}
+.navitem:hover{background:color-mix(in srgb,var(--ink) 6%,transparent);color:var(--ink)}
+.navitem.active{background:color-mix(in srgb,var(--brand) 14%,transparent);color:var(--ink)}
+.navitem.active .ab{border-color:color-mix(in srgb,var(--brand) 55%,transparent);color:var(--brand)}
+.navitem .ab{
+  font-family:var(--font-mono);font-size:.66rem;font-weight:600;letter-spacing:.03em;
+  border:1px solid var(--border-strong);border-radius:6px;padding:3px 0;text-align:center;color:var(--muted);
+}
+.navitem .nm{font-size:.9rem;font-weight:500;line-height:1.15;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mdots{display:flex;gap:3px}
+.mdot{width:7px;height:7px;border-radius:50%;background:var(--border-strong)}
+.mdot.on-h{background:var(--histoire)}
+.mdot.on-v{background:var(--veteran)}
+.mdot.on-m{background:var(--maitre)}
+.mdot.off{background:transparent;box-shadow:inset 0 0 0 1.5px var(--border-strong);opacity:.5}
+.navitem.dimmed{opacity:.4}
+
+/* ---------- Main ---------- */
+.main{min-width:0;padding:22px 0 80px}
+
+.op-hero{
+  position:relative;overflow:hidden;border:1px solid var(--border);border-radius:16px;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--brand) 12%,var(--surface)),var(--surface) 62%);
+  padding:24px 24px 22px;box-shadow:var(--shadow);
+}
+.op-hero::after{content:"";position:absolute;inset:0;background:radial-gradient(600px 220px at 92% -30%,color-mix(in srgb,var(--brand) 22%,transparent),transparent 70%);pointer-events:none}
+.op-eyebrow{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--brand-2);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.op-eyebrow .code{border:1px solid color-mix(in srgb,var(--brand) 40%,transparent);border-radius:5px;padding:2px 7px;color:var(--brand)}
+.op-title{font-size:2rem;font-weight:700;margin:10px 0 2px;letter-spacing:.2px}
+.op-en{font-family:var(--font-mono);font-size:.85rem;color:var(--muted);letter-spacing:.02em}
+.op-meta{display:flex;flex-wrap:wrap;gap:8px 10px;margin-top:16px;position:relative;z-index:1}
+.metatag{display:inline-flex;align-items:center;gap:7px;background:color-mix(in srgb,var(--surface) 70%,transparent);border:1px solid var(--border);border-radius:9px;padding:6px 11px;font-size:.82rem}
+.metatag b{font-family:var(--font-mono);font-weight:600;font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:var(--faint)}
+.mode-badges{display:flex;gap:7px;margin-top:16px;flex-wrap:wrap;position:relative;z-index:1}
+.mbadge{font-family:var(--font-mono);font-size:.72rem;font-weight:600;letter-spacing:.05em;padding:5px 11px;border-radius:8px;display:inline-flex;align-items:center;gap:7px}
+.mbadge::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+.mbadge.on-h{color:var(--histoire);background:color-mix(in srgb,var(--histoire) 14%,transparent);border:1px solid color-mix(in srgb,var(--histoire) 30%,transparent)}
+.mbadge.on-v{color:var(--veteran);background:color-mix(in srgb,var(--veteran) 14%,transparent);border:1px solid color-mix(in srgb,var(--veteran) 30%,transparent)}
+.mbadge.on-m{color:var(--maitre);background:color-mix(in srgb,var(--maitre) 14%,transparent);border:1px solid color-mix(in srgb,var(--maitre) 30%,transparent)}
+.mbadge.off{color:var(--faint);background:transparent;border:1px dashed var(--border-strong);text-decoration:line-through;text-decoration-thickness:1px}
+.op-note{margin-top:15px;font-size:.9rem;color:var(--muted);position:relative;z-index:1;max-width:70ch}
+.op-note strong{color:var(--ink);font-weight:600}
+.op-access{margin-top:8px;font-size:.86rem;color:var(--faint);position:relative;z-index:1;max-width:75ch}
+
+.filter-banner{margin:16px 0 0;border-radius:12px;padding:12px 15px;font-size:.9rem;display:none;align-items:flex-start;gap:10px}
+.filter-banner .fbdot{width:9px;height:9px;border-radius:50%;margin-top:7px;flex:none}
+[data-mode-filter="maitre"] .filter-banner.for-maitre.show{display:flex;background:color-mix(in srgb,var(--maitre) 12%,transparent);border:1px solid color-mix(in srgb,var(--maitre) 28%,transparent)}
+[data-mode-filter="maitre"] .filter-banner.for-maitre .fbdot{background:var(--maitre)}
+
+/* boss subnav */
+.bossnav{position:sticky;top:66px;z-index:20;display:flex;gap:6px;overflow-x:auto;padding:12px 2px;margin:6px 0 4px;background:linear-gradient(var(--bg),var(--bg) 70%,transparent)}
+.bossnav a{
+  font-family:var(--font-mono);font-size:.74rem;font-weight:500;white-space:nowrap;
+  border:1px solid var(--border);background:var(--surface);color:var(--muted);
+  padding:6px 11px;border-radius:8px;display:flex;align-items:center;gap:7px;
+}
+.bossnav a:hover{color:var(--ink);border-color:var(--border-strong);text-decoration:none}
+.bossnav .idx{color:var(--faint)}
+
+/* encounter card */
+.enc{border:1px solid var(--border);border-radius:15px;background:var(--surface);box-shadow:var(--shadow-sm);margin-top:18px;overflow:hidden;scroll-margin-top:120px}
+.enc-head{display:flex;align-items:flex-start;gap:14px;padding:18px 20px;border-bottom:1px solid var(--border);background:var(--surface-2)}
+.enc-num{font-family:var(--font-display);font-weight:700;font-size:1.05rem;color:var(--brand);border:1px solid color-mix(in srgb,var(--brand) 35%,transparent);border-radius:9px;min-width:38px;height:38px;display:grid;place-items:center;flex:none}
+.enc-htext{min-width:0;flex:1}
+.enc-name{font-size:1.28rem;font-weight:700;letter-spacing:.2px}
+.enc-type{display:inline-block;margin-top:6px;font-family:var(--font-mono);font-size:.68rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:color-mix(in srgb,var(--ink) 6%,transparent);border:1px solid var(--border);padding:3px 9px;border-radius:6px}
+.enc-body{padding:6px 20px 20px}
+
+.block{margin-top:18px}
+.block > .bh{
+  font-family:var(--font-mono);font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--faint);display:flex;align-items:center;gap:9px;margin-bottom:10px;
+}
+.block > .bh::after{content:"";height:1px;flex:1;background:var(--border)}
+
+.strat{font-size:.98rem;color:var(--ink);background:color-mix(in srgb,var(--brand) 7%,transparent);border-left:3px solid var(--brand);border-radius:0 9px 9px 0;padding:12px 15px}
+
+ul.mech{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+ul.mech li{position:relative;padding-left:20px;font-size:.94rem;color:var(--ink)}
+ul.mech li::before{content:"";position:absolute;left:2px;top:9px;width:6px;height:6px;border-radius:1.5px;background:var(--brand);transform:rotate(45deg)}
+ul.mech li b{font-weight:600}
+ul.mech li em{font-style:normal;color:var(--maitre);font-weight:600}
+
+.modes{display:grid;gap:10px}
+.mode-block{border:1px solid var(--border);border-radius:11px;padding:12px 14px;transition:opacity .2s,filter .2s}
+.mode-block .mbh{font-family:var(--font-mono);font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.mode-block .mbh::before{content:"";width:9px;height:9px;border-radius:50%;background:currentColor;flex:none}
+.mode-block p{margin:0;font-size:.92rem;color:var(--ink)}
+.mode-block.m-histoire{background:color-mix(in srgb,var(--histoire) 8%,transparent);border-color:color-mix(in srgb,var(--histoire) 26%,transparent)}
+.mode-block.m-histoire .mbh{color:var(--histoire)}
+.mode-block.m-veteran{background:color-mix(in srgb,var(--veteran) 8%,transparent);border-color:color-mix(in srgb,var(--veteran) 26%,transparent)}
+.mode-block.m-veteran .mbh{color:var(--veteran)}
+.mode-block.m-maitre{background:color-mix(in srgb,var(--maitre) 8%,transparent);border-color:color-mix(in srgb,var(--maitre) 26%,transparent)}
+.mode-block.m-maitre .mbh{color:var(--maitre)}
+.mode-block.na{background:repeating-linear-gradient(135deg,transparent,transparent 8px,color-mix(in srgb,var(--faint) 8%,transparent) 8px,color-mix(in srgb,var(--faint) 8%,transparent) 16px);border-style:dashed}
+.mode-block.na .mbh{color:var(--faint)}
+.mode-block.na p{color:var(--muted)}
+[data-mode-filter="histoire"] .mode-block:not(.m-histoire){opacity:.34;filter:saturate(.35)}
+[data-mode-filter="veteran"] .mode-block:not(.m-veteran){opacity:.34;filter:saturate(.35)}
+[data-mode-filter="maitre"] .mode-block:not(.m-maitre){opacity:.34;filter:saturate(.35)}
+
+.roles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.role{border:1px solid var(--border);border-radius:11px;padding:12px 13px;background:var(--surface-2)}
+.role .rh{font-family:var(--font-mono);font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:7px;margin-bottom:7px}
+.role .rh .tag{width:10px;height:10px;border-radius:3px;flex:none}
+.role.tank{border-top:2px solid #6aa9e0}
+.role.tank .rh{color:#4f8fce}.role.tank .rh .tag{background:#6aa9e0}
+.role.heal{border-top:2px solid var(--histoire)}
+.role.heal .rh{color:var(--histoire)}.role.heal .rh .tag{background:var(--histoire)}
+.role.dps{border-top:2px solid #d98a4a}
+.role.dps .rh{color:#c67a3d}.role.dps .rh .tag{background:#d98a4a}
+:root[data-theme="dark"] .role.tank .rh{color:#8bc0ec}
+:root[data-theme="dark"] .role.dps .rh{color:#e6a066}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .role.tank .rh{color:#8bc0ec}:root:not([data-theme="light"]) .role.dps .rh{color:#e6a066}}
+.role p{margin:0;font-size:.9rem;color:var(--ink)}
+
+.traps{border:1px solid color-mix(in srgb,var(--maitre) 30%,transparent);background:color-mix(in srgb,var(--maitre) 7%,transparent);border-radius:11px;padding:12px 15px}
+.traps .th{font-family:var(--font-mono);font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--maitre);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.traps ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.traps li{position:relative;padding-left:18px;font-size:.9rem;color:var(--ink)}
+.traps li::before{content:"!";position:absolute;left:0;top:0;font-family:var(--font-mono);font-weight:700;color:var(--maitre);font-size:.8rem}
+
+.loot{margin-top:16px;font-size:.86rem;color:var(--muted);border-top:1px dashed var(--border);padding-top:12px}
+.loot b{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-right:6px}
+
+/* landing */
+.landing{border:1px solid var(--border);border-radius:16px;background:var(--surface);padding:26px 24px;box-shadow:var(--shadow-sm)}
+.landing h2{font-size:1.5rem;font-weight:700}
+.landing .lead{color:var(--muted);max-width:64ch;margin-top:8px}
+.matrix{width:100%;border-collapse:collapse;margin-top:20px;font-size:.9rem}
+.matrix th,.matrix td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--border)}
+.matrix th{font-family:var(--font-mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-weight:600}
+.matrix td.c{text-align:center}
+.matrix tr:hover td{background:color-mix(in srgb,var(--ink) 4%,transparent)}
+.matrix .opn{font-weight:600;cursor:pointer}
+.matrix .opn:hover{color:var(--brand)}
+.matrix .opabbr{font-family:var(--font-mono);font-size:.7rem;color:var(--faint);margin-right:8px}
+.yes{color:var(--histoire);font-weight:700}
+.yesv{color:var(--veteran);font-weight:700}
+.no{color:var(--faint)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
+.legend .li{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--muted)}
+.legend .sw{width:12px;height:12px;border-radius:3px}
+.disclaimer{margin-top:18px;font-size:.82rem;color:var(--faint);background:var(--surface-2);border:1px solid var(--border);border-radius:11px;padding:12px 15px;max-width:80ch}
+
+.footer{max-width:var(--maxw);margin:0 auto;padding:26px 20px 40px;color:var(--faint);font-size:.8rem;border-top:1px solid var(--border);margin-top:20px}
+.footer a{color:var(--muted)}
+
+@media (max-width:860px){
+  .shell{grid-template-columns:1fr;gap:0}
+  .menutoggle{display:grid}
+  .sidebar{
+    position:fixed;top:0;left:0;bottom:0;width:280px;max-height:none;z-index:60;
+    background:var(--surface);border-right:1px solid var(--border);padding:18px 14px 40px;
+    transform:translateX(-102%);transition:transform .25s ease;box-shadow:var(--shadow);
+  }
+  body.nav-open .sidebar{transform:none}
+  body.nav-open .side-scrim{display:block;position:fixed;inset:0;background:rgba(4,8,16,.5);z-index:55}
+  .modefilter{order:5;width:100%;justify-content:space-between}
+  .roles{grid-template-columns:1fr}
+  .op-title{font-size:1.6rem}
+  .bossnav{top:0}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-in">
+    <button class="iconbtn menutoggle" id="menuToggle" aria-label="Menu des opérations">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    <div class="brand">
+      <div class="crest">◈</div>
+      <div class="wordmark">
+        <b>Codex des Opérations</b>
+        <span>SWTOR · Fiches de raid</span>
+      </div>
+    </div>
+    <div class="top-spacer"></div>
+    <div class="modefilter" role="group" aria-label="Filtre de mode de difficulté">
+      <span class="lbl">Mode</span>
+      <button class="chip c-all" data-mode="all" aria-pressed="true">Tous</button>
+      <button class="chip c-histoire" data-mode="histoire" aria-pressed="false">Histoire</button>
+      <button class="chip c-veteran" data-mode="veteran" aria-pressed="false">Vétéran</button>
+      <button class="chip c-maitre" data-mode="maitre" aria-pressed="false">Maître</button>
+    </div>
+    <a class="iconbtn" href="index.html" title="Accueil" aria-label="Accueil"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></a>
+    <button class="iconbtn" id="themeToggle" aria-label="Basculer le thème clair / sombre">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+  </div>
+</div>
+
+<div class="shell">
+  <div class="side-scrim" id="sideScrim"></div>
+  <aside class="sidebar" id="sidebar"><nav id="nav" aria-label="Opérations"></nav></aside>
+  <main class="main" id="main"></main>
+</div>
+
+<footer class="footer">
+  <p>Guide communautaire non officiel, à but d'aide-mémoire. Star Wars: The Old Republic™ et l'ensemble des noms de contenu sont la propriété de BioWare / Electronic Arts / Lucasfilm. Les mécaniques reflètent l'état du jeu ~2026 (niveau 80) ; les valeurs chiffrées précises (timers, dégâts, seuils) sont indicatives — <strong>à confirmer en jeu</strong>.</p>
+  <p>Sources principales : swtorista.com · wiki Fandom SWTOR · vulkk.com · Merlyn's SWTOR Guides · Immortal Fleet · Admiral Nick's Guides · Grophets · Eccentricity Guild.</p>
+</footer>
+
+<script>
+const OPS=[];
+
+OPS.push({
+  id:'ev',abbr:'EV',name:"La Voûte de l'Éternité",en:"Eternity Vault",
+  era:"Lancement & 1.x — niv. 50/55",
+  lieu:"Belsavis",bosses:5,group:"8 / 16 joueurs",
+  modes:{histoire:true,veteran:true,maitre:false},
+  modeNote:"Le mode <strong>Maître (Cauchemar)</strong> existait au lancement mais a été <strong>retiré du jeu au patch 4.0</strong>. EV se joue aujourd'hui en Histoire ou Vétéran uniquement.",
+  access:"Depuis la Flotte (navette des opérations) ou via l'outil de Recherche de groupe pour le mode Histoire.",
+  encounters:[
+    {name:"Droïde d'annihilation XRR-3",type:"Placement / phase de burn",
+     strategy:"Détruisez d'abord les canons de défense (cellules d'énergie à leur base) pour faire apparaître le droïde. Le tank le colle dans un coin, dos au groupe. On alterne entre se regrouper pour les soins de zone (Salve de missiles) et s'écarter des cercles au sol, puis on lâche les défensives à la phase de burn.",
+     mechanics:["<b>Balayage écrasant</b> — étourdit puis projette ; le tank re-taunt et se replace.","<b>Salve de missiles</b> — le droïde s'accroupit : le groupe se regroupe pour les soins de zone.","<b>Protocoles de tempête</b> — cercles rouges aléatoires : en sortir sans se coller aux alliés.","<b>Phase de burn (~10 %)</b> — barrage de missiles continu jusqu'à la mort."],
+     modes:{histoire:"Mécaniques de base, dégâts et enrage indulgents.",veteran:"Aucune mécanique ajoutée : dégâts plus élevés, pression de soin accrue et enrage plus serré. L'aggro stable protège DPS et heals."},
+     roles:{tank:"Garder le boss dos au coin, face opposée au groupe ; re-taunt après les projections ; ne jamais le tourner vers le raid.",heal:"Soins de zone pendant la Salve de missiles (groupe empilé) ; garder des cooldowns pour le burn final.",dps:"Sortir vite des cercles rouges sans se stacker ; défensives + burst pendant la phase de burn."},
+     traps:["Oublier de détruire les cellules/canons avant d'engager.","Rester dans une zone rouge ou se stacker dessus.","Heals à court de ressources pendant le burn."]},
+
+    {name:"Gharj",type:"Plateformes au-dessus de la lave",
+     strategy:"Le tank place Gharj à la pointe de la plateforme pour laisser de l'espace d'atterrissage. À chaque Frénésie, la plateforme s'effondre : on traverse le pont rocheux vers la suivante sans toucher la lave. On gère la projection et les adds à partir de la moitié de vie.",
+     mechanics:["<b>Frappe bondissante</b> — AoE de mêlée : ne pas se stacker sur le tank.","<b>Écrasement pulvérisateur</b> — projette les joueurs à distance (~40 m) : anti-knockback ou rester proche.","<b>Frénésie</b> (paliers de PV) — la plateforme s'effondre, sauter vers la suivante.","<b>Lézards de lave</b> — adds avant les transitions une fois le boss sous ~50 %.","<b>Lave</b> — debuff de feu cumulatif : ne pas y rester."],
+     modes:{histoire:"Mécaniques de base, marge confortable.",veteran:"Aucune mécanique nouvelle, purement numérique : bonds de Frénésie plus punitifs (garder ses distances), enrage ≈ 6 min 20 (à confirmer en jeu)."},
+     roles:{tank:"Orienter le boss vers l'extérieur ; défensives adaptées aux bonds ; taunt de zone sur les adds.",heal:"Un heal sur le tank, un en AoE ; continuer à soigner pendant les traversées (dégâts de lave).",dps:"Ne pas rester sur une plateforme qui s'effondre ; utiliser le pont rocheux ; anti-knockback prêt."},
+     traps:["Sauter avant que la plateforme actuelle ne tremble (bug de transition).","Se stacker sous le tank pendant Frappe bondissante.","Tomber dans la lave par un saut précipité."]},
+
+    {name:"Pylônes anciens",type:"Énigme d'alignement + adds",
+     strategy:"Pas de combat frontal : le groupe se scinde (Nord / Sud) et résout deux énigmes d'alignement de symboles en parallèle, tout en gérant des adds. Un timer provoque un reset si c'est trop lent — désignez les opérateurs de terminaux et les joueurs anti-adds.",
+     mechanics:["<b>Terminaux</b> — gauche = rotation horaire, droite = anti-horaire ; puis console de confirmation rangée par rangée.","<b>Gardiens rakata</b> — se lancent une Barrière de Force qui renvoie les dégâts : <em>interrompre, ne pas taper la barrière</em>.","<b>Veilleurs rakata</b> — Rayon de stase (soulève une cible ~3 s).","<b>Acklays</b> — adds à gros dégâts en nombre croissant ; 3 en même temps = vous êtes hors délai."],
+     modes:{histoire:"Un seul joueur peut cliquer un terminal en boucle pour verrouiller les roues.",veteran:"Débuff sur l'opérateur après chaque clic (cube orange, ~30 s) : il faut 2-3 joueurs qui alternent aux terminaux. Barrières et Acklays plus dangereux."},
+     roles:{tank:"Peu de tanking classique : regrouper et prendre les Acklays.",heal:"Maintenir les deux demi-groupes sous la pression d'adds (l'énigme n'inflige pas de dégâts directs).",dps:"Interrompre les Barrières de Force avant de taper, focus adds, alterner les clics de terminaux en Vétéran."},
+     traps:["Taper un add sous Barrière de Force (renvoi de dégâts).","Énigme trop lente → reset (vague massive d'Acklays).","En Vétéran, un seul joueur qui tente de tout cliquer."]},
+
+    {name:"Conseil infernal",type:"Duels 1 contre 1 / DPS check",
+     strategy:"Un ennemi par joueur (8 en 8j, 16 en 16j). Chacun ne combat QUE l'ennemi qui lui est lié (trait vert). Assignez les cibles par archétype avant le pull, retirez les HoT/buffs qui « débordent », et tuez votre cible vite avant l'enrage (~2 min).",
+     mechanics:["<b>Assignations</b> — Seigneurs/Juggernauts → tanks ; Maraudeurs → DPS (soins reçus −75 %) ; Assassins → heals.","<b>Châtiment du destin</b> — <em>se déclenche si vous touchez OU soignez l'ennemi d'un allié</em> : cause n°1 de wipe.","<b>Précautions</b> — retirer avant le pull HoT, bulles et sondes ; pas d'AoE large, pas de heal/buff de groupe, pas de jet d'arme."],
+     modes:{histoire:"Mécaniques de base, enrage large.",veteran:"Aucune mécanique ajoutée : dégâts plus élevés et fenêtre d'enrage plus tendue (vrai DPS-check individuel)."},
+     roles:{tank:"Tue son Seigneur (le plus sûr), puis aide un allié en retard avec une seule attaque.",heal:"Gère son Assassin en s'auto-soignant uniquement (jamais un allié).",dps:"Burst sur le Maraudeur (−75 % soins) ; nettoyer AoE/HoT persistants avant le pull."},
+     traps:["Toucher/soigner l'ennemi d'un autre (souvent via AoE, cleave, jet ou HoT résiduel).","Ne pas réassigner l'ennemi d'un joueur mort.","Oublier de retirer les buffs auto-appliqués avant le pull."]},
+
+    {name:"Soa, l'Infernal",type:"Boss final — 3 phases",
+     strategy:"Trois phases sur des anneaux concentriques avec descentes en plateforme. P1 : DPS jusqu'à 75 % en évitant les flaques. P2 : gérer pièges mentaux, boules de foudre et cyclones. P3 : Soa est immunisé sauf quand un obélisque s'écrase sur lui — le tank le positionne dessous, puis burst pendant la fenêtre de ~12 s. Détruire les Sources d'énergie pendant les descentes est essentiel.",
+     mechanics:["<b>Descente</b> — à 75 % puis ~30 %, Soa se bouclie ; rejoindre l'anneau extérieur (Ouest) et descendre plateforme par plateforme.","<b>Sources d'énergie</b> — <em>un seul DPS désigné</em> les détruit pendant la descente (plusieurs = bug d'orbe non retiré).","<b>Boule de foudre</b> — s'écarter du groupe, se faire toucher à l'écart.","<b>Piège mental</b> — un joueur emprisonné : détruire le piège (priorité si tank/heal).","<b>Phase 3</b> — kiter Soa sous l'obélisque flottant ; knockback à sa chute, rester loin de la lave."],
+     modes:{histoire:"Un cercle bleu au sol indique où l'obélisque va tomber ; 1 orbe de foudre par cible.",veteran:"Plus de cercle bleu → viser l'ombre carrée au sol ; 2 orbes de foudre ; piliers quasi one-shot après enrage ; dégâts globaux plus élevés."},
+     roles:{tank:"Kite précis de Soa sous l'obélisque en P3 ; se placer sur le repère ; gérer le knockback loin de la lave.",heal:"Défensives/soins de groupe pendant les détonations ; libérer vite un allié piégé ; ajouter du DPS aux phases calmes.",dps:"Priorité aux pièges mentaux en P3 ; un seul DPS sur les Sources ; pré-charger les procs avant la fenêtre de vulnérabilité."},
+     traps:["Plusieurs joueurs tapant les Sources d'énergie (bug → détonations mortelles).","Réaction trop lente aux pièges mentaux.","Placement imprécis de l'obélisque → fenêtre de burst ratée.","Boule de foudre qui explose dans le groupe."]}
+  ],
+  loot:"Décorations (Bête rakata, Statue de Soa, Pylône énergétique) ; montures <b>Tirsa Elite</b> et <b>Desler Avenger</b> (drop Soa)."
+});
+
+OPS.push({
+  id:'kp',abbr:'KP',name:"Le Palais de Karagga",en:"Karagga's Palace",
+  era:"Lancement & 1.x — niv. 50/55",
+  lieu:"Nar Shaddaa (espace Hutt)",bosses:5,group:"8 / 16 joueurs",
+  modes:{histoire:true,veteran:true,maitre:false},
+  modeNote:"Comme la Voûte de l'Éternité, le mode <strong>Maître (Cauchemar)</strong> a été <strong>retiré au patch 4.0</strong>. Ses anciens butins ont été basculés en mode Vétéran.",
+  access:"Depuis la Flotte (entrée des opérations) ou via l'outil de Recherche de groupe. Mission hebdomadaire disponible sur la Flotte.",
+  encounters:[
+    {name:"Bonethrasher (Broie-os)",type:"Placement / ciblage aléatoire",
+     strategy:"Rancor non-provocable qui change de cible au hasard : tout le monde doit être prêt à encaisser. Restez derrière lui (cleave frontal) et gardez-le loin des bords pour éviter les éjections dans l'acide. Tuez le Garde Gamorréen avant qu'il ne l'atteigne.",
+     mechanics:["<b>Swipe</b> — cleave frontal lourd : ne jamais se tenir devant.","<b>Backhand / Stomp</b> — repoussées : risque d'éjection dans l'acide près des bords.","<b>Garde Gamorréen</b> — à tuer avant que le boss ne le « mange » (buff cumulable <em>Bien nourri</em>).","<b>Manka Cats</b> — félins à ramener sur le boss / cleave down."],
+     modes:{histoire:"Mécaniques de base.",veteran:"Mêmes mécaniques, dégâts augmentés et enrage plus serré : la gestion du Garde (Well Fed) et le placement anti-acide deviennent punitifs."},
+     roles:{tank:"Positionner le boss dos à l'acide côté extérieur ; ne pas le coller aux bords côté raid.",heal:"Dégâts répartis aléatoirement → soins de zone/réactifs sur tout le monde.",dps:"Rester derrière ; priorité au Garde Gamorréen ; nettoyer les félins."},
+     traps:["Se faire éjecter dans l'acide (mort quasi instantanée).","Laisser le boss manger le Gamorréen (empilement de Well Fed).","Se tenir devant à cause du ciblage aléatoire."]},
+
+    {name:"Jarg & Sorno",type:"Double boss / interruptions",
+     strategy:"Deux mercenaires tankés séparés. La clé est l'interruption des sorts de Sorno (surtout son soin). Amenez-les bas et finissez-les à peu près en même temps.",
+     mechanics:["<b>Jarg</b> — mêlée de feu ; applique un Brûlure cumulable (à purifier).","<b>Sorno</b> — Rapid Scan (soin) = <em>interruption prioritaire absolue</em> ; Unload (gros dégâts) à couper.","<b>Envol jetpack</b> — cercles violets de missiles au sol : en sortir.","<b>Carbonizer Droid</b> — étourdit/carbonise les tanks pendant l'envol : tout le monde focus le droïde."],
+     modes:{histoire:"Mécaniques de base.",veteran:"Dégâts nettement plus élevés ; coordination des interruptions critique (un Rapid Scan qui passe peut réinitialiser le combat) ; stun du Carbonizer bien plus punitif."},
+     roles:{tank:"Un tank par boss, bien séparés ; anticiper le stun Carbonizer.",heal:"Purifier le Brûlure ; heal soutenu pendant missiles/carbonisation.",dps:"Interrupteur fiable sur Sorno (Rapid Scan > Unload) ; burst sur le Carbonizer ; sortir des cercles ; mort simultanée."},
+     traps:["Rapid Scan non interrompu → combat qui traîne.","Tanks laissés carbonisés (Carbonizer ignoré).","Rester dans les cercles de missiles ; tuer un boss trop en avance."]},
+
+    {name:"Foreman Crusher (Contremaître Crusher)",type:"Placement / vagues d'adds",
+     strategy:"Activez d'abord les trois boutons bleus (grille + tourelles). Placez le boss dos à la porte rouge, tout le raid derrière lui, et gérez les vagues de Gardes Gamorréens.",
+     mechanics:["<b>Stomp</b> — repoussée AoE (d'où le dos à la porte).","<b>Rock Throw</b> — cercles rouges au sol : en sortir.","<b>Frenzy</b> — pic de dégâts, largage d'aggro, charge une cible aléatoire.","<b>Vagues d'adds</b> — aux paliers ~75 / 50 / 25 %."],
+     modes:{histoire:"Mécaniques de base.",veteran:"En fin de Frenzy, le tank est étourdi (swap ou brise-contrôle). Les cercles rouges laissent des nuages de poussière qui réduisent dégâts ET soins à ~0 % : à éviter absolument."},
+     roles:{tank:"Dos à la porte rouge ; cooldowns pendant Frenzy ; gérer le stun de fin de Frenzy en Vétéran.",heal:"Surveiller la cible chargée pendant Frenzy ; éviter les nuages (soins annulés).",dps:"Rester derrière ; focus les vagues d'adds ; sortir des cercles/nuages."},
+     traps:["Oublier d'activer les 3 boutons avant de pull.","Tank étourdi non couvert en fin de Frenzy.","Se réfugier dans un nuage de poussière (Vétéran)."]},
+
+    {name:"G4-B3, Fabricateur lourd",type:"Énigme (tuyau de lave) + DPS",
+     strategy:"Le boss est protégé par une armure : il faut actionner un tuyau de lave au-dessus de lui pour la faire fondre avant de le taper. Distance/heals à l'étage, mêlée en bas. Gérer le débuff Battered (swap) et les grenades collantes.",
+     mechanics:["<b>Fabricated Armor</b> — à faire fondre via le tuyau (sinon dégâts nuls).","<b>Battered</b> — débuff cumulable sur le tank → tank swap.","<b>Grenade collante</b> — s'éloigner du groupe avant l'explosion.","<b>Positionnement</b> — garder le boss sous le bon tuyau, dos à la porte."],
+     modes:{histoire:"L'énigme se résout en cliquant simplement le bouton bleu (un joueur à l'étage suffit).",veteran:"Vraie énigme des Tours de Hanoï à résoudre pour rediriger la lave, puis tirer. Des droïdes apparaissent si c'est trop lent. En 16j, verrou « Biometric Lockout » : 3 joueurs en rotation sur les consoles."},
+     roles:{tank:"Boss sous le tuyau, dos à la porte ; swap au cumul de Battered.",heal:"Généralement à l'étage ; heal les porteurs de grenade isolés.",dps:"Mêlée en bas une fois l'armure fondue ; distance résolvent Hanoï / couvrent les consoles ; focus droïdes ; porteurs de grenade s'écartent."},
+     traps:["Taper le boss avec son armure active (dégâts gaspillés).","Hanoï ratée en Vétéran → spawn de droïdes.","Recliquer la même console en 16j (Biometric Lockout).","Grenade explosant au milieu du groupe."]},
+
+    {name:"Karagga l'Inflexible",type:"Boss final — kiting / placement",
+     strategy:"Karagga combat depuis un char à six pattes. Le tank fait tourner lentement le char le long du mur extérieur (il ne bouge que quand l'huile tombe). Le centre reste sûr pour le reste du raid, qui gère les vortex et les mini-droïdes.",
+     mechanics:["<b>Burning Oil</b> — flaques d'huile enflammée sous le char : le tank kite pour en sortir.","<b>Gravity Well</b> — vortex qui attire : la cible s'isole, les autres sortent du rayon, puis purifier.","<b>Foreuse / Missile Barrage</b> — sur cibles aléatoires.","<b>Mouse Droids</b> — apparaissent sous les pattes et explosent : les tuer avant dispersion."],
+     modes:{histoire:"Mécaniques de base.",veteran:"Mêmes mécaniques, dégâts nettement supérieurs et enrage plus serré : kiting propre et nettoyage rapide des Mouse Droids obligatoires."},
+     roles:{tank:"Kite le char le long du mur, immobile sauf quand l'huile tombe ; garder le raid au centre.",heal:"Purifier le Gravity Well dès que le porteur est isolé ; heal les cibles de foreuse/missiles.",dps:"Frapper le char par le côté ; focus immédiat les Mouse Droids ; sortir des vortex."},
+     traps:["Tank qui bouge trop → traînée d'huile qui coupe la salle.","Vortex purifié trop tôt (joueurs encore dans le rayon).","Mouse Droids ignorés → explosions multiples.","Rester devant/derrière le char."]}
+  ],
+  loot:"Opération d'introduction : butin cosmétique/hérité, matériaux et points de Conquête (mission hebdomadaire)."
+});
+
+OPS.push({
+  id:'ec',abbr:'EC',name:"Conflit Explosif",en:"Explosive Conflict",
+  era:"Lancement & 1.x — niv. 50/55",
+  lieu:"Denova",bosses:4,group:"8 / 16 joueurs",
+  modes:{histoire:true,veteran:true,maitre:true},
+  modeNote:"C'est la <strong>plus ancienne opération à conserver un mode Maître</strong> aujourd'hui — les 3 modes existent pour les 4 boss.",
+  access:"Mission hebdomadaire « Conflit Explosif » puis Denova, ou entrée des opérations depuis la Flotte. Histoire accessible via l'outil de groupe.",
+  encounters:[
+    {name:"Zorn & Toth",type:"Double boss / placement + purge",
+     strategy:"Les deux bêtes sont tankées séparées (~30 m). Toth (mêlée) et Zorn (le rouge à distance) sont amenés très bas puis tués en même temps : si l'un meurt trop tôt, le survivant enrage et wipe le groupe.",
+     mechanics:["<b>Fearful</b> — à des seuils de PV de Toth, il bondit sur Zorn : tout joueur à portée reçoit Fearful (+dégâts subis de Zorn) et Zorn devient Emboldened.","<b>Baradium Toss</b> — rocher de Zorn sur une cible aléatoire.","<b>Ground Slam</b> — cercles rouges de Toth à esquiver.","<b>Mental Anguish</b> — DoT à purger.","<b>Berserk</b> — cercle qui suit un joueur, à gérer pour briser la rage."],
+     modes:{histoire:"Indulgent : Fearful peu punitif, DoT léger, surtout un check de placement.",veteran:"Surge (les boss se buffent à <15 m → les garder écartés) ; Fearful devient létal ; Mental Anguish applique Weakened empilable ; synchro des morts très serrée.",maitre:"Baradium Poisoning au pull (DoT non purgeable → medpac) ; Zorn ~15 % PV de plus que Toth ; cercles proches du one-shot ; composition avec DPS distance recommandée."},
+     roles:{tank:"2 tanks, ~30 m d'écart ; gérer Fearful (swap/CD) ; le tank de Zorn s'écarte avant chaque bond.",heal:"Purger Mental Anguish/Weakened ; burst de soin sur le tank Fearful ; medpac pour Baradium Poisoning (Maître).",dps:"Mêlée sur Toth, distance à >28 m de Zorn ; équilibrer les PV ; briser le Berserk."},
+     traps:["PV déséquilibrés → rage/soin du survivant → wipe.","Joueur sous Fearful frappé par Zorn.","Rester dans les cercles rouges ; DoT non purgé.","Composition trop mêlée en Maître."]},
+
+    {name:"Firebrand & Stormcaller",type:"Double marcheur / raid scindé",
+     strategy:"Deux marcheurs séparés, raid scindé en deux. En Systèmes offensifs on burn à parts égales ; en Systèmes défensifs des boucliers apparaissent et le groupe s'y abrite du barrage de mortier, pendant que le tank de Stormcaller kite dehors.",
+     mechanics:["<b>Systèmes défensifs</b> (aux seuils de PV) — forte réduction de dégâts + barrage de mortier : se mettre dans le bouclier, tuer les adds.","<b>Charged Burst</b> — missile sur la zone d'un joueur.","<b>Electrical Disturbance</b> — orbes/éclairs au sol à kiter."],
+     modes:{histoire:"Reconnaissance de patterns et placement de base.",veteran:"Double Destruction (Stormcaller) : cône à 2 charges, deux joueurs en absorbent chacun une (une seule personne = mort). Incinerate Armor (Firebrand) : cible à 0 armure. Boucliers destructibles par les AoE.",maitre:"DPS check très serré (souvent kill séquentiel). Add « Bomber » à jetpack dans chaque bouclier : explose s'il meurt dedans → détruit le bouclier. Le repousser/tuer hors du bouclier."},
+     roles:{tank:"Un par marcheur, séparés ; le tank de Stormcaller kite dehors en défensif ; gérer Double Destruction et Incinerate Armor.",heal:"Healer le plus fort côté Stormcaller ; purger le debuff ciblé ; surveiller les stacks de Single Destruction.",dps:"Équilibrer les PV ; éviter cleaves et AoE près des boucliers ; tuer adds/bombers en sécurité."},
+     traps:["Une seule personne prend les 2 charges de Double Destruction (mort instantanée).","Bouclier détruit par AoE mal placée ou par le Bomber tué dedans.","Prendre le barrage de mortier hors du bouclier."]},
+
+    {name:"Colonel Vorgath",type:"Énigme (champ de mines) + boss",
+     strategy:"Le groupe traverse un champ de mines en grille (vert = sûr, rouge = mine, jaune = désamorçable). Un joueur à la tour de contrôle révèle le chemin et invoque des Droïdes démolisseurs ; on les burst pour obtenir l'outil de désamorçage. Restez sur les cases vertes, puis désactivez les tourelles avant d'engager le boss.",
+     mechanics:["<b>Tour de contrôle</b> — un joueur dégage le chemin et invoque les droïdes.","<b>Droïde démolisseur</b> — à tuer vite → donne l'outil de désamorçage.","<b>Boss</b> — 4 tourelles à CC ; cible aléatoire qui doit éviter des cercles rouges."],
+     modes:{histoire:"Traversée simple, marge d'erreur confortable.",veteran:"Droïdes assassins impériaux : avancent lentement et explosent au contact (= wipe) → priorité DPS absolue. Knockback du Démolisseur à interrompre.",maitre:"Mode disponible : adds/timing durcis et enrage plus serré (additions NiM exactes à confirmer en jeu). Ne pas supposer que la strat Vétéran suffit telle quelle."},
+     roles:{tank:"Opérateur de la tour ou tank au sol (boss + adds) ; interrompre le knockback du Démolisseur.",heal:"Maintenir les traverseurs et le désamorceur sous les tourelles ; soigner la cible aléatoire.",dps:"Burst instantané du Démolisseur ; tuer les Droïdes assassins avant le groupe ; nettoyer les adds."},
+     traps:["Marcher sur une mine (mauvaise case).","Droïde assassin qui atteint le groupe et explose.","Désamorceur interrompu ; oublier de désactiver les tourelles."]},
+
+    {name:"Seigneur de guerre Kephess",type:"Boss final — gauntlet multi-phases",
+     strategy:"On enchaîne des phases d'adds pour endommager le marcheur, puis on affronte Kephess. Combat exigeant en DPS soutenu, interrupts et coordination des swaps. En phase finale : tank swap sur « Souffle des Maîtres » et sortir des AoE « Don des Maîtres ».",
+     mechanics:["<b>P1</b> — tuer 3 droïdes de siège (interrompre leurs incantations).","<b>Bombardier</b> — explosif à minuteur : le tuer très vite ; un joueur reçoit la bombe → court sous le marcheur pour l'endommager.","<b>Adds à bouclier</b> — focus le Guerrier trandoshan d'abord, puis AoE.","<b>Droïdes Pulsar</b> — attaquer celui SANS cercle violet ; se stacker pour bloquer le Rail Shot.","<b>Kephess</b> — Don des Maîtres (grosse AoE, en sortir) ; Souffle des Maîtres (tank swap + dépose 4 flaques, 5 en Vétéran)."],
+     modes:{histoire:"Version allégée des mécaniques.",veteran:"Les stuns ne prolongent plus le minuteur du Bombardier ; les AoE sur les adds à bouclier renvoient des dégâts ; Souffle = 5 flaques ; réactivité tank critique.",maitre:"Souffle plus rapide (rotations de tanks plus tôt, parfois 3 tanks) ; 2 Guerriers par vague ; le tank de Kephess taunt à distance hors du stack (anti-cleave)."},
+     roles:{tank:"Tenir droïdes/adds ; le tank de Kephess hors du stack, taunt à distance ; swap sur Souffle, flaques le long des murs.",heal:"Soin très élevé pendant les adds ; top le tank « Souffle » ; gérer le Rail Shot du groupe stacké.",dps:"Interrompre les droïdes ; burst le Bombardier avant le minuteur ; Guerrier d'abord ; bon droïde Pulsar ; sortir du Don des Maîtres."},
+     traps:["Minuteur du Bombardier qui expire.","Mauvais droïde Pulsar / Rail Shot sur des distances non stackés.","Tank swap raté sur Souffle (one-shot) ; rester dans Don des Maîtres."]}
+  ],
+  loot:"Équipement niv. 80 (bonus de set) ; titres/hauts faits en Vétéran/Maître, dont « Démineur » (Vorgath)."
+});
+
+OPS.push({
+  id:'tfb',abbr:'TFB',name:"La Terreur d'Outre-Monde",en:"Terror From Beyond",
+  era:"Lancement & 1.x — niv. 50/55",
+  lieu:"Asation (monde des Gree)",bosses:5,group:"8 / 16 joueurs",
+  modes:{histoire:true,veteran:true,maitre:true},
+  modeNote:"Les <strong>3 modes existent pour les 5 boss</strong> (Cauchemar ajouté au patch 2.1).",
+  access:"Via l'outil de Recherche de groupe (file opérations) ou en se rendant sur Asation. Mission d'amorce sur la Flotte.",
+  encounters:[
+    {name:"The Writhing Horror (L'Horreur Grouillante)",type:"Adds + purge + placement",
+     strategy:"Boss d'ouverture, essentiellement tank-and-spank avec gestion d'adds. Le tank oriente le boss hors du groupe (attaque conique). On nettoie les larves à l'AoE en s'appuyant sur les fleurs de phéromones.",
+     mechanics:["<b>Attaque conique frontale</b> — orienter le boss loin du raid.","<b>Corrosive Slime</b> — DoT à <em>purger</em>.","<b>Jealous Male</b> — add majeur périodique + vagues de larves.","<b>Calming Pheromones</b> — un joueur se place dans la fleur pour fixer les larves sur lui et réduire leurs dégâts (les regrouper et AoE).","<b>Enfouissement</b> — le boss disparaît puis ressurgit."],
+     modes:{histoire:"Enfouissement prévisible, adds simples, pas de tank swap requis.",veteran:"Tank swap obligatoire (débuff cumulatif fatal si stack de trop) ; void zone à déposer après la purge ; une fleur de phéromone par joueur (tourner les rôles).",maitre:"Enfouissement aléatoire, dégâts au tank bien plus élevés, ticks de slime plus rapides (~8-16 %/tick, à confirmer en jeu) ; un Jealous Male pendant le burn peut wipe."},
+     roles:{tank:"Orienter le boss hors groupe ; gérer le swap sur le débuff cumulatif ; reprendre le Jealous Male.",heal:"Purger la Corrosive Slime en priorité ; surveiller le tank pendant les swaps.",dps:"Prioriser le Jealous Male, AoE les larves ; respecter l'assignation des phéromones ; ne pas ouvrir le burn en pleine vague."},
+     traps:["Sortir trop tôt de la fleur → les larves repartent sur le raid.","Manquer la purge / stack de trop sur le tank.","Déclencher le burn pendant un spawn d'add."]},
+
+    {name:"Les Gardes de l'Effroi (Dread Guards)",type:"Trois boss / interrupts + swaps",
+     strategy:"Trois boss enchaînant des phases à mécaniques changeantes. Ordre de kill : Heirad → Ciphas → Kel'sara. Deux tanks tiennent les cibles non focus ; beaucoup d'interruptions. La phase 3 (Kel'sara seule) est la plus mécanique.",
+     mechanics:["<b>P1 Heirad</b> — Ciphas canalise Empowered Barrier (Heirad immunisé) : <em>interrompre Ciphas</em> ; Surging Chain (éclairs en chaîne).","<b>P2 Ciphas</b> — flaques vertes Expiatory Motes ; débuff Doom purgé en passant dans des cercles verts ; Force Choke à interrompre.","<b>P3 Kel'sara</b> — Marked for Death (rayon : s'éloigner d'elle) ; Withering Terror (DoT non purgeable) ; adds à 75/50/25 %."],
+     modes:{histoire:"Doom = 2 cercles verts ; peu d'adds ; pas de Force Leech.",veteran:"Force Leech (soins reçus ~−99 %, dégâts par tick de soin → l'off-tank taunt, les heals coupent les HoT) ; Lightning Field (gros AoE final) ; Gored (saignement au tank de Ciphas) ; adds Légionnaires (Mass Affliction) ; Doom = 3 cercles.",maitre:"Doom = 6 cercles (~34 s) ; Force Leech ~doublé ; Lightning Field peut retirer 50 %+ de la barre ; Red Expiatory Motes en P3 (DoT mortel) ; DPS check serré."},
+     roles:{tank:"Deux tanks ; tenir les gardes non focus ; swap sur Gored ; taunt immédiat sur Force Leech (off-tank).",heal:"Soigner à travers Withering Terror ; stopper HoT/soins différés dès Force Leech ; pression sur les adds en VM/MM.",dps:"Respecter l'ordre de kill ; interrompre Empowered Barrier / Strangle / Force Choke ; tuer les adds ; gérer Doom en groupe."},
+     traps:["Ne pas interrompre Empowered Barrier (P1 s'éternise).","Heal qui continue de soigner un joueur sous Force Leech (le tue).","Rester dans Marked for Death ; mauvais nombre de cercles pour Doom.","Laisser vivre les Red Expiatory Motes (MM)."]},
+
+    {name:"Opérateur IX-01",type:"Énigme de couleurs — 2 phases",
+     strategy:"Énigme de couleurs en deux phases. P1 : détruire les noyaux colorés dans l'ordre, en tuant des sphères uniquement par un joueur de la même couleur ; 2 DPS + 2 heals restent au centre sans en sortir. P2 : le boss projette des cercles de couleur, neutralisés par les joueurs de la couleur correspondante.",
+     mechanics:["<b>P1 — Noyaux</b> — ordre Bleu → Orange → Violet → Jaune ; à chaque couleur, 2 sphères tuées seulement par les joueurs de la couleur active.","<b>Centre</b> — 2 DPS + 2 heals restent dans le cercle central (interdiction d'en sortir).","<b>P2 — Cercles</b> — le boss se bouclie, des cercles s'allument (2 de chaque couleur) : les joueurs de la bonne couleur les désactivent (Color Deletion)."],
+     modes:{histoire:"Gestion des couleurs indulgente, marge confortable.",veteran:"Color Deletion en P2 nettement plus dure — c'est le principal goulot de l'opé en VM ; timing des couleurs plus strict.",maitre:"Phases 1 et 2 très serrées, aucune marge d'erreur sur les assignations de couleur."},
+     roles:{tank:"Gère boss/adds selon la phase ; positionnement pour les cercles.",heal:"En P1, restent au centre ; gestion des débuffs de couleur.",dps:"Exécuter l'ordre des noyaux ; tuer les sphères à la bonne couleur ; couvrir les cercles de deletion en P2."},
+     traps:["Un joueur du centre qui sort du cercle en P1.","Tuer une sphère de la mauvaise couleur (ou la manquer).","Mauvaise couverture des cercles de deletion (surtout VM/MM)."]},
+
+    {name:"Kephess l'Immortel",type:"Tank-and-spank + évitement",
+     strategy:"En Histoire, quasi tank-and-spank avec évitement au sol. Le tank garde Kephess orienté hors groupe. Mécanique centrale : Corrupted Nanites → activer une tour Hypergate pour se purger (le pilier tombe sur le boss).",
+     mechanics:["<b>Corrupted Nanites</b> — débuff : activer une tour Hypergate pour purger (pilier sur le boss).","<b>Cascade</b> — impact projetant des ondes en 6 directions : s'écarter.","<b>Fury / Radioactive Barrage</b> — traînée de « lave » : s'éloigner du groupe.","<b>Laser Blast</b> — cône canalisé sur un joueur : se cacher derrière un pilier.","<b>Murs / cercles</b> — après ses sauts, à éviter."],
+     modes:{histoire:"Tank-and-spank + évitement + nanites ; peu de mécaniques actives.",veteran:"Vraies mécaniques dès la P1 : adds Energy-Distortions (les tuer dans un cercle blanc) ; tank swap sur un effet lumineux (se placer dans la zone pour purger) ; rester près du pilier relié au laser.",maitre:"Un des boss MM les plus « faciles » mais très peu de marge d'erreur : exécution stricte des mêmes mécaniques."},
+     roles:{tank:"Orienter hors groupe ; gérer le swap sur l'effet lumineux ; positionnement sous laser/pilier.",heal:"Soins soutenus sur le tank ; surveiller les joueurs touchés par la traînée/nanites.",dps:"Gérer Corrupted Nanites (tour) ; tuer les Energy-Distortions dans le cercle blanc ; éviter Cascade/murs/cercles."},
+     traps:["Rester dans le cône de Laser Blast (pas de pilier).","Prendre les traînées radioactives / rester groupé pendant Fury.","Manquer l'activation de la tour pour les nanites."]},
+
+    {name:"La Terreur d'Outre-Monde",type:"Boss final — 2 phases sur plateformes",
+     strategy:"Combat final sur des plateformes au-dessus de la créature. P1 = adds + check de DPS avec grosse pression tank. P2 = tentacules/corps, plus mécanique mais très peu de marge. En 16j, le raid se répartit sur deux plateformes.",
+     mechanics:["<b>P1 — Adds</b> — tuer uniquement les gros adds (dos au groupe) ; <em>éviter les petites larves</em> ; Phasic Spittle (crachat vert) à esquiver.","<b>P2 — Corps</b> — frapper les tentacules ; Scream / Terror Shout (débuff tank → swap après) ; un tentacule écrase la plateforme (l'évacuer).","<b>Hypergate Irregularity</b> — descendre au plus vite.","<b>Derniers ~15 %</b> — attaques aléatoires : rotation de taunts."],
+     modes:{histoire:"Version allégée : déjà de la coordination sur plateformes et tentacules.",veteran:"Hypergate Beacon en P1 (orbe brillant qui aspire : tuer immédiatement) ; en P2 les tanks sautent de la plateforme après le Scream pour purger ; orbes supplémentaires.",maitre:"Check de DPS P1 très serré, gros slams sur les tanks (survie prioritaire) ; P2 comparativement « plus facile » mais quasi aucune marge."},
+     roles:{tank:"Encaisser les slams (CD) ; orienter les gros adds dos au groupe ; swap sur Scream ; taunt-rotation en fin ; sauter pour purger en VM.",heal:"Mitigation/timing sur les pics tank ; gérer la phase d'adds et les crachats.",dps:"Respecter le check de DPS (P1 MM) ; tuer gros adds / Hypergate Beacon ; éviter les petites larves ; focus tentacules en P2."},
+     traps:["Toucher les petites larves / rester dans le crachat vert.","Ne pas tuer le Hypergate Beacon (VM+) → joueurs aspirés.","Rater le swap sur Scream ; manquer le check de DPS P1 en Maître."]}
+  ],
+  loot:"Équipement de raid (niv. 80) et décorations ; poursuite de la trame des Maîtres de l'Effroi."
+});
+
+OPS.push({
+  id:'sv',abbr:'S&V',name:"Crapules et Scélérats",en:"Scum and Villainy",
+  era:"Lancement & 1.x — niv. 50/55",
+  lieu:"Darvannis",bosses:7,group:"8 / 16 joueurs",
+  modes:{histoire:true,veteran:true,maitre:true},
+  modeNote:"Les <strong>3 modes existent pour les 7 boss</strong>. Maître Styrak est historiquement l'un des combats les plus durs du jeu.",
+  access:"Via l'outil de groupe (Histoire) ou en se rendant sur Darvannis. Mission d'accès sur la Flotte.",
+  encounters:[
+    {name:"Dash'roode",type:"Placement / mobilité (tempête de sable)",
+     strategy:"Combat dans une tempête de sable : hors du bouclier, on accumule un débuff qui augmente les dégâts subis. Le groupe reste groupé dans le champ de force et le relocalise quand le générateur s'épuise, tout en gérant les joueurs « Perdus ».",
+     mechanics:["<b>Bouclier</b> — obligatoire pour ne pas empiler le débuff de tempête.","<b>Générateur</b> — s'épuise : déplacer le raid / gérer un générateur portable.","<b>Knockbacks</b> — peuvent éjecter des joueurs hors du bouclier.","<b>Joueurs « Perdus »</b> — désorientés, à ramener dans la zone protégée."],
+     modes:{histoire:"Gestion de bouclier simple, peu d'adds.",veteran:"Paires de Xuvva Voraces qui attaquent/détruisent le bouclier — à tuer vite ; dégâts plus élevés.",maitre:"Bouclier portable de durée plus courte (~30 s, à confirmer en jeu), check DPS plus serré, dégâts nettement supérieurs."},
+     roles:{tank:"Positionner le boss près du générateur ; gérer les knockbacks pour rester dans le bouclier.",heal:"Surveiller les stacks de tempête sur les sortis/Perdus ; maintenir le groupe pendant les déplacements.",dps:"Burst le boss ; tuer les Xuvva avant qu'ils ne cassent le bouclier ; aider à ramener les Perdus."},
+     traps:["Sortir du bouclier trop longtemps (empilement mortel).","Laisser les Xuvva détruire le bouclier.","Mauvais timing lors du déplacement du champ de force."]},
+
+    {name:"Titan 6",type:"Placement + DPS check (droïde)",
+     strategy:"Cycle prévisible : barrages de missiles (se disperser), cercles rouges (esquiver), vagues d'adds, et Lancement (se cacher derrière un rocher). À 20 %, phase de burn avec AoE de feu continue.",
+     mechanics:["<b>Barrages de missiles</b> — se disperser.","<b>Cercles rouges</b> — esquiver ; vagues d'adds à gérer.","<b>Lancement</b> — attaque massive : se cacher derrière un rocher (ligne de vue).","<b>Enseveli (Buried)</b> — à briser (brise-entrave).","<b>Burn (<20 %)</b> — feu AoE continu + dégâts de proximité."],
+     modes:{histoire:"Mécaniques de base, placement minime.",veteran:"Grosse grenade sur le tank ; Enseveli = +200 % dégâts subis ; 1 joueur par rocher ; Lancement plus rapide (~3 s).",maitre:"Deux Grosses grenades simultanées qui détruisent les rochers ; Lancement en ~2 s ; potentiel de one-shot ; grenade qui persiste dans le burn."},
+     roles:{tank:"Tenir le boss immobile ; gérer l'Enseveli ; éloigner les grenades des rochers et du raid.",heal:"Se positionner pour le Lancement (couverture) ; soigner à travers le burn de proximité.",dps:"Gérer les adds ; se disperser sur les missiles ; esquiver les cercles ; placement propre au burn."},
+     traps:["Se faire toucher par le Lancement (mal caché).","Rochers détruits par les grenades (Maître) → plus de couverture.","Enseveli non brisé ; burn trop lent."]},
+
+    {name:"Thrasher",type:"2 tanks / gestion verticale + snipers",
+     strategy:"Un tank tient Thrasher au sol pendant que des snipers apparaissent en hauteur. On répartit le raid entre sol et plateformes, on tue les snipers, on gère le démolisseur et les zones de feu.",
+     mechanics:["<b>Thrasher</b> — tenu au sol, dos aux murs.","<b>Snipers</b> — sur les parois surélevées (gros dégâts à distance).","<b>Démolisseur</b> — cible des joueurs avec des roquettes (VM+).","<b>Firebug</b> — grenades incendiaires → zones de feu à éviter.","<b>Rugissement</b> — knockup qui projette dans l'arène."],
+     modes:{histoire:"Snipers ciblables depuis le sol, faible pression d'adds.",veteran:"Snipers avec Couverture portable (immunisés tant qu'on ne les endommage pas d'en haut) ; apparition du Démolisseur ; la moitié du raid monte.",maitre:"Position du Démolisseur aléatoire ; dégâts des snipers très élevés ; Lance-roquettes (canalisation + frappe) ; double vague de snipers après 50 %."},
+     roles:{tank:"Tank sol contre le mur (gérer le Rugissement) ; tank haut sur les snipers.",heal:"Soutenir sol ET hauteur ; surveiller les cibles de roquettes.",dps:"Répartis entre snipers et démolisseur ; annoncer les cibles ; casser la Couverture portable."},
+     traps:["Snipers non gérés (dégâts cumulés massifs).","Rester dans les grenades incendiaires.","Mauvaise répartition sol/hauteur ; projection par le Rugissement."]},
+
+    {name:"Chef des opérations",type:"Gauntlet d'adds + interruptions",
+     strategy:"Le combat est une gestion de vagues de renforts qui affluent des accès de la salle. Le boss est tanké pendant que le raid contrôle les adds (priorité aux médics puis snipers), coupe les casts dangereux et évite les AoE. Risque principal : être submergé. (Certaines mécaniques précises sont à confirmer en jeu.)",
+     mechanics:["<b>Vagues de renforts</b> — périodiques depuis les entrées.","<b>Snipers d'élite</b> — gros dégâts à distance (focus / casser la ligne de vue).","<b>Médics / ingénieurs</b> — soignent les adds : à interrompre / tuer en priorité.","<b>AoE / grenades</b> au sol et knockbacks à éviter."],
+     modes:{histoire:"Vagues gérables, pression modérée.",veteran:"Adds plus nombreux et résistants, snipers plus violents, fenêtres plus serrées.",maitre:"Adds encore durcis, snipers très dangereux, probable ajout d'opératifs furtifs sur les heals, enrage plus strict (détails à confirmer en jeu)."},
+     roles:{tank:"Tenir le boss et ramasser les adds d'élite/snipers ; off-tank sur les vagues.",heal:"Priorité survie face aux snipers ; aider aux interruptions.",dps:"Focus les médics d'abord, puis snipers ; AoE les vagues ; interruptions constantes."},
+     traps:["Laisser les médics soigner les adds.","Ignorer les snipers ; se laisser submerger.","Rester dans les AoE au sol."]},
+
+    {name:"Olok l'Ombre",type:"Énigme / planification + adds à timer",
+     strategy:"En phase de planification, le raid dispose de 8 jetons pour retirer des droïdes d'une grille 4×4. En exécution, on tue les droïdes rangée par rangée (~1 min par rangée) avant que le champ de force suivant ne tombe. Phase finale contre Olok et ses adds.",
+     mechanics:["<b>Planification</b> — grille 4×4 ; coûts : Recon/Frontline 1 jeton, Assault/Artillery 2 jetons. Éviter les rangées à 2+ droïdes à gros PV.","<b>Exécution</b> — nettoyer chaque rangée dans le temps imparti.","<b>Phase Olok</b> — tuer d'abord le Trafiquant d'armes ; le Client louche se tue quand Olok passe en furtivité ; démonstrations d'armes (plasma/ion/carbonite)."],
+     modes:{histoire:"Planification permissive, dégâts modérés.",veteran:"Débuff « Packaged Deal » quand plusieurs Assault/Frontline sont actifs ensemble → construire des rangées à un seul gros droïde ; Recon punit les non-tanks.",maitre:"Version durcie (dégâts et pics supérieurs, fenêtres de rangée plus serrées ; détails à confirmer en jeu)."},
+     roles:{tank:"Ramasse les droïdes de chaque rangée (surtout Recon) ; tient Olok en P3.",heal:"Encaisse les pics des Recon sur les non-tanks ; surveille Packaged Deal.",dps:"Respecter le plan de rangées ; focus (Trafiquant d'armes d'abord) ; burst dans le temps imparti."},
+     traps:["Mauvaise répartition des jetons (rangée impossible).","Dépasser le timer d'une rangée ; Recon non gérés.","Packaged Deal empilé ; mauvaises cibles en P3."]},
+
+    {name:"Seigneurs de guerre du Cartel",type:"Multi-boss / ordre de kill",
+     strategy:"Quatre seigneurs (Vilus Garr, Capitaine Horic, Tu'Chuk, Sunder). Ordre conseillé : Vilus Garr & Horic d'abord, puis Tu'Chuk, puis Sunder en dernier. Le point critique est « The End » de Sunder, lancé quand il ne reste qu'un seul seigneur.",
+     mechanics:["<b>Vilus Garr & Horic</b> — immunisés à la provocation (un joueur dédié sur chacun).","<b>Horic</b> — cône frontal : ne jamais se tenir devant.","<b>Sunder</b> — fixation sur le plus proche : cette cible doit le kiter.","<b>Tu'Chuk</b> — immobilisation + knockback.","<b>The End</b> — dégâts massifs quand il ne reste que Sunder : le tuer vite."],
+     modes:{histoire:"Mécaniques présentes mais dégâts pardonnables.",veteran:"Dégâts très supérieurs (cône de Horic, fixation de Sunder punissent fort) ; enrage plus serré ; placement/kite stricts.",maitre:"Mécaniques additionnelles durcies (détails à confirmer en jeu) ; exigences de placement encore plus strictes."},
+     roles:{tank:"Un tank sur les provocables (dont Tu'Chuk) ; un joueur oriente Horic dos au raid ; gérer knockbacks/immobilisations.",heal:"Soigner le kiteur de Sunder et les pics du cône de Horic.",dps:"Respecter l'ordre de kill ; hors du cône ; gérer le kite ; burst final sur « The End »."},
+     traps:["Casser l'ordre de kill.","Se tenir dans le cône de Horic ; ne pas kiter Sunder.","DPS déséquilibré laissant deux seigneurs à des PV très différents."]},
+
+    {name:"Maître de l'Effroi Styrak",type:"Boss final — 5 phases / DPS check sévère",
+     strategy:"Cinq phases : nettoyage de vagues, un Dragon Kell, la phase des esprits de Styrak (la plus exigeante en DPS), le retour du Dragon vers ~12 %, puis un burn final sous AoE. Priorité : DPS soutenu, tuer les adds avant le centre, gérer les cauchemars.",
+     mechanics:["<b>P1 Vagues</b> — interrompre le PNJ soigneur (élite doré).","<b>P2 Dragon Kell</b> — se stacker derrière le tank, éviter les flaques vertes, se déplacer toujours dans le même sens.","<b>P3 Styrak & esprits</b> — Manifestation avec 4 adds (à tuer avant le centre) ; 4 esprits aux points cardinaux (un joueur au CaC de chacun) ; « cauchemars » à tuer.","<b>P4 Retour du Dragon (~12 %)</b> — burst rapide pendant que Styrak régénère.","<b>P5 Burn final</b> — AoE inévitable croissante : tout sur Styrak."],
+     modes:{histoire:"Version allégée (Dragon plus faible, pas de vrai check DPS).",veteran:"Dragon frappe bien plus fort ; P3 réellement exigeante ; gestion stricte des manifestations et esprits.",maitre:"Check DPS très serré + enrage strict ; l'un des combats les plus durs du jeu (historiquement récompensé par titre/ensemble Dragon Kell)."},
+     roles:{tank:"Tenir le Dragon dos au raid (goo derrière) ; tenir Styrak et les manifestations ; provoquer proprement au retour du Dragon.",heal:"Soigner à travers l'AoE croissante ; gérer les cibles de cauchemar ; anticiper les flaques vertes.",dps:"Cœur du check en P3 (adds tués avant le centre, un joueur par esprit) ; tuer ses cauchemars ; burst le Dragon en P4 ; burn final maximal."},
+     traps:["Manifestation/adds atteignant le centre (dégâts au raid).","Rester dans les esprits ou le goo vert.","Cauchemars non tués ; Dragon non burst en P4 ; DPS insuffisant au burn."]}
+  ],
+  loot:"Équipement du plus haut palier selon le mode ; historiquement l'ensemble « Dragon Kell » et un titre en Maître (Styrak)."
+});
+
+OPS.push({
+  id:'df',abbr:'DF',name:"La Forteresse de l'Effroi",en:"Dread Fortress",
+  era:"Effroi — Oricon (2.x)",
+  lieu:"Oricon",bosses:5,group:"8 / 16 joueurs",
+  modes:{histoire:true,veteran:true,maitre:true},
+  modeNote:"Les <strong>3 modes existent pour les 5 boss</strong>. Le mode Maître ajoute la « Puissance cauchemar » (PV/dégâts) EN PLUS de mécaniques réellement nouvelles.",
+  access:"Chaîne de quêtes d'Oricon (« Les Maîtres de l'Effroi ») depuis la Flotte, puis l'entrée sur Oricon. Histoire via l'outil de groupe.",
+  encounters:[
+    {name:"Nefra, celle qui barre le chemin",type:"Tank-and-spank / check de soin",
+     strategy:"Souvent citée comme le boss le plus facile du jeu en Histoire. Les deux tanks se stackent, boss face au mur ; le raid tape, évite les cercles rouges et nettoie un DoT. En modes supérieurs, c'est un pur test d'endurance des soigneurs.",
+     mechanics:["<b>Double Frappe</b> — cleave frontal sur les tanks (stackés, boss face away).","<b>Cercles verts</b> — réduction de dégâts si on se tient dedans.","<b>Droïde surchargé</b> — laisse des cercles rouges explosifs.","<b>Voix des Maîtres</b> — DoT vert nettoyable."],
+     modes:{histoire:"Dégâts très faibles, aucune coordination requise.",veteran:"Dégâts de raid nettement plus élevés (DoT et cercles font mal) ; enrage réel mais large.",maitre:"Véritable test de soin/DPS ; enrage resserré. Deux joueurs gèrent une manip supplémentaire (soak/rotation) pendant que le reste joue « comme en Vétéran » (détails du soak à confirmer en jeu)."},
+     roles:{tank:"Stack des deux tanks, boss face away ; gérer un éventuel swap en Maître.",heal:"Nettoyer la Voix des Maîtres ; pré-soins et CD de raid sur les pics (Maître).",dps:"Tenir l'aggro des droïdes pour placer les cercles rouges ; pousser le DPS (surtout Maître)."},
+     traps:["Se tenir dans un cercle rouge explosif.","Négliger le DoT en Maître ; sous-estimer l'enrage en Maître."]},
+
+    {name:"Commandant de la Porte Draxus",type:"Vagues d'adds + interrupts + priorités",
+     strategy:"LE combat d'interrupts de DF. Tout se joue sur le contrôle des vagues : on tanke Draxus à l'écart, on respecte un ordre de kill strict et on interrompt les casts dangereux. Astuce : laisser un add en vie pour ne pas déclencher la vague suivante trop tôt.",
+     mechanics:["<b>Corrupteurs</b> — Affliction de masse (DoT de raid) : <em>à interrompre</em>.","<b>Démolisseurs</b> — appliquent « Démonté » (+1000 % de dégâts de CET add) + knockback : les DPS les tiennent, puis les tanks reprennent.","<b>Spoliateur</b> — soigne les autres adds : priorité de kill.","<b>Subteroths</b> — explosent en Vétéran/Maître (pas en Histoire)."],
+     modes:{histoire:"Subteroths n'explosent pas ; interrupts non stricts ; faisable en force brute.",veteran:"Subteroths explosent ; vagues plus denses ; interrompre les Affliction et gérer les Démonté (peut one-shot un tank).",maitre:"Verrou d'interruption : une fois que vous interrompez, vous êtes verrouillé jusqu'à la fin de la vague → rotation d'interrupts incluant tanks ET heals, chacun assigné à un cast. Cause n°1 de wipe."},
+     roles:{tank:"Tanke Draxus à l'écart ; reprend les Démolisseurs après leur knockback ; participe à la rotation d'interrupts (Maître).",heal:"Gère les Afflictions non coupées ; fait partie de la rotation d'interrupts (Maître).",dps:"Ordre : Spoliateur > Corrupteurs > Démolisseurs > le reste ; interrompre selon assignation ; laisser un add en vie pour contrôler les vagues."},
+     traps:["Tuer le dernier add trop tôt (déclenche la vague avant repositionnement).","Rater une Affliction de masse ; mal gérer un Démonté.","Gaspiller son interrupt et se retrouver verrouillé (Maître).","Subteroths qui explosent sur le groupe."]},
+
+    {name:"Grob'thok, celui qui nourrit la forge",type:"Placement (aimant + feu) + adds",
+     strategy:"Boss au centre, face away. Un aimant au plafond balaie la salle : on y kite le boss pour stun et couper son Coup de tuyau. Un joueur laisse des flaques de feu (à kiter), et on route les adds à travers le feu.",
+     mechanics:["<b>Aimant</b> — stun les joueurs, mais sert à stun le boss pour couper le Pipe Smash.","<b>Coup de tuyau (Pipe Smash)</b> — gros cast à interrompre via l'aimant.","<b>Debuff feu</b> — le joueur affecté laisse des flaques : à kiter.","<b>Ugnaughts terribles</b> — vagues d'adds (à faire passer dans le feu)."],
+     modes:{histoire:"Adds peu dangereux, aimant peu punitif, Pipe Smash pardonnable.",veteran:"Pipe Smash non interrompu fait très mal ; utiliser l'aimant à chaque cast ; feu et adds dangereux.",maitre:"Dégâts fortement augmentés, enrage serré ; timing de l'aimant exigeant ; Pipe Smash quasi létal si non coupé ; flaques plus meurtrières (enrage à confirmer en jeu)."},
+     roles:{tank:"Boss au centre face away ; le kiter dans l'aimant pour couper le Pipe Smash ; gérer l'aggro des adds.",heal:"Soigner stuns/feu ; pré-soins avant un Pipe Smash raté ; surveiller le porteur de feu.",dps:"Burst des Ugnaughts (via le feu) ; respecter le kite du porteur de feu ; pousser le DPS."},
+     traps:["Rater l'interruption du Pipe Smash (aimant mal timé).","Poser le feu sous le raid ; se faire stun par l'aimant au mauvais moment.","Adds non contrôlés ; enrage en Maître."]},
+
+    {name:"Corruptor Zéro",type:"Ligne de vue (lasers) + adds + burn",
+     strategy:"Le boss alterne mode mêlée / distance. On le tanke dans un angle pour masquer (LoS) et regrouper les adds. Priorité : réparateurs > champions > forts > boss. À ~20-25 %, le Rayon unifié balaie la salle : se coller aux murs/alcôves.",
+     mechanics:["<b>Modes mêlée/distance</b> — Slam massif, Laser de poitrine, Barrage de missiles.","<b>Réparateurs (D-03)</b> — soignent les alliés : tuer/couper en priorité.","<b>Corrupteurs (D-13/D-15)</b> — Décharge électrique (stun AoE).","<b>Rayon unifié (~20-25 %)</b> — boss immunisé, saute et tire des lasers en croix : se protéger contre les murs."],
+     modes:{histoire:"Le laser du Rayon unifié ne one-shot pas ; vagues molles ; très permissif.",veteran:"Réparateurs et Corrupteurs dangereux ; le laser fait très mal ; LoS et ordre de kill à respecter.",maitre:"Le laser du Rayon unifié ONE-SHOT (placement parfait obligatoire) ; PV/dégâts boostés ; une mécanique de ciblage supplémentaire à écarter (type décharge, nom/détails à confirmer en jeu)."},
+     roles:{tank:"Boss dans un angle pour LoS/regrouper les adds ; gérer les swaps de mode ; placer le raid pour le Rayon.",heal:"Contrer les soins des réparateurs par la pression heal ; gérer stuns et laser ; pré-soins avant le Rayon.",dps:"Ordre strict (réparateurs d'abord) ; interrompre les Décharges ; se coller aux murs pendant le Rayon."},
+     traps:["Prendre le laser du Rayon unifié (fatal en Maître).","Laisser vivre un réparateur (soigne → enrage).","Se faire stun en pleine vague ; mauvais LoS."]},
+
+    {name:"Maître de l'Effroi Brontès",type:"Boss final — multi-phases complexe",
+     strategy:"Énorme saut de complexité. On alterne phases de Mains + Doigts (adds) et Brontès elle-même, ponctuées de phases d'éclairs à one-shot. Assignations précises sur les Doigts, nettoyage de DoTs, clones de Kephess à gérer, puis burn final sous débuffs empilables. La discipline de placement prime.",
+     mechanics:["<b>P1 Mains/Doigts</b> — une Main par tank (Slam face away) ; Doigts prioritaires (enrage si ignorés).","<b>Doigts-éclair</b> — <em>traverser le faisceau = mort instantanée</em> : rester groupés, fenêtre de rez furtif sur la 4e paire.","<b>P2 Brontès</b> — Arcing Assault (cône) ; clones de Kephess (Charge interruptible) ; Nanites corrompues (DoT à nettoyer).","<b>Clockwork</b> — faisceau rotatif horaire mortel ; 6 droïdes D-09 qui explosent si touchés par le faisceau : les tuer dans l'ordre, en restant devant.","<b>P3 Doigts II</b> — la plus dure en Histoire/Vétéran : chaque joueur sur un Doigt, les heals en portée sans attaquer (anti-enrage) ; Épine de douleur (cercles violets).","<b>P4 Burn</b> — Suprématie manifeste (débuff empilable) ; Beam Volley (swap) ; Tir et oubli (projection)."],
+     modes:{histoire:"Scaling réduit, one-shots présents mais phases indulgentes ; assignations souples.",veteran:"Exigences de dégâts et de timing bien plus hautes ; la P3 (Doigts II) est le principal mur ; nettoyage strict des Nanites.",maitre:"Mécaniques réellement nouvelles : orbes de tank à soaker/kiter en continu ; enrage global bien plus serré (vrai DPS check, surtout P4) ; phases d'éclairs impitoyables. P4 réputée la plus dure."},
+     roles:{tank:"Une Main chacun (face away) ; taunts sur les D-09 en Clockwork ; swaps coordonnés en P4 ; soak/kite des orbes en Maître.",heal:"Nettoyer les Nanites ; en P3 se tenir en portée d'un Doigt sans l'attaquer ; grosse charge en P4 ; anticiper la séparation de Tir et oubli.",dps:"Burn des Doigts selon assignation ; rester devant le faisceau (Doigts-éclair/Clockwork) ; interrompre les Charges des clones ; pousser le DPS (Maître)."},
+     traps:["Traverser un faisceau d'éclair (mort instantanée).","Faire exploser un D-09 en le touchant avec le faisceau.","Abandonner un Doigt / laisser un Doigt sans mêlée (enrage).","P4 : swaps ratés, Tir et oubli qui isole un heal, Suprématie non maîtrisée ; négliger les orbes (Maître)."]}
+  ],
+  loot:"Butin niv. 80, succès par mode, décorations « Effroi » et progression de la campagne d'Oricon."
+});
+
+OPS.push({
+  id:'dp',abbr:'DP',name:"Le Palais de l'Effroi",en:"The Dread Palace",
+  era:"Effroi — Oricon (2.x)",
+  lieu:"Oricon",bosses:5,group:"8 / 16 joueurs",
+  modes:{histoire:true,veteran:true,maitre:true},
+  modeNote:"Les <strong>3 modes existent pour les 5 boss</strong> — conclusion de l'arc des Maîtres de l'Effroi, jusqu'au Conseil.",
+  access:"Terminer la chaîne d'Oricon (« Les Maîtres de l'Effroi ») ; entrée sur Oricon. Histoire via l'outil de groupe ; Vétéran/Maître au terminal de l'instance.",
+  encounters:[
+    {name:"Maître de l'Effroi Bestia",type:"Adds / contrôle de foule + placement",
+     strategy:"Bestia est protégée par un bouclier en P1 : le raid gère les vagues d'adds au lieu de taper le boss. On priorise les adds selon un ordre strict, puis on burst Bestia une fois le bouclier tombé sans laisser les adds s'accumuler.",
+     mechanics:["<b>Shield of the Masters</b> — Bestia invulnérable en P1 : tuer les adds d'abord.","<b>Adds</b> — Tentacule > Larve > Monstre (la tentacule interrompt).","<b>Combusting Seed</b> — le porteur s'écarte avant explosion.","<b>Dread Pool</b> — flaque au sol : mouvement constant.","<b>Burn</b> — bouclier tombé, gérer Seed + Pool (et adds en Maître)."],
+     modes:{histoire:"~3 phases ; placement présent mais tolérant.",veteran:"Tank swap via Swelling Despair ; Monstres tankés séparément ; interruption de la tentacule requise.",maitre:"3 Monstres au lieu de 2, adds qui continuent de spawn toute la P2 ; Swelling Despair plus rapide ; DPS check serré ; un DPS dédié aux interrupts de tentacule."},
+     roles:{tank:"Config Anvil/Chaser en VM/MM (un tank fixe les monstres, l'autre + Bestia) ; swap sur Swelling Despair.",heal:"Burst-heal sur le tank qui prend les stacks ; surveiller les porteurs de Combusting Seed.",dps:"Respecter l'ordre de kill ; interrompre la tentacule ; sortir vite des cercles rouges ; burst Bestia sans laisser vivre les adds."},
+     traps:["Taper Bestia sous bouclier (adds débordent).","Combusting Seed lâché sur le groupe.","Flux continu d'adds sous-estimé (Maître) ; rester dans les Dread Pools."]},
+
+    {name:"Maître de l'Effroi Tyrans",type:"Plateformes + DPS soutenu + swap",
+     strategy:"Combat sur plateformes : Simplification détruit progressivement les tuiles, donc on organise où les faire tomber. Le tank garde Tyrans dos au raid (cleave Thundering Blast). On dépose Inferno dans des quadrants dédiés.",
+     mechanics:["<b>Simplification</b> — cible le tank + 2 joueurs ; détruit leur plateforme à l'expiration (la faire tomber en périphérie).","<b>Thundering Blast</b> — cône frontal juste après Simplification (non réfléchissable) : boss face away.","<b>Affliction</b> — DoT (nettoyable en Histoire).","<b>Inferno</b> — crée des flaques après un délai : mêlée et distance dans des quadrants séparés."],
+     modes:{histoire:"Affliction nettoyable ; plateformes tombent avec de la marge ; Inferno gérable.",veteran:"Gestion des plateformes plus stricte ; Affliction bien plus punitive (souvent non nettoyable, à confirmer en jeu) ; Inferno touche plus de monde.",maitre:"Plateformes en damier → déplacements en diagonale ; après destruction, débuff « Marked for Death » à nettoyer via un Holocron en descendant ; Thundering Blast très fréquent et létal."},
+     roles:{tank:"Orienter Tyrans dos au raid ; tank swaps propres pendant Simplification ; gérer le déplacement de plateforme.",heal:"Suivre les cibles de Simplification/Inferno ; gérer Affliction ; soigner à travers Thundering Blast.",dps:"Déposer Inferno dans les quadrants assignés ; lâcher les Simplifications sur les bords ; DPS soutenu sans se faire couper par une chute."},
+     traps:["Boss mal orienté → Thundering Blast tue le raid.","Simplification lâchée au centre (on perd l'arène).","Mauvais chemin en damier (Maître) → chute + Marked for Death non nettoyé."]},
+
+    {name:"Maître de l'Effroi Calphayus",type:"Énigme / phases parallèles (temps)",
+     strategy:"Le raid se scinde entre deux dimensions via des portails : équipe du Passé (bleu) et du Futur (orange), chacune avec un objectif, pendant que le combat au présent continue. Communication constante obligatoire, puis burst de Calphayus entre les phases.",
+     mechanics:["<b>Portails</b> — à ~80 % puis paliers : fenêtre courte pour entrer dans son portail (sinon mort).","<b>Équipe Passé</b> — protéger la Seed of Knowledge.","<b>Équipe Futur</b> — détruire les cristaux / Dark Growth et signaler leur position.","<b>Distorted Perceptions</b> — AoE aléatoire à éviter."],
+     modes:{histoire:"~5 phases, objectifs indulgents, marge de temps confortable.",veteran:"Les assignations de portail s'inversent selon la phase ; tank swaps ajoutés ; en phase finale, seulement 2 Graines (pression accrue).",maitre:"~6 phases ; fenêtre de ~5 s seulement pour rejoindre son portail ; phase finale « The Great Holocron Caper » (course chronométrée d'artefacts) — la vraie rupture."},
+     roles:{tank:"Un tank par côté selon assignation ; un pull ami (Friendly Pull) très utile ; swaps sur débuff en VM/MM.",heal:"Un heal par dimension ; soigner à travers Distorted Perceptions ; gérer le stress de la phase finale.",dps:"Respecter son assignation passé/futur ; détruire croissances/cristaux dans les temps ; communiquer les positions ; burst Calphayus au présent."},
+     traps:["Rater la fenêtre du portail (~5 s en Maître) = mort.","Mauvaise communication inter-équipes → objectif échoué.","Mauvaise assignation de côté en Vétéran (côtés inversés)."]},
+
+    {name:"Maître de l'Effroi Raptus",type:"Placement + challenges par rôle + swap",
+     strategy:"Chaque joueur récupère une malédiction selon son rôle (violet = tank, orange = DPS, vert = heal) qui l'envoie dans un challenge d'intermission spécifique. Réussir son challenge est obligatoire (un échec pénalise le raid). Entre les phases, on tanke Raptus au centre en gérant ses knockbacks.",
+     mechanics:["<b>Malédictions par rôle → challenges</b> — DPS : check de DPS (adds à boucliers échangés) ; Heal : check de soin (+ nettoyer un débuff −99 % soins) ; Tank : survie/placement.","<b>Rising Slash/Thrust</b> — projette le tank (mortel près des bords) → swap.","<b>Deadly Slash</b> — cône canalisé + knockback : traverser le boss pour l'éviter.","<b>Force Execution</b> — attaque tank, repositionnement requis ; Force Wave (knockback inévitable)."],
+     modes:{histoire:"Challenges présents, checks tolérants, placement simple.",veteran:"Mécanisme de mort instantanée pendant les Force Execution → placement bien plus strict.",maitre:"Force Execution très tôt ; Rising Thrust projette vers les bords ; phase de burn « spin/wash cycle » (CD de mobilité requis) ; challenges très serrés (échec DPS → +10 % dégâts ; échec Heal → 10 % de réflexion)."},
+     roles:{tank:"Double Avant-garde recommandé (Hold the Line / Sonic Rebounder) ; formation en T ; swaps après chaque Force Execution ; reculer droit pendant l'exécution.",heal:"Réussir le challenge heal ; nettoyer le −99 % soin ; soigner à travers le spin cycle en Maître.",dps:"Bonne malédiction (orange) ; réussir le check DPS (adds à boucliers alternés) ; traverser le boss sur Deadly Slash ; éviter les bords."},
+     traps:["Se faire projeter dans le vide (Rising Thrust/Slash).","Rater un challenge (pénalité raid).","Ne pas traverser le boss sur Deadly Slash ; panique au spin cycle sans CD (Maître)."]},
+
+    {name:"Le Conseil de l'Effroi",type:"Boss final — multi-boss simultané",
+     strategy:"On affronte les quatre Maîtres restants en même temps, chacun assigné, l'objectif étant de les amener tous à ~50 % dans une fenêtre serrée pour déclencher la transition. Suit une phase contre les revenants de Styrak et Brontès, un retour des Maîtres, puis un burn géant où les quatre fusionnent au centre.",
+     mechanics:["<b>P1 — 4 Maîtres</b> — assignation stricte (Bestia = tank + kicks, Calphayus = tank sous bouclier, Raptus = kité par un DPS distance, Tyrans = burn) ; amener les 4 à ~50 % quasi simultanément.","<b>Siphon Energy</b> — auto-soin à interrompre/gérer.","<b>P2 — Styrak & Brontès (revenants)</b> — tanks ramassent des cristaux ; Styrak fait une manifestation en chaîne (Suffering), Brontès enchaîne des reaches puis un faisceau.","<b>Burn final</b> — les 4 se téléportent au centre, agrandis. Ordre type : Bestia → Raptus → Tyrans → Calphayus."],
+     modes:{histoire:"Les boss entrent de façon échelonnée ; fenêtre de synchro tolérante.",veteran:"4 Death Marks à nettoyer dans un ordre précis (Skull > Body > Head > Mummy) ; timelines compressées ; synchro plus stricte.",maitre:"Tous les boss entrent au pull ; Tyrans & Raptus poussés en 1er/2e (~55 %) puis synchro des 4 à ~50 % ; NE PAS ramasser le cristal de Bestia (bloque les swaps de Corruption) ; pas de timer d'enrage mais test de survie au burn. En 16j, 3 tanks (pourcentages/timers à confirmer en jeu)."},
+     roles:{tank:"Tenir son Maître assigné ; gérer stacks de Corruption (Bestia) et bouclier (Calphayus) ; en Maître, ne pas grab le cristal de Bestia.",heal:"Triage entre groupes ; défensifs pré-placés pour la réflexion de Suffering ; heal lourd au burn géant.",dps:"Respecter l'assignation ; kiter Raptus (distance) ; synchroniser les pushs de PV ; nettoyer les Death Marks dans l'ordre (Vétéran) ; tout sortir au burn."},
+     traps:["Désynchronisation des PV (un boss passe le seuil trop tôt).","Death Marks dans le mauvais ordre (Vétéran).","Ramasser le cristal de Bestia (Maître).","Burn final sans CD défensifs restants ; mauvaise gestion de Styrak/Brontès."]}
+  ],
+  loot:"Fin de la storyline d'Oricon ; drops rares « Dread » (montures/décorations) et succès de prestige surtout en Maître."
+});
+
+OPS.push({
+  id:'rav',abbr:'RAV',name:"Les Ravageurs",en:"The Ravagers",
+  era:"Shadow of Revan (3.x) — niv. 60",
+  lieu:"Rishi (croiseur pirate)",bosses:5,group:"8 / 16 joueurs",
+  modes:{histoire:true,veteran:true,maitre:false},
+  modeNote:"<strong>Pas de mode Maître.</strong> Les Ravageurs et le Temple du Sacrifice sont les deux opérations qui n'ont jamais reçu de mode Cauchemar/Maître. Le <strong>Vétéran est la difficulté maximale</strong>.",
+  access:"Quête d'intro « Les Ravageurs » sur la Flotte (versions normale et hebdomadaire), terminal sur Rishi, ou outil de groupe (Histoire).",
+  encounters:[
+    {name:"Sparky",type:"Placement (tank) + adds + interrupt",
+     strategy:"Droïde de combat. Le tank joue avec les murs pour absorber les repoussées, le groupe reste sur les côtés/l'arrière. On survit aux repoussées, on interrompt l'attaque canalisée et on gère les vagues d'adds jusqu'à la phase d'exécution (<30 %) où l'on ignore les adds pour burst.",
+     mechanics:["<b>Collier de bouclier</b> — à briser au début pour rendre Sparky vulnérable.","<b>Repoussées (Body Slam)</b> — le tank contrôle la trajectoire via les murs.","<b>Brutalize</b> — attaque canalisée sur une cible : <em>à interrompre</em>.","<b>Rampage</b> — brève furie AoE/étourdissement : se disperser.","<b>Exécution (<30 %)</b> — apparition d'adds accélérée : ignorer et burst."],
+     modes:{histoire:"Dégâts et fréquence d'adds gérables.",veteran:"Dégâts et cadence d'adds augmentés ; interrupt et gestion des repoussées stricts ; check de soin tendu en exécution (enrage à confirmer en jeu)."},
+     roles:{tank:"Gère l'orientation par rapport aux murs ; l'off-tank prend les adds.",heal:"Anticipe les pics de repoussée/Rampage ; soins de groupe en exécution.",dps:"Brise le collier au départ ; gère les adds ; participe à l'interrupt de Brutalize ; ignore les adds sous 30 %."},
+     traps:["Ne pas interrompre Brutalize (mort de la cible).","Mauvais placement du tank → membres projetés hors zone.","S'acharner sur les adds pendant l'exécution (enrage)."]},
+
+    {name:"Quartier-maître Bulo",type:"Gestion de menace + placement + adds",
+     strategy:"Combat centré sur la menace : le tir frontal frappe les deux premières places d'aggro, donc les DPS gèrent leur menace en permanence et restent derrière/sur les côtés. On empile les cercles et on gère les adds « Load Lifters ».",
+     mechanics:["<b>Scatter Blaster</b> — cône frontal sur les 2 plus hautes menaces : seuls les tanks doivent y être.","<b>Burst Volley</b> — cercle bleu qui suit un joueur puis dépose une zone : à poser à l'écart.","<b>Load Lifters</b> — adds qui roulent et explosent (à kiter).","<b>Mass Barrage</b> — série de cercles : empiler au même endroit."],
+     modes:{histoire:"Dégâts pardonnables.",veteran:"Adds mobiles et buffés ; check de menace bien plus punitif (un DPS en top-2 menace mange le Scatter Blaster et meurt) ; gestion cercles + adds simultanée (enrage à confirmer en jeu)."},
+     roles:{tank:"Boss dos au groupe ; cross-taunt régulier pour occuper les 2 premières places ; gère les Load Lifters.",heal:"Rester à distance max (limite Burst Volley) ; soigner les porteurs de cercles.",dps:"Baisser constamment la menace ; empiler les Mass Barrage ; poser Burst Volley loin du groupe."},
+     traps:["Un DPS en top-2 menace lors du Scatter Blaster.","Cercles Mass Barrage éparpillés (plus de sol).","Load Lifter qui explose sur le groupe."]},
+
+    {name:"Ingénieur en chef Torque",type:"DPS check + gestion d'objectifs (consoles)",
+     strategy:"Torque (un Wookiee) détruit des consoles : le combat est une course. On le burst avant qu'il n'ait tout détruit / avant l'enrage, ou on répare les consoles via des droïdes de réparation pour prolonger le temps. Protéger les droïdes et gérer le feu.",
+     mechanics:["<b>Disrespectful Kick</b> — repoussée + débuff « Sick of You » (dégâts subis croissants) sur le tank.","<b>Destruction de consoles</b> — invoquer des droïdes de réparation pour les remettre.","<b>Shoots Lasers</b> — droïdes ciblant les réparateurs : les intercepter.","<b>Dispositifs incendiaires</b> — forte AoE : à détruire ; zones de feu au sol + stuns nettoyables."],
+     modes:{histoire:"Dégâts et conséquences modérés.",veteran:"Stuns/feu bien plus punitifs ; gestion des consoles/réparations critique (un groupe très DPS peut sauter les réparations ; sinon c'est tendu) (enrage à confirmer en jeu)."},
+     roles:{tank:"Évite les murs lors du Kick ; surveille les stacks de « Sick of You ».",heal:"Nettoie stuns/DoT ; aide à invoquer/protéger les droïdes de réparation.",dps:"DPS soutenu ; distance sur les dispositifs incendiaires ; mêlée intercepte les cônes laser ; protège les droïdes."},
+     traps:["Laisser mourir les droïdes de réparation (plus de consoles → défaite).","Rester dans le feu ; tank projeté dans un hasard.","Groupe qui ne burn ni ne répare correctement."]},
+
+    {name:"Maître et Blaster",type:"Multi-phases + placement strict + swap",
+     strategy:"Réputé le combat le plus dur de l'opé en Vétéran. Deux ennemis, trois phases : Blaster seul d'abord ; la phase 2 réunit les deux et concentre la difficulté (Ion Cutter, Fire Wheel) ; la phase 3 est une course sur une plateforme qui se remplit de mortiers.",
+     mechanics:["<b>P1 Scatterblast</b> — large cône + forte repoussée (~40 m) : tank d'un côté, groupe à l'opposé.","<b>Resonant Probes</b> — cercles bleus qui <em>détonent en chaîne s'ils se chevauchent</em> : les espacer.","<b>P2 Fire Wheel</b> — grande AoE qui suit le tank du Master : kiter.","<b>P2 Ion Cutter</b> — stacks de dégâts subis croissants : partager les stacks (swap, bulle, tanks Assassin idéaux).","<b>P3</b> — plateforme qui se remplit de mortiers ; explosion finale à ~9 % (repoussée) : se placer près d'un mur."],
+     modes:{histoire:"Repoussées et mortiers pardonnables ; stacks Ion Cutter gérables.",veteran:"La P2 devient l'une des plus dures du Vétéran : stacks d'Ion Cutter bien plus dangereux (partage/immunités nécessaires) ; repoussées et mortiers ne pardonnent plus (seuils à confirmer en jeu)."},
+     roles:{tank:"P1 tient Blaster d'un côté ; P2 le tank du Master kite le Fire Wheel et plafonne ses stacks d'Ion Cutter (swap) ; P3 à l'écart.",heal:"Soins lourds P2/P3 ; participe au partage des stacks ; anticipe l'explosion finale.",dps:"P1 espace les sondes ; P2 distance sur Master, mêlée sur Blaster ; P3 stack sous Blaster, burst, évite mortiers + repoussée finale."},
+     traps:["Chevauchement des Resonant Probes (détonation en chaîne).","Trop de stacks Ion Cutter sur un seul tank sans partage.","Être projeté hors de la plateforme (P1/P3)."]},
+
+    {name:"Coratanni (avec Pearl, puis Ruugar)",type:"Boss final — 2 phases / nettoyage + adds",
+     strategy:"P1 : Coratanni combat avec son familier Pearl — tuer Coratanni en premier (sinon Pearl devient invulnérable). On nettoie les DoT de feu via les panneaux de suppression. P2 : Ruugar apparaît après 4 adds, avec mines, otage et droïdes-souris.",
+     mechanics:["<b>P1 DoT de feu</b> — nettoyer via les panneaux/cercles de suppression (rotation dessus).","<b>Pearl</b> — poison en cône, stuns, phases intauntable.","<b>Canons de pont</b> — télégraphes jaunes : sortir immédiatement.","<b>P2 Ruugar — Corrosive Dart</b> — tank swap à ~2-3 stacks.","<b>Mines</b> — sous le tank (kiter loin) ; <b>Otage</b> — stopper le DPS immédiatement ; <b>Droïdes-souris</b> — ciblent le plus bas en PV."],
+     modes:{histoire:"Dégâts pardonnables.",veteran:"Mines plus punitives ; check de DPS plus serré ; nettoyage des DoT et gestion otage/souris bien moins tolérants (enrage à confirmer en jeu)."},
+     roles:{tank:"Oriente Coratanni à l'écart ; en P2 swap sur Corrosive Dart et kite hors des mines.",heal:"Rotation sur les panneaux de suppression ; surveille l'otage et la cible des souris ; nettoie grenade/DoT.",dps:"Tue Coratanni en premier ; en P2 tue les 4 adds pour déclencher Ruugar ; arrête le DPS dès qu'un otage est pris ; gère souris et mines."},
+     traps:["Tuer Pearl avant Coratanni (soft-lock).","Rester dans un télégraphe de canon de pont.","Continuer à DPS pendant l'otage ; souris qui explosent sur le groupe."]}
+  ],
+  loot:"Équipement de raid ; Coratanni peut lâcher la monture Rishii apprivoisé et d'autres butins de prestige."
+});
+
+OPS.push({
+  id:'tos',abbr:'ToS',name:"Le Temple du Sacrifice",en:"Temple of Sacrifice",
+  era:"Shadow of Revan (3.x) — niv. 60",
+  lieu:"Yavin 4",bosses:5,group:"8 / 16 joueurs",
+  modes:{histoire:true,veteran:true,maitre:false},
+  modeNote:"<strong>Pas de mode Maître</strong> (comme les Ravageurs). Le <strong>Vétéran est la difficulté maximale</strong> ; le combat contre Revan en Vétéran reste l'un des plus mécaniques du jeu.",
+  access:"Aboutissement de l'arc Shadow of Revan. Terminal d'opération sur la Flotte (mission hebdomadaire), groupe déjà formé requis pour la version complète.",
+  encounters:[
+    {name:"Malaphar le Sauvage",type:"Gestion de débuffs de placement",
+     strategy:"Boss de mêlée au centre. Le sol a un cercle : dedans on empile Sauvagerie (dégâts subis), dehors Épuisement. On alterne pour garder les stacks bas des deux côtés, tout en gérant les vagues d'adds.",
+     mechanics:["<b>Cercle central</b> — Sauvagerie (dedans) vs Épuisement (dehors) : alterner.","<b>Lancer de lance</b> — zone au sol sur un joueur (à poser sur les adds).","<b>Coup de marteau</b> — dégâts de zone périodiques.","<b>Vagues d'adds</b> — régulières, à tuer vite."],
+     modes:{histoire:"Les heals peuvent rester hors du cercle ; adds fragiles.",veteran:"Les heals subissent aussi l'Épuisement : ils doivent gérer leurs stacks comme les DPS ; adds et dégâts nettement accrus."},
+     roles:{tank:"Tenir Malaphar au centre ; surveiller ses stacks de Sauvagerie et sortir à temps ; récupérer les adds.",heal:"Surveiller les stacks du tank ; en Vétéran, gérer aussi ses propres stacks depuis l'intérieur du cercle.",dps:"Équilibrer Sauvagerie/Épuisement ; tuer les adds vite ; poser le Lancer de lance sur les adds."},
+     traps:["Empiler trop de Sauvagerie (mort sous les gros coups).","Adds ignorés qui submergent.","Heals qui restent dehors et empilent l'Épuisement (Vétéran)."]},
+
+    {name:"Escadron Épée",type:"DPS check à mort synchronisée",
+     strategy:"Deux marcheurs (Unité 1 et Unité 2) à tuer à moins de 30 s d'écart (sinon le survivant se soigne/enrage). L'Unité 2 est intauntable : le tank qui l'a la garde. On focus l'Unité 1, on gère son bouclier via des bombes, puis on synchronise les deux morts.",
+     mechanics:["<b>Bouclier Unité 1</b> — un joueur va chercher une bombe à l'arrière et la livre pour le retirer.","<b>Mega Blast</b> — cône frontal de l'Unité 1 : orienter à l'écart.","<b>Rapid Fire</b> — zones bleues sous les joueurs : bouger.","<b>Grosse Grenade</b> — zone à kiter ; pluie de missiles à répartir.","<b>Unité 2 intauntable</b> — appeler quand elle change de cible."],
+     modes:{histoire:"DPS check et dégâts très souples.",veteran:"Mêmes mécaniques mais DPS check et soins fortement resserrés ; l'écart de 30 s devient contraignant ; zones au sol punitives."},
+     roles:{tank:"Tank 1 tient/oriente l'Unité 1 (cône à l'écart, bouge sur les cercles) ; Tank 2 prend l'Unité 2 dès le pull et ne la lâche jamais.",heal:"Surveiller les deux tanks ; gros soins quand l'Unité 2 se tourne mal ; gérer la pluie de missiles.",dps:"Focus Unité 1 jusqu'au bouclier ; un joueur gère les bombes ; puis synchroniser les deux morts (<30 s)."},
+     traps:["Écart de mort > 30 s (le survivant se régénère).","Bombe non livrée à temps (bouclier permanent).","Perdre l'aggro de l'Unité 2 (impossible à reprendre au taunt)."]},
+
+    {name:"Le Rôdeur-des-profondeurs",type:"Énigme de placement + adds + DPS check",
+     strategy:"Le mur de progression de l'opé. Boss de mêlée face away. Cycle répété (~50 s) : adds à tuer, formation en croix, chute de rochers, puis attaque de raid à esquiver via couverture. La vraie difficulté est le switch propre sur les adds sans perdre le boss.",
+     mechanics:["<b>Lurkerlings</b> — 3 adds à tuer vite (s'ils atteignent le boss, ils le renforcent).","<b>Dévastation (croix)</b> — un télégraphe en croix : remplir chaque branche (en 8j : 1 devant, 1 derrière, 3 sur chaque côté).","<b>Effondrement</b> — rochers qui tombent (zones rouges) et laissent des rochers de couverture.","<b>Tempête de rage</b> — attaque de raid : se cacher derrière un rocher (ligne de vue) ou mourir."],
+     modes:{histoire:"Dégâts de la croix et de la Tempête pardonnables ; on peut rattraper un mauvais switch.",veteran:"Croix à remplir exactement ; Tempête de rage létale sans couverture parfaite ; PV/dégâts et enrage durcis → le contrôle d'adds + burst boss devient la vraie difficulté."},
+     roles:{tank:"Tenir le Rôdeur dos au groupe, près des adds ; se placer dans la croix ; prendre couverture pour la Tempête.",heal:"Rester derrière un rocher pendant la Tempête ; gros AoE heal sur le groupe regroupé ; gérer les impacts de rochers.",dps:"Pré-assigner les adds (moitié dans chaque sens) pour un kill simultané ; burst le boss entre les mécaniques ; ne jamais rater couverture ni branche de croix."},
+     traps:["Adds tués trop lentement (enrage).","Manquer la couverture pour la Tempête de rage.","Croix mal remplie (branche vide) en Vétéran ; boss mal orienté."]},
+
+    {name:"Les Commandants Revanites",type:"Adds continus + contrôle + burn multi-cibles",
+     strategy:"Trois boss (Sano Thrica, Deron Cadoruso, Lord Kurse) affrontés individuellement puis ensemble en burn. Des adds affluent en continu depuis trois portes : leur gestion est le cœur du combat. Chaque commandant a une mécanique propre.",
+     mechanics:["<b>Sano</b> — Champ de Réflexion (rester dans le bouclier, les dégâts venus de l'extérieur sont réfléchis) ; adds Hors-la-loi = les plus dangereux (Tir de Saturation).","<b>Deron</b> — Tracer Missile → débuff Heat Signature à <em>purger</em> avant la salve ; aggro aléatoire.","<b>Kurse</b> — Soaring Smash (AoE violette réfléchissable) ; le moins exigeant.","<b>Burn</b> — commandants restants actifs simultanément, adds qui continuent."],
+     modes:{histoire:"Simple conscience des mécaniques ; adds gérables.",veteran:"DPS check resserré ; patterns d'adds plus denses ; purges systématiques et un joueur dédié aux adds ; réflexion de Sano et Heat Signature deviennent des causes de wipe."},
+     roles:{tank:"Alterner sur les commandants ; gérer les chutes d'aggro (Sano/Deron) ; reprendre les adds au burn.",heal:"Gérer l'AoE des adds ; focus heal en phases individuelles ; rappeler les purges.",dps:"1 joueur dédié aux adds en permanence ; rester dans le bouclier de Sano ; stuns/repoussées (les interruptions ne marchent pas) ; purger Heat Signature."},
+     traps:["Adds non gérés qui submergent les heals.","Frapper Sano depuis l'extérieur du bouclier (réflexion).","Heat Signature non purgée ; cônes d'adds sur le groupe."]},
+
+    {name:"Revan",type:"Boss final — 3 étages / multi-mécaniques",
+     strategy:"Rencontre en trois étages. Étage 1 : Revan à 64 %, puis HK-47 à 9 %, puis parkour vers l'étage 2. Étage 2 : détruire 4 Foyers de Machine tout en poussant Revan à 28 %. Étage 3 : briser le bouclier, descendre à 9 %, puis détruire le Cœur de Machine.",
+     mechanics:["<b>Étage 1 — Revan</b> — Impale (cône + repoussée, orienter vers les piliers) ; Force Wield (2 lames à kiter et repousser).","<b>Étage 1 — HK-47 (à 64 %)</b> — <em>Poignée de grenades</em> (se disperser, grenades purgeables/déposables) ; cône Pseudorandom Violence.","<b>Étage 2</b> — détruire les 4 Foyers de Machine en parallèle du DPS sur Revan (→28 %).","<b>Étage 3</b> — briser le bouclier, gérer les aberrations/spectres, Revan à 9 %, puis Cœur de Machine."],
+     modes:{histoire:"« Exceptionnellement facile » : surtout se disperser pour les grenades + parkour ; aberrations quasi inoffensives.",veteran:"« Le combat le plus riche en mécaniques du jeu » : parkour de précision, aberrations/spectres deviennent une menace majeure, fenêtres de DPS serrées, multiples mécaniques simultanées sans faute."},
+     roles:{tank:"Orienter Revan (Impale vers les piliers, Surcharge à l'écart) ; gérer bouclier/aberrations à l'étage 3 ; à l'écart pendant le spread des grenades.",heal:"Absorber les dégâts inévitables (Soulèvement, grenades) ; anticiper les explosions ; tenir le groupe à l'étage 3.",dps:"Burn Revan ; aider au kite des lames (repoussées) ; spread parfait pour HK-47 ; équilibrer Foyers/Revan ; séquence bouclier → Revan → Cœur."},
+     traps:["Grenades HK-47 qui se chevauchent (spread raté).","Repoussée de l'Impale qui éjecte de la plateforme.","Chute lors du parkour ; aberrations non gérées (Vétéran)."]}
+  ],
+  loot:"Conclusion scénaristique de Shadow of Revan ; matériaux d'artisanat exotiques (ex. Exonium) sur les boss ; succès/titres."
+});
+
+OPS.push({
+  id:'dxun',abbr:'DXN',name:"Les Dieux de la Machine",en:"Gods from the Machine (Dxun)",
+  era:"Récentes (5.x / 7.x)",
+  lieu:"Dxun (lune d'Onderon)",bosses:5,group:"8 / 16 joueurs",
+  modes:{histoire:true,veteran:true,maitre:true},
+  modeNote:"Les <strong>3 modes existent pour les 5 boss</strong>. Historique : Histoire/Vétéran sortis un boss à la fois en 2017 ; le mode <strong>Maître complet est arrivé en bloc à la MàJ 5.10 (déc. 2018)</strong>.",
+  access:"Via l'outil de groupe (Opérations) ou en se rendant sur Dxun. Prérequis lié à la progression de Dxun / « Jedi Under Siege » (unlock à confirmer en jeu).",
+  encounters:[
+    {name:"Tyth, dieu de la Rage",type:"Adds + gestion de la « Rage »",
+     strategy:"Une grande phase avec vagues continues d'adds. Le nœud est la jauge de Rage : tuer les adds évite de se faire déborder mais alimente la Rage — il faut doser. Le MT tient Tyth au bord, dos au groupe ; l'off-tank regroupe les adds ; des DPS gèrent en priorité les droïdes Grace.",
+     mechanics:["<b>Stacks de Rage</b> — +1 par add tué, +3 si le cleave de Tyth touche un add ; 10 stacks = wipe. Éviter que le cleave frappe les adds.","<b>Types d'adds</b> — Guardian, Lance, Justice, et surtout <em>Grace (soigne/buff Tyth : priorité kill)</em>.","<b>Energy/Force Wave</b> — attaque en ligne à esquiver.","<b>Slam</b> — AoE au sol à quitter."],
+     modes:{histoire:"Cadence d'adds gérable, marge large sur la Rage.",veteran:"Cadence et dégâts accrus, gestion de Rage plus stricte, Grace plus punitif.",maitre:"L'Energy Wave gagne un knockback dont la puissance AUGMENTE avec la Rage → risque d'éjection de la plateforme ; dégâts et pression d'adds renforcés (valeurs à confirmer en jeu)."},
+     roles:{tank:"MT tient Tyth au bord, dos au groupe (cleave loin des adds) ; OT regroupe les adds ; gérer le knockback en Maître.",heal:"Purger les débuffs d'armure ; rester central ; surveiller l'OT sous les adds.",dps:"Priorité aux Grace ; nettoyer les adds sans nourrir le cleave ; reprendre le boss entre les vagues."},
+     traps:["Grace laissé en vie (Tyth se renforce).","Cleave qui balaie les adds (Rage vers 10).","Éjection par le knockback de l'Energy Wave (Maître)."]},
+
+    {name:"Aivela et Esne",type:"Polarité (couleurs) + course de DPS",
+     strategy:"Mécanique centrale : la polarité — assortir sa couleur (BLANC ou ROUGE) à celle de la mécanique qui vous cible pour subir peu de dégâts. On alterne phases sur le Nexus (tuer les Codex) et phases sur les jumelles, puis on regroupe et burn en fin.",
+     mechanics:["<b>Ouverture</b> — tuer les Codices, endommager le Nexus.","<b>Polarity</b> — Purification Beam (cônes), Polarized Energy Burst (AoE), Radiance : assortir la couleur.","<b>P3</b> — boss mobiles ; Wiper Beams (faisceaux balayants) ; Overdrive Mode (à interrompre/burn sinon relance/soigne).","<b>Priorité d'assortiment</b> — Purification Beam > Polarized Energy Burst > Radiance."],
+     modes:{histoire:"Erreurs de couleur pardonnées.",veteran:"Exécution constante requise sur l'assortiment.",maitre:"Fenêtres de dégâts resserrées, une mauvaise couleur devient vite létale, coordination Overdrive plus stricte (tuning précis à confirmer en jeu)."},
+     roles:{tank:"Positionner/espacer/regrouper les jumelles selon la phase ; gérer l'aggro double.",heal:"Rester groupés pour l'efficacité ; purger ; anticiper les Wiper Beams.",dps:"Priorité absolue à l'assortiment de couleur ; burn équilibré des deux jumelles puis focus unique ; interrompre/burn l'Overdrive."},
+     traps:["Mauvaise couleur face au Purification Beam (le plus punitif).","Overdrive non stoppé (soin ennemi).","Mauvais regroupement pendant les Wiper Beams."]},
+
+    {name:"Nahut, fils de l'Ombre",type:"Furtivité + placement + tourelles",
+     strategy:"Nahut cherche à rester camouflé : on utilise la suppression (bougie) pour le rendre visible. On gère les pins, les cercles de Mass Distortion et la Singularité, puis une phase de tourelles avant un burn final sous une salle qui se remplit de foudre.",
+     mechanics:["<b>Camouflage</b> — la bougie (~15 s, ~40 s de recharge) force sa visibilité : gérer la rotation.","<b>« Preparing the Field »</b> — pose des pins (dégâts / aggro parasite).","<b>Mass Distortion</b> — dégâts au mouvement puis cercles bleus ; <b>Singularité</b> — déni de zone.","<b>Tourelles</b> — DPS dédiés amènent 5 tourelles à ~39 % ; <b>Burn final</b> — la foudre remplit la salle."],
+     modes:{histoire:"Avantages de visibilité, marge large.",veteran:"Exécution serrée (bougie, pins, seuil des tourelles).",maitre:"Dégâts et complexité accrus ; gestion furtivité/tourelles plus punitive (ajouts précis à confirmer en jeu)."},
+     roles:{tank:"Tenir la bougie et positionner Nahut ; coordonner la suppression ; poser les cercles de Mass Distortion loin du groupe.",heal:"Se placer hors pins/cercles ; maintenir le groupe pendant le kiting.",dps:"Boss + adds ; joueurs assignés détruisent les tourelles (~39 %) ; burn final avant la foudre."},
+     traps:["Pins provoquant une aggro non voulue.","Échec de suppression (boss intuable).","Tourelles non amenées au seuil ; DPS insuffisant (foudre)."]},
+
+    {name:"Scyva, mère des Chagrins",type:"Multi-phases à objectifs + DPS check",
+     strategy:"Phases distinctes : mini-boss/adds, destruction des tourelles ferroviaires, puis engagement de Scyva. Le point critique est le DPS : un DPS élevé permet d'écourter/sauter l'Extinction Protocol (cercles rouges qui one-shot).",
+     mechanics:["<b>Phase mini-boss</b> — détruire les cibles initiales.","<b>Phase tourelles</b> — détruire les rail turrets.","<b>Extinction Protocol</b> — cercles AoE rouges canalisés qui tuent instantanément : les fuir / les éviter par un burst suffisant.","<b>Scyva</b> — gestion de placement en phase finale."],
+     modes:{histoire:"Possibilité de « sauter » des phases grâce au DPS ; mécaniques indulgentes.",veteran:"Optimisation DPS et placement requis.",maitre:"Mécaniques strictement appliquées, tuning nettement plus dur (ajouts précis à confirmer en jeu)."},
+     roles:{tank:"Gestion de la menace par phase ; positionnement de Scyva.",heal:"Soins rapides lors des transitions ; anticiper l'Extinction Protocol.",dps:"Maximiser le burst pour écourter/éviter les phases d'Extinction Protocol."},
+     traps:["DPS trop faible → Extinction Protocol inévitable (one-shot).","Mauvaise gestion des transitions ; erreurs de placement en phase finale."]},
+
+    {name:"Izax, le Destructeur",type:"Boss final — 4 phases / endurance",
+     strategy:"Rencontre finale longue en 4 phases : esquive des griffes sous bouclier, énigme des drones/amplificateurs pour charger et rediriger un faisceau, gestion de tethers/boutons pour canaliser un omnicanon, puis burn. Survie à l'Induction Cascade et coordination des taunts vitales. Historiquement l'un des boss les plus durs du jeu.",
+     mechanics:["<b>Induction Cascade</b> — AoE bleu sur un joueur aléatoire (gros dégâts) : <em>se séparer du groupe</em> + défensives.","<b>Vulnérabilité de mêlée</b> — un 2e balayage pendant le débuff = fatal.","<b>Radiation accumulée</b> — +25 % dégâts subis par stack.","<b>P1 Dodge Claw</b> — un tank « bait » gère les balayages, le groupe se stacke.","<b>P2 Chaos Theory</b> — énigme drones/amplificateurs → faisceau à 3 stacks dans la barrière.","<b>P3 Fry It</b> — tethers + boutons pour l'omnicanon (taunts essentiels) ; <b>P4 Purple Orb</b> — burn."],
+     modes:{histoire:"Conçu avant le Maître ; bug connu limitant les résurrections après la première (gérer les rez).",veteran:"Rencontre déjà exigeante, référence du fight.",maitre:"Escalade majeure des dégâts et mécaniques ; pensé pour dépasser Revan à sa sortie (détails/adds supplémentaires à confirmer en jeu)."},
+     roles:{tank:"1 tank « bait » gère les balayages (jamais 2e balayage sous débuff) ; taunts fiables sur les tethers en P3 ; le tank-mécanique tient les amplificateurs et cycle son débuff.",heal:"Maintenir le groupe sur un combat long ; gérer la Radiation et les pics d'Induction Cascade ; économiser les ressources.",dps:"Exécuter les mécaniques (amplificateurs, faisceau 3 stacks) en gardant le DPS ; survivre à l'Induction Cascade (isolement + défensives)."},
+     traps:["Induction Cascade qui se propage à un groupe mal espacé.","Taunts manqués sur les tethers (P3) ; faisceau mal dirigé.","Tank-mécanique qui perd l'aggro de l'amplificateur ; épuisement des ressources (combat long)."]}
+  ],
+  loot:"Titre « Fléau des Dieux Machine » (Maître) ; équipement de fin de progression, décorations et succès « Gods »."
+});
+
+OPS.push({
+  id:'r4',abbr:'R-4',name:"L'Anomalie R-4",en:"R-4 Anomaly",
+  era:"Récentes (5.x / 7.x)",
+  lieu:"Mek-Sha (secteur R-4)",bosses:4,group:"8 joueurs uniquement",
+  modes:{histoire:true,veteran:true,maitre:false},
+  modeNote:"<strong>Pas de mode Maître</strong> : c'était la première opé de niveau 80 et le Maître n'a jamais été livré (état 2026 confirmé). <strong>Pas de version 16 joueurs</strong> non plus — 8 joueurs uniquement. Compo type : 1 tank, 2 heals, 5 DPS (au moins un DPS avec taunt).",
+  access:"Niveau 80 + abonnement. Avancer la trame « Secrets Unmasked » (suite de Dxun) pour débloquer l'entrée, puis le quai de droite à Mek-Sha (prérequis exact à confirmer en jeu).",
+  encounters:[
+    {name:"IP-CPT",type:"Placement + énigme (consoles) + burn",
+     strategy:"Six phases alternant « boss + hazards » et « adds + consoles ». Pendant les hazards, survivre aux motifs de feu et lasers ; pendant les adds, désactiver les boucliers des droïdes via 4 consoles d'angle (formes), puis les tuer avant leur explosion. À 25 %, phase de burn avec enrage.",
+     mechanics:["<b>Feu au sol + lasers muraux</b> — télégraphés, motifs par phase ; rester dans le feu applique un débuff cumulatif (+dégâts subis).","<b>Grenades collantes</b> — le porteur de la grande va dans un angle vide, les petits s'écartent ; 1 seul joueur touché maximum.","<b>Consoles + Intrusion ID Units</b> — 4 consoles d'angle (une forme chacune) : un joueur par console clique jusqu'à faire tomber le bouclier, puis brûler le droïde avant son cast (Blast Protocol, ~30 s).","<b>Enforcer Droids</b> — gros adds (Overload à focus d'abord) ; <b>Burn (~25 %)</b> — enrage."],
+     modes:{histoire:"Adds n'apparaissent qu'après les hazards ; enrage burn ~60 s ; débuffs peu punitifs.",veteran:"Enrage burn ~45 s ; Escalating Exposure = <em>mort scriptée à 5 stacks</em> (discipline de placement extrême) ; chaque détonation ajoute 1 stack de vulnérabilité ; grenade à purger ; DPS distance doivent se tenir dans le cercle de l'Enforcer (chiffres à confirmer en jeu)."},
+     roles:{tank:"Prend un Enforcer chacun (ou solo tank avec swaps à 3-4 stacks) ; espacer pour éviter les recouvrements ; gère le placement des consoles.",heal:"Purge les DoT des Enforcers ; en VM purge impérative des débuffs de grenade ; peut prendre un tour de console.",dps:"Opérateurs de console (spam clic, aucune pénalité) ; focus les Intrusion ID Units avant leur cast ; annoncer la forme suivante ; rester dans les cercles des Enforcers (VM)."},
+     traps:["Droïde qui termine Blast Protocol (bouclier non tombé).","Enrage du burn dépassé (surtout VM à 45 s).","VM : atteindre 5 stacks d'Escalating Exposure (mort scriptée) ; grenade non purgée."]},
+
+    {name:"Watchdog",type:"Polarité (couleurs) + kiting",
+     strategy:"Mécanique de polarité : bombes orange (négatif) ou bleu (positif). Ne jamais chevaucher le cercle d'un autre porteur. On gère en parallèle les missiles, un débuff de mouvement, et une phase Degauss où l'on dépose les bombes par couleur pour empêcher le boss de gagner des buffs.",
+     mechanics:["<b>Bombes polarisées</b> — orange ou bleu par joueur : <em>ne pas se tenir dans le cercle d'un autre porteur</em>.","<b>Missile Blast</b> — cercle rouge sous chaque joueur : en sortir avant l'impact.","<b>Targeted Watchdog Protocol</b> — la moitié du groupe reçoit un débuff : <em>rester immobile</em> (le mouvement génère des stacks fatals) ; utiliser des capacités est sans risque.","<b>Degauss / Stalker / Invert</b> — déposer orange dans le carré jaune, bleu dans le rectangle rouge ; <b>Polarized Beam</b> — un joueur de la couleur assortie intercepte pendant que le tank kite."],
+     modes:{histoire:"Mécaniques indulgentes ; collisions et missiles pardonnent.",veteran:"Pas de nouvelles mécaniques mais elles « comptent » : chevaucher deux cercles = dégâts massifs sur le raid ; atteindre la phase Targeted Protocol = signe de DPS trop bas."},
+     roles:{tank:"Gère l'aggro et le kiting ; appelle les intercepteurs de Polarized Beam (couleur opposée à sa bombe) ; recule pendant les casts.",heal:"Positionnement prioritaire (missiles + polarité) ; soins concentrés sur le tank pendant les faisceaux ; ne pas bouger sous Targeted Protocol.",dps:"Adhérence mécanique stricte ; déposer sa bombe à la bonne couleur/zone ; intercepter les faisceaux quand sa couleur correspond."},
+     traps:["Chevauchement de deux cercles-bombes (wipe en VM).","Se déplacer sous Targeted Watchdog Protocol (stacks fatals).","Bombe de la mauvaise couleur (le boss se buff) ; ne pas sortir des missiles."]},
+
+    {name:"Lord Kanoth",type:"Contrôle de terrain (Nihrot) + adds",
+     strategy:"Précédé du couloir de trash « Nihrot Hallway ». Tout tourne autour du Nihrot (creep rouge) qui buff le boss : on nettoie constamment les tuiles avec les grenades de suppression, et les sondes de feu pour le Nihrot durci. Objectif : ne jamais laisser le sol se couvrir. Seuils à 65/35/25/15 %.",
+     mechanics:["<b>Grenade de suppression</b> (~11 s) — retire le Nihrot non durci d'une tuile : à utiliser en boucle.","<b>Sonde de feu</b> — seul moyen de retirer le Nihrot durci (croix de 5 tuiles).","<b>Seed of Echoes</b> — 4 joueurs marqués se répartissent sur des tuiles différentes (2 sur la même = spawn de Nihrot).","<b>65 %</b> — Monstruosité (retirer sa Carapace) + Surging Growth (spawn accéléré) ; <b>35 %</b> — Choking Growth + Whispers (Shockwave/Blastwave : se placer au bon coin)."],
+     modes:{histoire:"Solo-tankable, pas de tank swap ; Seeds peu punitifs ; Walled Garden inerte.",veteran:"Tank swap à 3 stacks d'Infesting Strike (5 = Nihrot sur toute la salle → wipe) ; Seed of Echoes bien plus punitif (DoT de brûlure, stacking interdit) ; adds en Phase 2 (la plus dure) — 3 adds = DPS trop bas (repères et chiffres à confirmer en jeu)."},
+     roles:{tank:"Garde le boss hors du Nihrot ; dos loin des bords (knockback) ; évite les sondes de feu ; en VM discipline stricte des 3 stacks + aide au nettoyage.",heal:"Gère les pics des Seeds (surtout VM avec DoT) ; coordonne les défensives.",dps:"Priorité au nettoyage du Nihrot et au respect des tuiles ; focus des Monstruosités (Carapace d'abord) ; gestion des adds en VM P2 ; placement précis sous Shockwave/Blastwave."},
+     traps:["Laisser le sol se couvrir de Nihrot (boss quasi-immortel).","Mauvaise zone sûre sous Shockwave/Blastwave (35 %).","VM : tank à 5 stacks d'Infesting Strike ; trop d'adds par manque de DPS."]},
+
+    {name:"Lady Dominique",type:"Boss final — multi-phases / placement + swap",
+     strategy:"Quatre phases (5 en Vétéran). On désactive les générateurs d'énergie en gérant les attaques et les adds Grey Swarm. P1 : empêcher la boss de « voir » et détruire les droïdes en la tournant dos à eux et en cassant son bouclier Insulate pour interrompre son channel mortel. Phases suivantes : générateurs, knockbacks en ricochet, Attractors, puis burn.",
+     mechanics:["<b>P1 Slicing ARIA</b> — tourner la boss dos aux droïdes ; après chaque slice : Incite (knockback) → Insulate (bouclier réfléchissant : se coller à <5 m pour le casser) → casse = stun qui interrompt Devastation (channel 30 s = wipe).","<b>P2 Générateurs</b> — le tank prend des stacks de Shadow Resonance (−10 % soins/stack) → swap avant 10 stacks ; amener les Detonators aux générateurs.","<b>P3 Recursive Blast</b> — 4 joueurs marqués : s'aligner au centre, flèches parallèles au chemin (sinon chute) ; Attractors à focus (boss immunisée 30 s après déploiement).","<b>P4 Burn</b> — 3e paire d'Attractors blindés : burn rapide en gérant le flot d'adds."],
+     modes:{histoire:"4 phases ; swaps de tank plus tolérants ; pas de phase Watchdog.",veteran:"Nouvelle Phase 3 « Watchdog » insérée en plein combat (missiles, polarité, Polarized Beam) → 5 phases ; cercle orange plus grand que le joueur ; knockback jaune affecte tout le raid ; tank swap durci (7 → 4 stacks) ; tanks Ombre recommandés (valeurs à confirmer en jeu)."},
+     roles:{tank:"Solo-tank possible avec swap par DPS taunt ; gère les stacks Shadow Resonance ; empile les adds pour le cleave ; positionne les Detonators près des générateurs ; ne pas trop s'éloigner de la boss.",heal:"Forcer le déplacement hors des cercles Disquiet ; soins réduits sous Shadow Resonance ; couvrir les Polarized Beam (P3 VM).",dps:"Au moins un DPS avec taunt (obligatoire) ; gap-closers pour revenir après knockback ; focus rapide des Attractors ; alignement strict au Recursive Blast ; AoE max en burn."},
+     traps:["Boss qui voit et détruit un droïde (P1) ; Devastation complété (bouclier non cassé).","Mauvais alignement au Recursive Blast (chute).","Shadow Resonance à 10 stacks sans swap ; trop d'adds en burn ; en VM, phase Watchdog gérée comme le boss 2."]}
+  ],
+  loot:"Équipement niv. 80 (gearing endgame) ; titre « True Anomaly » via les succès Marks of Mastery en Vétéran."
+});
+
+//__OPS_END__
+
+/* ================= APP ================= */
+(function(){
+  const nav=document.getElementById('nav');
+  const main=document.getElementById('main');
+  const eras=[];
+  OPS.forEach(o=>{if(!eras.includes(o.era))eras.push(o.era);});
+
+  function dot(on,cls){return `<span class="mdot ${on?'on-'+cls:'off'}"></span>`;}
+
+  function buildNav(){
+    let html=`<div class="navgroup"><button class="navitem" data-id="__home"><span class="ab">◈</span><span class="nm">Accueil · Matrice</span><span class="mdots"></span></button></div>`;
+    eras.forEach(era=>{
+      html+=`<div class="navgroup"><h4>${era}</h4>`;
+      OPS.filter(o=>o.era===era).forEach(o=>{
+        html+=`<button class="navitem" data-id="${o.id}"><span class="ab">${o.abbr}</span><span class="nm">${o.name}</span><span class="mdots">${dot(o.modes.histoire,'h')}${dot(o.modes.veteran,'v')}${dot(o.modes.maitre,'m')}</span></button>`;
+      });
+      html+=`</div>`;
+    });
+    nav.innerHTML=html;
+    nav.querySelectorAll('.navitem').forEach(b=>b.addEventListener('click',()=>{go(b.dataset.id);closeNav();}));
+  }
+
+  function modeBlock(mode,cls,label,text,available){
+    if(!available) return `<div class="mode-block na"><div class="mbh">${label} — Indisponible</div><p>Ce mode n'existe pas pour cette opération.</p></div>`;
+    if(!text) return '';
+    return `<div class="mode-block m-${cls}"><div class="mbh">${label}</div><p>${text}</p></div>`;
+  }
+
+  function encHTML(e,i,op){
+    const m=e.modes||{};
+    let modes='';
+    modes+=modeBlock('histoire','histoire','Histoire',m.histoire,op.modes.histoire);
+    modes+=modeBlock('veteran','veteran','Vétéran',m.veteran,op.modes.veteran);
+    modes+=op.modes.maitre?modeBlock('maitre','maitre','Maître',m.maitre,true):modeBlock('maitre','maitre','Maître',null,false);
+    return `<article class="enc" id="${op.id}-b${i+1}">
+      <div class="enc-head">
+        <div class="enc-num">${i+1}</div>
+        <div class="enc-htext"><div class="enc-name">${e.name}</div><span class="enc-type">${e.type}</span></div>
+      </div>
+      <div class="enc-body">
+        <div class="block"><div class="bh">Stratégie</div><div class="strat">${e.strategy}</div></div>
+        <div class="block"><div class="bh">Mécaniques clés</div><ul class="mech">${e.mechanics.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+        <div class="block"><div class="bh">Différences par mode</div><div class="modes">${modes}</div></div>
+        <div class="block"><div class="bh">Callouts par rôle</div><div class="roles">
+          <div class="role tank"><div class="rh"><span class="tag"></span>Tank</div><p>${e.roles.tank}</p></div>
+          <div class="role heal"><div class="rh"><span class="tag"></span>Heal</div><p>${e.roles.heal}</p></div>
+          <div class="role dps"><div class="rh"><span class="tag"></span>DPS</div><p>${e.roles.dps}</p></div>
+        </div></div>
+        <div class="block"><div class="traps"><div class="th">⚠ Pièges &amp; causes de wipe</div><ul>${e.traps.map(x=>`<li>${x}</li>`).join('')}</ul></div></div>
+      </div>
+    </article>`;
+  }
+
+  function opHTML(op){
+    const mb=(on,cls,l)=>`<span class="mbadge ${on?'on-'+cls:'off'}">${l}</span>`;
+    const subnav=op.encounters.map((e,i)=>`<a href="#${op.id}-b${i+1}"><span class="idx">${i+1}</span>${e.name}</a>`).join('');
+    return `<section class="op-hero">
+        <div class="op-eyebrow"><span class="code">${op.abbr}</span><span>${op.era}</span></div>
+        <h1 class="op-title">${op.name}</h1>
+        <div class="op-en">${op.en}</div>
+        <div class="op-meta">
+          <span class="metatag"><b>Lieu</b> ${op.lieu}</span>
+          <span class="metatag"><b>Boss</b> ${op.bosses}</span>
+          <span class="metatag"><b>Groupe</b> ${op.group}</span>
+        </div>
+        <div class="mode-badges">${mb(op.modes.histoire,'h','Histoire')}${mb(op.modes.veteran,'v','Vétéran')}${mb(op.modes.maitre,'m','Maître')}</div>
+        <p class="op-note">${op.modeNote}</p>
+        <p class="op-access"><b style="font-family:var(--font-mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)">Accès</b> &nbsp;${op.access}</p>
+      </section>
+      <div class="filter-banner for-maitre ${op.modes.maitre?'':'show'}"><span class="fbdot"></span><div>Cette opération <strong>n'a pas de mode Maître</strong>. ${op.modeNote}</div></div>
+      <div class="bossnav">${subnav}</div>
+      ${op.encounters.map((e,i)=>encHTML(e,i,op)).join('')}
+      ${op.loot?`<div class="enc"><div class="enc-body"><div class="block" style="margin-top:14px"><div class="bh">Récompenses notables</div><p style="font-size:.92rem;color:var(--muted);margin:0">${op.loot}</p></div></div></div>`:''}`;
+  }
+
+  function homeHTML(){
+    const rows=OPS.map(o=>`<tr>
+      <td class="opn" data-id="${o.id}"><span class="opabbr">${o.abbr}</span>${o.name}</td>
+      <td class="c">${o.modes.histoire?'<span class="yes">✓</span>':'<span class="no">—</span>'}</td>
+      <td class="c">${o.modes.veteran?'<span class="yesv">✓</span>':'<span class="no">—</span>'}</td>
+      <td class="c">${o.modes.maitre?'<span style="color:var(--maitre);font-weight:700">✓</span>':'<span class="no">—</span>'}</td>
+      <td style="color:var(--muted)">${o.lieu}</td>
+      <td class="c" style="color:var(--muted)">${o.bosses}</td>
+    </tr>`).join('');
+    return `<section class="landing">
+      <div class="op-eyebrow" style="color:var(--brand-2)"><span class="code" style="border-color:color-mix(in srgb,var(--brand) 40%,transparent);color:var(--brand)">11 OPÉRATIONS</span><span>Aide-mémoire de raid</span></div>
+      <h2 style="margin-top:12px">Fiches de stratégie des opérations</h2>
+      <p class="lead">Une fiche par opération : accès, boss, et pour chaque affrontement la stratégie, les mécaniques, ce qui change en Histoire / Vétéran / Maître, et les callouts par rôle. Choisis une opération dans le menu, ou filtre par mode en haut à droite.</p>
+      <div style="overflow-x:auto"><table class="matrix">
+        <thead><tr><th>Opération</th><th style="text-align:center">Histoire</th><th style="text-align:center">Vétéran</th><th style="text-align:center">Maître</th><th>Lieu</th><th style="text-align:center">Boss</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table></div>
+      <div class="legend">
+        <div class="li"><span class="sw" style="background:var(--histoire)"></span>Histoire — mode récit, indulgent</div>
+        <div class="li"><span class="sw" style="background:var(--veteran)"></span>Vétéran — ex-« Hard Mode »</div>
+        <div class="li"><span class="sw" style="background:var(--maitre)"></span>Maître — ex-« Cauchemar / Nightmare »</div>
+      </div>
+      <div class="disclaimer"><strong>À propos des modes :</strong> 5 opérations n'ont pas de mode Maître : la Voûte de l'Éternité et le Palais de Karagga (Maître retiré au patch 4.0), les Ravageurs, le Temple du Sacrifice et l'Anomalie R-4 (Maître jamais sorti). Le Vétéran y est la difficulté maximale.</div>
+    </section>`;
+  }
+
+  function go(id){
+    if(id==='__home'||!id){main.innerHTML=homeHTML();main.querySelectorAll('.opn').forEach(t=>t.addEventListener('click',()=>go(t.dataset.id)));}
+    else{const op=OPS.find(o=>o.id===id);if(!op){go('__home');return;}main.innerHTML=opHTML(op);}
+    nav.querySelectorAll('.navitem').forEach(b=>b.classList.toggle('active',b.dataset.id===(id||'__home')));
+    try{history.replaceState(null,'','#'+(id||'__home'));}catch(e){}
+    main.scrollIntoView({block:'start'});window.scrollTo({top:0});
+    applyFilterDim();
+  }
+
+  /* mode filter */
+  const chips=[...document.querySelectorAll('.chip')];
+  function setFilter(mode){
+    document.body.setAttribute('data-mode-filter',mode);
+    chips.forEach(c=>c.setAttribute('aria-pressed',c.dataset.mode===mode));
+    applyFilterDim();
+  }
+  function applyFilterDim(){
+    const mode=document.body.getAttribute('data-mode-filter')||'all';
+    nav.querySelectorAll('.navitem').forEach(b=>{
+      const op=OPS.find(o=>o.id===b.dataset.id);
+      b.classList.toggle('dimmed', mode!=='all' && op && op.modes && op.modes[mode]===false);
+    });
+  }
+  chips.forEach(c=>c.addEventListener('click',()=>setFilter(c.dataset.mode)));
+
+  /* theme */
+  const root=document.documentElement;
+  const tkey='swtor-codex-theme';
+  try{const s=localStorage.getItem(tkey);if(s)root.setAttribute('data-theme',s);}catch(e){}
+  document.getElementById('themeToggle').addEventListener('click',()=>{
+    const cur=root.getAttribute('data-theme');
+    const dark=cur?cur==='dark':window.matchMedia('(prefers-color-scheme:dark)').matches;
+    const next=dark?'light':'dark';root.setAttribute('data-theme',next);
+    try{localStorage.setItem(tkey,next);}catch(e){}
+  });
+
+  /* mobile nav */
+  const body=document.body;
+  function closeNav(){body.classList.remove('nav-open');}
+  document.getElementById('menuToggle').addEventListener('click',()=>body.classList.toggle('nav-open'));
+  document.getElementById('sideScrim').addEventListener('click',closeNav);
+
+  buildNav();
+  setFilter('all');
+  const start=(location.hash||'').replace('#','');
+  go(start&&(start==='__home'||OPS.find(o=>o.id===start))?start:'__home');
+})();
+</script>
+
+</body>
+</html>

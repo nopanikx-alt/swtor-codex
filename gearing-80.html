@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Codex du Gearing 80</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#eef1f7;--surface:#fff;--surface-2:#f4f7fc;--raised:#fff;
+  --border:#d9deea;--border-strong:#c1cbdd;
+  --ink:#171c27;--muted:#586074;--faint:#8b93a6;
+  --brand:#0d7fa4;--brand-2:#0b6787;
+  --gear:#b07d1a;--gear-2:#8a6210;
+  --good:#2c8a58;--good-bg:rgba(44,138,88,.10);
+  --warn:#a8720f;--warn-bg:rgba(168,114,15,.12);
+  --crit:#c23a3a;--crit-bg:rgba(194,58,58,.09);
+  --shadow:0 1px 2px rgba(20,28,45,.06),0 8px 24px rgba(20,28,45,.08);
+  --shadow-sm:0 1px 2px rgba(20,28,45,.06);
+  --fd:'Chakra Petch',ui-sans-serif,system-ui,sans-serif;
+  --fb:'Barlow',ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --fm:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --maxw:1040px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0a0d15;--surface:#111725;--surface-2:#0d121e;--raised:#151d2e;
+  --border:#212a3e;--border-strong:#31405a;
+  --ink:#e6ecf6;--muted:#98a4bc;--faint:#697488;
+  --brand:#54c6e8;--brand-2:#7ad3ef;
+  --gear:#e2ad4e;--gear-2:#f0c274;
+  --good:#5fc186;--good-bg:rgba(95,193,134,.13);
+  --warn:#e4a63f;--warn-bg:rgba(228,166,63,.13);
+  --crit:#ef5f59;--crit-bg:rgba(239,95,89,.12);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 34px rgba(0,0,0,.5);--shadow-sm:0 1px 2px rgba(0,0,0,.4);
+}}
+:root[data-theme="dark"]{
+  --bg:#0a0d15;--surface:#111725;--surface-2:#0d121e;--raised:#151d2e;
+  --border:#212a3e;--border-strong:#31405a;
+  --ink:#e6ecf6;--muted:#98a4bc;--faint:#697488;
+  --brand:#54c6e8;--brand-2:#7ad3ef;
+  --gear:#e2ad4e;--gear-2:#f0c274;
+  --good:#5fc186;--good-bg:rgba(95,193,134,.13);
+  --warn:#e4a63f;--warn-bg:rgba(228,166,63,.13);
+  --crit:#ef5f59;--crit-bg:rgba(239,95,89,.12);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 34px rgba(0,0,0,.5);--shadow-sm:0 1px 2px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--fb);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body{
+  background-image:radial-gradient(1200px 620px at 78% -8%,rgba(84,198,232,.09),transparent 60%),radial-gradient(900px 500px at 8% 4%,rgba(226,173,78,.08),transparent 60%);background-attachment:fixed}}
+:root[data-theme="dark"] body{
+  background-image:radial-gradient(1200px 620px at 78% -8%,rgba(84,198,232,.09),transparent 60%),radial-gradient(900px 500px at 8% 4%,rgba(226,173,78,.08),transparent 60%);background-attachment:fixed}
+a{color:var(--brand);text-decoration:none}a:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:6px}
+h1,h2,h3,h4{font-family:var(--fd);font-weight:600;text-wrap:balance;margin:0;line-height:1.18}
+
+/* topbar (identique au site) */
+.topbar{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.topbar-in{max-width:var(--maxw);margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.crest{width:38px;height:38px;flex:none;border-radius:9px;display:grid;place-items:center;background:linear-gradient(150deg,var(--brand),color-mix(in srgb,var(--brand) 40%,#7a5bd0));color:#04141a;font-family:var(--fd);font-weight:700;font-size:15px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+.wordmark{display:flex;flex-direction:column;line-height:1.05;min-width:0}
+.wordmark b{font-family:var(--fd);font-weight:700;font-size:1.05rem;letter-spacing:.3px}
+.wordmark span{font-family:var(--fm);font-size:.64rem;letter-spacing:.15em;text-transform:uppercase;color:var(--faint)}
+.top-spacer{flex:1 1 auto}
+.verbadge{font-family:var(--fm);font-size:.68rem;font-weight:600;letter-spacing:.08em;color:var(--brand);border:1px solid color-mix(in srgb,var(--brand) 40%,transparent);border-radius:7px;padding:5px 9px;white-space:nowrap}
+.iconbtn{width:38px;height:38px;flex:none;border-radius:9px;border:1px solid var(--border);background:var(--surface-2);color:var(--muted);cursor:pointer;display:grid;place-items:center;transition:.15s}
+.iconbtn:hover{color:var(--ink);border-color:var(--border-strong);text-decoration:none}
+
+/* layout */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+.main{padding:24px 0 80px}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border:1px solid var(--border);border-radius:16px;background:linear-gradient(135deg,color-mix(in srgb,var(--gear) 13%,var(--surface)),var(--surface) 62%);padding:26px 26px;box-shadow:var(--shadow)}
+.hero::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--gear),transparent 48%)}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(620px 220px at 92% -30%,color-mix(in srgb,var(--gear) 20%,transparent),transparent 70%);pointer-events:none}
+.hero .ey{font-family:var(--fm);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gear-2);display:flex;align-items:center;gap:10px;position:relative;z-index:1}
+.hero .ey .dot{width:7px;height:7px;border-radius:50%;background:var(--gear)}
+.hero h1{font-size:clamp(1.9rem,4.6vw,2.7rem);margin:13px 0 6px;letter-spacing:.3px;position:relative;z-index:1}
+.hero p{color:var(--muted);max-width:64ch;position:relative;z-index:1;margin:0}
+.hero .badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px;position:relative;z-index:1}
+.badge{font-size:.82rem;font-family:var(--fm);background:color-mix(in srgb,var(--surface) 72%,transparent);border:1px solid var(--border);border-radius:9px;padding:6px 11px;color:var(--muted)}
+.badge b{color:var(--gear-2);font-weight:600}
+
+/* section head */
+.sec{margin-top:32px}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:var(--fm);font-weight:600;font-size:.72rem;color:var(--gear-2);border:1px solid color-mix(in srgb,var(--gear) 42%,transparent);border-radius:6px;padding:3px 7px;flex:none}
+.sec-head h2{font-family:var(--fd);font-weight:600;font-size:1.2rem}
+.sec-note{color:var(--faint);font-size:.92rem;margin:0 0 16px}
+
+/* key insight */
+.keybox{position:relative;overflow:hidden;border:1px solid color-mix(in srgb,var(--gear) 32%,var(--border));border-radius:15px;background:linear-gradient(135deg,color-mix(in srgb,var(--gear) 10%,var(--surface)),var(--surface) 65%);padding:22px 24px;box-shadow:var(--shadow-sm);margin-top:26px}
+.keybox::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(var(--gear),var(--gear-2))}
+.keybox .k-lab{font-family:var(--fm);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gear-2);font-weight:600}
+.keybox h3{font-family:var(--fd);font-size:1.32rem;font-weight:600;margin:8px 0 9px}
+.keybox p{margin:0;color:var(--muted)}
+.keybox p b{color:var(--ink)}
+
+/* roadmap */
+.road{display:flex;flex-direction:column;margin-top:6px}
+.step{position:relative;display:grid;grid-template-columns:56px 1fr;gap:18px;padding-bottom:22px}
+.step::before{content:"";position:absolute;left:27px;top:6px;bottom:-4px;width:2px;background:var(--border)}
+.step:last-child::before{display:none}
+.step .badge-n{position:relative;z-index:2;width:48px;height:48px;border-radius:12px;display:grid;place-items:center;font-family:var(--fd);font-weight:700;font-size:1.35rem;background:var(--surface);border:1px solid var(--border-strong);color:var(--gear-2);box-shadow:var(--shadow-sm)}
+.step.hot .badge-n{background:linear-gradient(140deg,var(--gear),var(--gear-2));color:#1c1305;border-color:transparent}
+.step .body{padding-top:2px;min-width:0}
+.step h3{font-family:var(--fd);font-size:1.14rem;font-weight:600;margin:0 0 4px;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.step .time{font-family:var(--fm);font-size:.66rem;letter-spacing:.05em;color:var(--faint);border:1px solid var(--border);border-radius:999px;padding:2px 9px;font-weight:400}
+.step ul{margin:6px 0 0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.step li{position:relative;padding-left:18px;color:var(--muted);font-size:.95rem}
+.step li::before{content:"";position:absolute;left:2px;top:9px;width:6px;height:6px;border-radius:1.5px;background:var(--gear);transform:rotate(45deg);opacity:.8}
+.step li b{color:var(--ink);font-weight:600}
+.step .out{margin-top:9px;font-size:.88rem;color:var(--good);background:var(--good-bg);border-radius:9px;padding:8px 12px;display:inline-block}
+.step .warnline{margin-top:9px;font-size:.88rem;color:var(--warn);background:var(--warn-bg);border-radius:9px;padding:8px 12px;display:inline-block}
+
+/* cadence */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px}
+.card{border:1px solid var(--border);border-radius:15px;background:var(--surface);padding:22px;box-shadow:var(--shadow-sm)}
+.card .ch{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.card h3{font-family:var(--fd);font-size:1.22rem;font-weight:600}
+.card .tag{font-family:var(--fm);font-size:.68rem;letter-spacing:.04em;color:var(--faint);display:block;margin-top:3px}
+.card .reset{font-family:var(--fm);font-size:.68rem;color:var(--brand);background:color-mix(in srgb,var(--brand) 10%,transparent);border:1px solid color-mix(in srgb,var(--brand) 30%,transparent);padding:3px 9px;border-radius:999px;white-space:nowrap}
+.checklist{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:2px}
+.checklist label{display:flex;gap:11px;align-items:flex-start;cursor:pointer;padding:9px 8px;border-radius:9px;transition:background .15s}
+.checklist label:hover{background:var(--surface-2)}
+.checklist input{appearance:none;-webkit-appearance:none;flex:0 0 auto;margin-top:2px;width:18px;height:18px;border-radius:5px;border:1.5px solid var(--border-strong);background:var(--surface-2);cursor:pointer;position:relative;transition:.15s}
+.checklist input:checked{background:var(--gear);border-color:var(--gear)}
+.checklist input:checked::after{content:"";position:absolute;left:5.5px;top:2px;width:5px;height:9px;border:solid #1c1305;border-width:0 2px 2px 0;transform:rotate(42deg)}
+.checklist input:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.checklist .txt{font-size:.93rem;color:var(--muted);transition:.15s}
+.checklist input:checked ~ .txt{color:var(--faint);text-decoration:line-through;text-decoration-color:var(--border-strong)}
+.checklist .txt b{color:var(--ink);font-weight:600}
+.checklist input:checked ~ .txt b{color:var(--faint)}
+.plain{pointer-events:none}
+.plain li::before{content:none}
+.plain label{padding:7px 0}
+
+/* tables */
+.twrap{overflow-x:auto;border:1px solid var(--border);border-radius:15px;box-shadow:var(--shadow-sm);margin-top:6px}
+table{border-collapse:collapse;width:100%;min-width:560px;background:var(--surface)}
+thead th{font-family:var(--fm);font-weight:600;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;text-align:left;color:var(--faint);padding:12px 15px;background:var(--surface-2);border-bottom:1px solid var(--border-strong);white-space:nowrap}
+tbody td{padding:12px 15px;border-bottom:1px solid var(--border);font-size:.92rem;color:var(--muted);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:color-mix(in srgb,var(--ink) 4%,transparent)}
+td b{color:var(--ink);font-weight:600}
+.ir{font-family:var(--fm);font-weight:600;color:var(--gear-2);white-space:nowrap}
+.cap{font-family:var(--fm);font-variant-numeric:tabular-nums;color:var(--muted)}
+.conv{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+.conv .c{font-family:var(--fm);font-size:.8rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:9px 13px;color:var(--muted)}
+.conv .c b{color:var(--gear-2);font-weight:600}
+.conv .c .arw{color:var(--faint);margin:0 7px}
+
+/* slots */
+.slots{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:13px;margin-top:6px}
+.slot{border:1px solid var(--border);border-radius:13px;background:var(--surface);padding:16px 17px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
+.slot::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gear)}
+.slot .n{font-family:var(--fd);font-weight:700;font-size:1.7rem;color:var(--gear-2);line-height:1}
+.slot .t{font-family:var(--fd);font-weight:600;margin:6px 0 3px;font-size:1rem;color:var(--ink)}
+.slot p{margin:0;font-size:.86rem;color:var(--faint)}
+.slot p b{color:var(--muted)}
+.slots-note{margin:14px 0 0;font-size:.9rem;color:var(--faint)}
+.slots-note b{color:var(--muted)}
+
+/* pitfalls */
+.pits{display:flex;flex-direction:column;gap:11px;margin-top:6px}
+.pit{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:15px 17px;box-shadow:var(--shadow-sm)}
+.pit .ic{font-family:var(--fm);font-weight:600;font-size:.64rem;letter-spacing:.06em;padding:4px 8px;border-radius:7px;white-space:nowrap;margin-top:1px}
+.pit.stop .ic{color:var(--crit);background:var(--crit-bg)}
+.pit.tip .ic{color:var(--brand);background:color-mix(in srgb,var(--brand) 10%,transparent)}
+.pit.watch .ic{color:var(--warn);background:var(--warn-bg)}
+.pit p{margin:0;font-size:.93rem;color:var(--muted)}
+.pit p b{color:var(--ink)}
+
+/* footer */
+.footer{max-width:var(--maxw);margin:20px auto 0;padding:22px 20px 46px;color:var(--faint);font-size:.82rem;border-top:1px solid var(--border)}
+.footer .resume{color:var(--muted);margin-bottom:12px}
+.footer .resume b{color:var(--ink)}
+.footer .src{display:flex;flex-wrap:wrap;gap:7px 16px;margin-bottom:12px}
+.footer .src a{color:var(--brand)}
+
+@media (max-width:720px){
+  .grid2{grid-template-columns:1fr}
+  .step{grid-template-columns:46px 1fr;gap:13px}
+  .step::before{left:22px}
+  .step .badge-n{width:40px;height:40px;font-size:1.15rem}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="topbar-in">
+  <div class="brand"><div class="crest">80</div><div class="wordmark"><b>Codex du Gearing</b><span>SWTOR · Route niveau 80</span></div></div>
+  <div class="top-spacer"></div>
+  <span class="verbadge">Patch 7.9.1</span>
+  <a class="iconbtn" href="index.html" title="Accueil" aria-label="Accueil"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></a>
+  <button class="iconbtn" id="themeToggle" aria-label="Thème clair / sombre"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+</div></div>
+
+<main class="wrap main">
+
+  <header class="hero">
+    <div class="ey"><span class="dot"></span> Star Wars: The Old Republic · Août 2026</div>
+    <h1>Équiper son perso au niveau&nbsp;80</h1>
+    <p>La route la plus rapide, du set 324 vert jusqu'au cap d'équipement, en y passant le minimum de temps. Ce qu'il faut faire chaque jour, chaque semaine, et l'ordre exact des étapes.</p>
+    <div class="badges">
+      <span class="badge">Cap standard <b>340</b></span>
+      <span class="badge">Track Rakata <b>344</b></span>
+      <span class="badge">Objectif réaliste <b>340 bleu</b></span>
+      <span class="badge">Reset hebdo <b>mardi</b></span>
+    </div>
+  </header>
+
+  <!-- KEY -->
+  <div class="keybox">
+    <div class="k-lab">◆ L'astuce qui change tout</div>
+    <h3>Hyde &amp; Zeek : farme 2 pièces, débloque le set entier</h3>
+    <p>Tu n'as besoin de farmer qu'<b>UNE seule pièce bleue 340</b> et <b>UNE seule pièce violette 340</b>. Tu les « sacrifies » (déconstruction) chez <b>Hyde &amp; Zeek</b>, dans le couloir des Fournitures de la Flotte, pour débloquer un set complet <b>moddable équivalent 340</b>. Ce déblocage est valable pour <b>tous les persos de ton compte</b> — c'est ce qui transforme des semaines de farm en quelques jours. Tout le reste de la roadmap sert juste à obtenir ces deux pièces.</p>
+  </div>
+
+  <!-- ROADMAP -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-num">01</span><h2>La route rapide, étape par étape</h2></div>
+    <p class="sec-note">Suivie dans l'ordre, cette séquence t'amène à un stuff « fini pour tout le contenu » en quelques jours de jeu tranquille.</p>
+    <div class="road">
+
+      <div class="step">
+        <div class="badge-n">0</div>
+        <div class="body">
+          <h3>Prérequis dès l'arrivée 80 <span class="time">10 min</span></h3>
+          <ul>
+            <li>Va aux <b>Fournitures (Supplies)</b> sur la Flotte de ta faction.</li>
+            <li>Prends la quête des implants légendaires <b>« Technological Advancements »</b> (PNJ Lonndar&nbsp;Eadwinn).</li>
+            <li>Repère les 3 vendeurs clés : <b>vendeur Conquête</b>, <b>vendeur Flashpoint / Opérations</b>, et <b>Hyde&nbsp;&amp;&nbsp;Zeek</b>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="badge-n">1</div>
+        <div class="body">
+          <h3>Set de base 324 vert <span class="time">~30 min</span></h3>
+          <ul>
+            <li>Fais <b>1 Conquête</b> (100&nbsp;000 pts perso) → <b>200 Emblèmes de Conquête</b>.</li>
+            <li>Achète le set complet <b>324 Noble Decurion</b> chez le vendeur Conquête : 7 pièces d'armure, arme(s), oreillette, 2 implants, 2 reliques.</li>
+          </ul>
+          <span class="out">✓ Tu es immédiatement fonctionnel pour tout le contenu solo.</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="badge-n">2</div>
+        <div class="body">
+          <h3>Implants légendaires = ton set bonus <span class="time">1er jour</span></h3>
+          <ul>
+            <li>Termine la quête, puis achète <b>2 implants légendaires DIFFÉRENTS</b> (≈ 6&nbsp;500 Fragments Tech + 100 Emblèmes + 25&nbsp;000 crédits chacun).</li>
+            <li>Ils démarrent en <b>326</b> et montent jusqu'à <b>340</b>. Ne prends jamais 2 fois le même : les effets ne se cumulent pas.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="badge-n">3</div>
+        <div class="body">
+          <h3>Monte les accessoires à 338 <span class="time">passif</span></h3>
+          <ul>
+            <li>Avec ~<b>2&nbsp;000 Emblèmes de Conquête</b>, upgrade <b>oreillette + 2 reliques + 2 implants</b> jusqu'à ~338.</li>
+            <li>Étape lente mais tranquille, qui rend toutes les suivantes bien plus rapides.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step hot">
+        <div class="badge-n">4</div>
+        <div class="body">
+          <h3>Obtiens UNE pièce bleue 340 <span class="time">clé</span></h3>
+          <ul>
+            <li>Le plus rapide : enchaîne les <b>Flashpoints Vétéran</b> (weeklies) pour les Stabilisateurs FP-1, ou tente les drops (≈ 5 chances sur 14 par boss).</li>
+            <li>Alternative garantie : <b>1 Opération Vétéran</b>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step hot">
+        <div class="badge-n">5</div>
+        <div class="body">
+          <h3>Débloque le set bleu 340 complet chez Hyde &amp; Zeek <span class="time">le tournant</span></h3>
+          <ul>
+            <li>Prends leur quête, puis <b>déconstruis ta pièce bleue 340</b> → accès à l'armure <b>bleue 340 moddable</b> pour tout le compte.</li>
+          </ul>
+          <span class="out">✓ 90 % des joueurs peuvent s'arrêter ici : largement suffisant pour tout le contenu.</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="badge-n">6</div>
+        <div class="body">
+          <h3>Optionnel — UNE pièce violette 340 → mods violets <span class="time">optionnel</span></h3>
+          <ul>
+            <li>Récupère une pièce <b>violette 340</b> (Ops Master/Vétéran, ou caisses d'amélioration) et re-déconstruis chez H&amp;Z pour débloquer les <b>enhancements violets</b> (le petit gain de stats final).</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="badge-n">7</div>
+        <div class="body">
+          <h3>Augments — la vraie dernière étape stat <span class="time">gros crédits</span></h3>
+          <ul>
+            <li><b>14 emplacements.</b> Mets des <b>Augments Avancés 74</b> (rapport qualité/prix imbattable) ; réserve les <b>Supérieurs 77</b> au contenu Master.</li>
+            <li>N'augmente qu'<b>une fois ton item rating et ta qualité finaux atteints</b>.</li>
+          </ul>
+          <span class="warnline">⚠ Augmenter trop tôt = kits gaspillés à chaque upgrade de pièce.</span>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="badge-n">8</div>
+        <div class="body">
+          <h3>Hardcore only — Set Rakata 344 <span class="time">semaines</span></h3>
+          <ul>
+            <li>12 pièces, chacune = des semaines de farm en Opérations. À ne viser que si tu <b>raid en Master</b>. Sinon, temps perdu pour un gain minime.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CADENCE -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-num">02</span><h2>La routine à tenir</h2></div>
+    <p class="sec-note">Coche au fur et à mesure — ta progression est mémorisée sur cet appareil. Le vrai carburant, c'est la Conquête + les weeklies de FP/Ops.</p>
+    <div class="grid2">
+      <div class="card">
+        <div class="ch"><div><h3>Chaque jour</h3><span class="tag">Se réinitialise tous les jours</span></div><span class="reset">~15–30 min</span></div>
+        <ul class="checklist" data-store="daily">
+          <li><label><input type="checkbox"><span class="txt"><b>Objectifs de Conquête répétables</b> — les plus rentables en points/minute, ils remplissent ta barre de 100&nbsp;000.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Journalières + héroïques</b> d'une zone → crédits, Fragments Tech et monnaie d'un coup.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>1 Flashpoint Vétéran</b> (tant que tu montes encore ton stuff) pour les FP-1.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt">Déposer les drops utiles / ranger l'inventaire pour Hyde&nbsp;&amp;&nbsp;Zeek.</span></label></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="ch"><div><h3>Chaque semaine</h3><span class="tag">Le gros des gains de stuff</span></div><span class="reset">reset mardi</span></div>
+        <ul class="checklist" data-store="weekly">
+          <li><label><input type="checkbox"><span class="txt"><b>Conquête perso complète</b> (100&nbsp;000 pts) sur ton main → 200 Emblèmes. Répète sur tes alts pour en accumuler plus.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Weeklies de Flashpoints</b> (Vétéran/Master) pour les Stabilisateurs FP-1.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt"><b>Weeklies d'Opérations</b> (SM/VM/MM) pour les Catalyseurs OP-1 — le meilleur stuff.</span></label></li>
+          <li><label><input type="checkbox"><span class="txt">Récupérer et <b>convertir tes caisses d'amélioration</b> (3 caisses d'un tier → 1 du tier supérieur).</span></label></li>
+          <li><label><input type="checkbox"><span class="txt">Weekly <b>PvP</b> (4 victoires) si tu veux du stuff Thyrsian → Accélérateurs WZ-1.</span></label></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CURRENCIES -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-num">03</span><h2>Les 5 monnaies</h2></div>
+    <p class="sec-note">Elles se convertissent entre elles — inutile de farmer une seule activité.</p>
+    <div class="twrap">
+      <table>
+        <thead><tr><th>Monnaie</th><th>Source</th><th>Sert à</th><th>Cap</th></tr></thead>
+        <tbody>
+          <tr><td><b>Fragments Tech</b></td><td>Presque toutes les activités</td><td>Implants légendaires, tacticals, cosmétiques, mats</td><td class="cap">—</td></tr>
+          <tr><td><b>Emblèmes de Conquête</b></td><td>Conquête (200 / perso / semaine)</td><td>Set de base 324 + accessoires + implants</td><td class="cap">4 000</td></tr>
+          <tr><td><b>Stabilisateurs FP-1</b></td><td>Flashpoints (weeklies + boss)</td><td>Upgrades — la voie solo / casual</td><td class="cap">2 500</td></tr>
+          <tr><td><b>Catalyseurs OP-1</b></td><td>Opérations (weeklies + boss)</td><td>Le meilleur équipement</td><td class="cap">1 200</td></tr>
+          <tr><td><b>Accélérateurs WZ-1</b></td><td>PvP uniquement</td><td>Équipement PvP Thyrsian</td><td class="cap">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="conv">
+      <span class="c"><b>400</b> Emblèmes <span class="arw">→</span> <b>100</b> FP-1</span>
+      <span class="c"><b>2 000</b> Emblèmes <span class="arw">→</span> <b>175</b> OP-1</span>
+      <span class="c"><b>500</b> FP-1 <span class="arw">→</span> <b>175</b> OP-1</span>
+      <span class="c"><b>200</b> (au choix) <span class="arw">→</span> <b>200</b> Fragments Tech</span>
+    </div>
+  </section>
+
+  <!-- ITEM RATINGS -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Paliers &amp; tracks d'équipement</h2></div>
+    <div class="twrap">
+      <table>
+        <thead><tr><th>Track</th><th>Qualité</th><th>Source</th><th>Item rating</th></tr></thead>
+        <tbody>
+          <tr><td><b>Noble Decurion</b></td><td>Vert</td><td>Conquête</td><td class="ir">324 → 340 (344)</td></tr>
+          <tr><td><b>Elite / Supreme Decurion</b></td><td>Vert / Bleu</td><td>Flashpoints</td><td class="ir">→ 340</td></tr>
+          <tr><td><b>Columi / Rakata</b></td><td>Bleu / Violet</td><td>Opérations</td><td class="ir">340 / 344</td></tr>
+          <tr><td><b>Thyrsian</b></td><td>→ Violet</td><td>PvP</td><td class="ir">→ 336</td></tr>
+          <tr><td><b>Implants légendaires</b></td><td>Set bonus</td><td>Quête + Fragments Tech</td><td class="ir">326 → 340</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="slots-note">En clair : <b>324</b> = départ · <b>340</b> = le cap réaliste et l'objectif de 90 % des joueurs · <b>344 Rakata</b> = le sommet réservé aux raiders Master.</p>
+  </section>
+
+  <!-- SLOTS -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-num">05</span><h2>Ce que tu équipes</h2></div>
+    <div class="slots">
+      <div class="slot"><div class="n">7</div><div class="t">Pièces d'armure</div><p>Tête, torse, mains, ceinture, jambes, pieds, poignets.</p></div>
+      <div class="slot"><div class="n">2</div><div class="t">Armes</div><p>Principale (+ secondaire selon la classe).</p></div>
+      <div class="slot"><div class="n">1</div><div class="t">Oreillette</div><p>Slot de stats simple.</p></div>
+      <div class="slot"><div class="n">2</div><div class="t">Implants légendaires</div><p>= ton <b>set bonus</b>. Deux implants <b>différents</b>.</p></div>
+      <div class="slot"><div class="n">2</div><div class="t">Reliques</div><p>Effets proc / stats à l'activation.</p></div>
+      <div class="slot"><div class="n">1</div><div class="t">Tactical</div><p>Slot à part : un effet qui <b>modifie ta rotation</b>. Surtout en Fragments Tech.</p></div>
+    </div>
+    <p class="slots-note">Les <b>14 emplacements d'augment</b> = les 7 armures + 2 armes + oreillette + 2 implants + 2 reliques.</p>
+  </section>
+
+  <!-- AUGMENTS -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-num">06</span><h2>Augments — le dernier palier</h2></div>
+    <div class="grid2">
+      <div class="card">
+        <h3>Quels augments</h3>
+        <ul class="checklist plain">
+          <li><label><span class="txt"><b>Avancé 74</b> (IR 276) — quasiment le même stat secondaire que le 77 pour une fraction du prix. <b>Le choix par défaut.</b></span></label></li>
+          <li><label><span class="txt"><b>Supérieur 77</b> (IR 300) — le top, mais mats très chers (drops Ops Master + PvP). Uniquement pour l'optimisation Master.</span></label></li>
+        </ul>
+        <p class="slots-note">Coût d'un set complet : ≈ <b>7 à 30 M crédits</b> selon le tier choisi.</p>
+      </div>
+      <div class="card">
+        <h3>Priorité des stats (DPS / heal)</h3>
+        <ul class="checklist plain">
+          <li><label><span class="txt"><b>1. Précision</b> jusqu'au palier (110 % / ~1590 en Ops vét+).</span></label></li>
+          <li><label><span class="txt"><b>2. Alacrité</b> jusqu'à ton breakpoint de classe.</span></label></li>
+          <li><label><span class="txt"><b>3. Critique</b> — tout le reste.</span></label></li>
+        </ul>
+        <p class="slots-note">Pour les répartitions exactes par discipline, voir le <a href="fiches-optimisation-7.7.html">Codex de l'Optimisation</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PITFALLS -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-num">07</span><h2>Pièges &amp; astuces</h2></div>
+    <div class="pits">
+      <div class="pit stop"><span class="ic">STOP</span><p><b>Ne cours pas après le 344 Rakata</b> si tu ne raid pas en Master : des semaines de farm pour un gain de stats minime.</p></div>
+      <div class="pit watch"><span class="ic">ATTENTION</span><p><b>N'augmente pas trop tôt.</b> Les augments se détruisent à chaque upgrade de pièce — attends ton item rating final.</p></div>
+      <div class="pit watch"><span class="ic">ATTENTION</span><p><b>DPS : vise 110 % de précision</b> avant les Opérations vétéran/master, sinon tes attaques ratent.</p></div>
+      <div class="pit tip"><span class="ic">ASTUCE</span><p><b>« Accessory trick »</b> : garde des accessoires 338 à bord vert équipés pour déclencher de meilleures récompenses dans les caisses d'amélioration d'Opérations.</p></div>
+      <div class="pit tip"><span class="ic">ASTUCE</span><p><b>Mélange les activités.</b> Conquête, journalières, héroïques et FP alimentent tous le même pool de monnaie.</p></div>
+      <div class="pit tip"><span class="ic">ASTUCE</span><p><b>Flashpoints en furtif :</b> un groupe de 4 qui stealth et skip les cinématiques boucle un FP Vétéran en quelques minutes.</p></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p class="resume"><b>Résumé express</b> — 1 Conquête → set 324 → 2 implants légendaires → 1 pièce bleue 340 → Hyde &amp; Zeek → set 340 complet → augments 74. Le reste est optionnel.</p>
+  <div class="src">
+    <span style="color:var(--muted)">Sources :</span>
+    <a href="https://swtorista.com/articles/swtor-level-80-gearing-guide/">Swtorista — Gearing 80</a>
+    <a href="https://swtorista.com/articles/fastest-way-to-gear-up-at-level-80-in-swtor-guide/">Fastest Gearing</a>
+    <a href="https://swtorista.com/articles/legendary-implants/">Legendary Implants</a>
+    <a href="https://vulkk.com/2023/01/14/swtor-7-2-endgame-gearing-guide/">VULKK — Endgame Gearing</a>
+    <a href="https://huttspawn.com/explainers/gearing/augments">Huttspawn — Augments</a>
+  </div>
+  <p>Aide-mémoire non officiel · à jour du patch 7.9.1 (août 2026). Le prochain palier arrivera avec l'extension 8.0 (en test / PTS). Star Wars: The Old Republic™ appartient à BioWare / Electronic Arts / Lucasfilm.</p>
+</footer>
+
+<script>
+  const root=document.documentElement, tkey='swtor-codex-theme';
+  try{const s=localStorage.getItem(tkey);if(s)root.setAttribute('data-theme',s);}catch(e){}
+  document.getElementById('themeToggle').addEventListener('click',()=>{
+    const cur=root.getAttribute('data-theme');
+    const dark=cur?cur==='dark':window.matchMedia('(prefers-color-scheme:dark)').matches;
+    const next=dark?'light':'dark';root.setAttribute('data-theme',next);
+    try{localStorage.setItem(tkey,next);}catch(e){}
+  });
+  document.querySelectorAll('.checklist[data-store]').forEach(function(list){
+    const key='swtor-gear-chk-'+list.getAttribute('data-store');
+    const boxes=list.querySelectorAll('input[type=checkbox]');
+    let stored=[];try{stored=JSON.parse(localStorage.getItem(key)||'[]');}catch(e){stored=[];}
+    boxes.forEach(function(b,i){ if(stored[i]) b.checked=true;
+      b.addEventListener('change',function(){
+        const state=[];boxes.forEach(x=>state.push(x.checked));
+        try{localStorage.setItem(key,JSON.stringify(state));}catch(e){}
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
