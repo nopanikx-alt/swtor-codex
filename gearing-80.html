@@ -189,6 +189,42 @@ td b{color:var(--ink);font-weight:600}
   .step .badge-n{width:40px;height:40px;font-size:1.15rem}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* timeline de priorité */
+:root{--purple:#7a5bd0;--purple-2:#6446b8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--purple:#b39bf0;--purple-2:#c7b4f5}}
+:root[data-theme="dark"]{--purple:#b39bf0;--purple-2:#c7b4f5}
+.tl{display:flex;align-items:stretch;gap:10px;margin-top:6px}
+.tl-phase{flex:1;position:relative;border:1px solid var(--border);border-radius:13px;background:var(--surface);padding:14px 16px;box-shadow:var(--shadow-sm)}
+.tl-phase .tl-n{font-family:var(--fm);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gear-2);font-weight:600}
+.tl-phase h4{font-family:var(--fd);font-size:1rem;font-weight:600;margin:5px 0 6px}
+.tl-phase p{margin:0;font-size:.88rem;color:var(--muted)}
+.tl-phase p b{color:var(--ink)}
+.tl-arw{flex:none;align-self:center;color:var(--faint);font-size:1.2rem;line-height:1}
+@media (max-width:720px){.tl{flex-direction:column}.tl-arw{transform:rotate(90deg);align-self:center;margin:-2px 0}}
+
+/* voies parallèles */
+.tracks{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+@media (max-width:860px){.tracks{grid-template-columns:1fr}}
+.track{position:relative;overflow:hidden;border:1px solid var(--border);border-radius:15px;background:var(--surface);padding:20px 20px 18px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column}
+.track::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--t-accent)}
+.track.fast{--t-accent:var(--good)}
+.track.core{--t-accent:var(--brand)}
+.track.end{--t-accent:var(--purple)}
+.track .t-head{margin-bottom:4px}
+.track .t-tag{font-family:var(--fm);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--t-accent);border:1px solid color-mix(in srgb,var(--t-accent) 40%,transparent);border-radius:999px;padding:3px 9px;display:inline-block}
+.track h3{font-family:var(--fd);font-size:1.08rem;font-weight:600;margin:9px 0 4px}
+.track .t-goal{margin:0 0 12px;font-size:.88rem;color:var(--muted)}
+.track ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;flex:1}
+.track ol li{position:relative;padding-left:22px;font-size:.9rem;color:var(--muted);counter-increment:tstep}
+.track ol{counter-reset:tstep}
+.track ol li::before{content:counter(tstep);position:absolute;left:0;top:0;width:16px;height:16px;border-radius:5px;background:color-mix(in srgb,var(--t-accent) 18%,transparent);color:var(--t-accent);font-family:var(--fm);font-size:.62rem;font-weight:700;display:grid;place-items:center}
+.track ol li b{color:var(--ink);font-weight:600}
+.track .t-items{margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:.84rem;color:var(--faint)}
+.track .t-items b{color:var(--muted);font-weight:600}
+.track .t-cur{margin-top:8px;font-family:var(--fm);font-size:.76rem;color:var(--t-accent)}
+.tracks-note{margin:16px 0 0;font-size:.9rem;color:var(--faint)}
+.tracks-note b{color:var(--muted)}
 </style>
 </head>
 <body>
@@ -217,117 +253,79 @@ td b{color:var(--ink);font-weight:600}
   <!-- KEY -->
   <div class="keybox">
     <div class="k-lab">◆ L'astuce qui change tout</div>
-    <h3>Hyde &amp; Zeek : farme 2 pièces, débloque le set entier</h3>
-    <p>Tu n'as besoin de farmer qu'<b>UNE seule pièce bleue 340</b> et <b>UNE seule pièce violette 340</b>. Tu les « sacrifies » (déconstruction) chez <b>Hyde &amp; Zeek</b>, dans le couloir des Fournitures de la Flotte, pour débloquer un set complet <b>moddable équivalent 340</b>. Ce déblocage est valable pour <b>tous les persos de ton compte</b> — c'est ce qui transforme des semaines de farm en quelques jours. Tout le reste de la roadmap sert juste à obtenir ces deux pièces.</p>
+    <h3>Hyde &amp; Zeek : débloque l'achat des mods 340 au crédit</h3>
+    <p>Tu n'as besoin de farmer qu'<b>UNE seule pièce bleue 340</b> (et en option <b>UNE pièce violette 340</b>). Tu les déconstruis chez <b>Hyde &amp; Zeek</b>, dans le couloir des Fournitures de la Flotte : ça débloque, pour <b>tout le compte</b>, l'<b>achat au crédit</b> des armurages / mods / enhancements de qualité équivalente. Ensuite tu achètes ces mods et tu les glisses dans des <b>coques Legacy moddables</b> — un set bleu 340 complet coûte environ <b>2,5 M de crédits</b>. Tout le reste de la roadmap sert juste à obtenir cette première pièce.</p>
   </div>
 
   <!-- ROADMAP -->
   <section class="sec">
-    <div class="sec-head"><span class="sec-num">01</span><h2>La route rapide, étape par étape</h2></div>
-    <p class="sec-note">Suivie dans l'ordre, cette séquence t'amène à un stuff « fini pour tout le contenu » en quelques jours de jeu tranquille.</p>
-    <div class="road">
+    <div class="sec-head"><span class="sec-num">01</span><h2>Les voies parallèles</h2></div>
+    <p class="sec-note">Trois choses avancent en même temps, pas les unes après les autres. Voici l'ordre de priorité, puis le détail de chaque voie.</p>
 
-      <div class="step">
-        <div class="badge-n">0</div>
-        <div class="body">
-          <h3>Prérequis dès l'arrivée 80 <span class="time">10 min</span></h3>
-          <ul>
-            <li>Va aux <b>Fournitures (Supplies)</b> sur la Flotte de ta faction.</li>
-            <li>Prends la quête des implants légendaires <b>« Technological Advancements »</b> (PNJ Lonndar&nbsp;Eadwinn).</li>
-            <li>Repère les 3 vendeurs clés : <b>vendeur Conquête</b>, <b>vendeur Flashpoint / Opérations</b>, et <b>Hyde&nbsp;&amp;&nbsp;Zeek</b>.</li>
-          </ul>
-        </div>
+    <div class="tl">
+      <div class="tl-phase">
+        <div class="tl-n">Jour 1 — en parallèle</div>
+        <h4>Lance les deux voies de front</h4>
+        <p>Prends la quête des <b>implants légendaires</b> (voie de fond) <b>ET</b> monte une pièce bon marché à <b>340</b> (voie rapide).</p>
+      </div>
+      <div class="tl-arw">→</div>
+      <div class="tl-phase">
+        <div class="tl-n">Le tournant · sem. 1-2</div>
+        <h4>Déconstruis chez Zeek</h4>
+        <p>Débloque l'<b>achat du set 340 moddable</b> au crédit (~2,5&nbsp;M). ~<b>95&nbsp;%</b> des joueurs sont « finis » ici.</p>
+      </div>
+      <div class="tl-arw">→</div>
+      <div class="tl-phase">
+        <div class="tl-n">En continu / end-game</div>
+        <h4>Finitions</h4>
+        <p>Monte tes <b>2 implants</b> à 340, augments une fois le rating final atteint. <b>Rakata 344</b> + enhancements violets seulement si tu raid Vétéran/Master.</p>
+      </div>
+    </div>
+
+    <div class="tracks">
+
+      <div class="track fast">
+        <div class="t-head"><span class="t-tag">Jour 1 → sem. 1-2</span></div>
+        <h3>Voie rapide · débloquer les mods 340 (Zeek)</h3>
+        <p class="t-goal">Objectif : un set complet <b>340 moddable</b>, le plus vite possible.</p>
+        <ol>
+          <li>Tu es déjà ~<b>324</b> en arrivant 80 → n'achète <b>pas</b> le set vert (au mieux comble un trou), garde tes Emblèmes.</li>
+          <li>Monte <b>une pièce</b> sur l'emplacement le moins cher (<b>ceinture / brassards</b> ou <b>oreillette</b>) à <b>340</b> — via Emblèmes de Conquête, ou un drop bleu en Flashpoint Vétéran (Red Reaper).</li>
+          <li><b>Déconstruis-la chez Hyde &amp; Zeek</b> (couloir Fournitures, Flotte) → débloque l'<b>achat des mods 340 bleus au crédit</b> (~100k/mod), valable pour tout le compte.</li>
+          <li>Achète armurages + mods + enhancements et mets-les dans des <b>coques Legacy moddables</b> → <b>~2,5&nbsp;M</b> pour le set complet.</li>
+        </ol>
+        <div class="t-items"><b>Items concernés :</b> 7 armures + 2 armes → coques Legacy ; chaque pièce = armurage (ou hilt/barrel pour les armes) + mod + enhancement.</div>
+        <div class="t-cur">Monnaie : Emblèmes de Conquête (monter la pièce) + Crédits (les mods)</div>
       </div>
 
-      <div class="step">
-        <div class="badge-n">1</div>
-        <div class="body">
-          <h3>Set de base 324 vert <span class="time">~30 min</span></h3>
-          <ul>
-            <li>Fais <b>1 Conquête</b> (100&nbsp;000 pts perso) → <b>200 Emblèmes de Conquête</b>.</li>
-            <li>Achète le set complet <b>324 Noble Decurion</b> chez le vendeur Conquête : 7 pièces d'armure, arme(s), oreillette, 2 implants, 2 reliques.</li>
-          </ul>
-          <span class="out">✓ Tu es immédiatement fonctionnel pour tout le contenu solo.</span>
-        </div>
+      <div class="track core">
+        <div class="t-head"><span class="t-tag">Lance en premier, tourne en fond</span></div>
+        <h3>Voie de fond · implants légendaires (= set bonus)</h3>
+        <p class="t-goal">Objectif : ton <b>set bonus</b> et ton plus gros gain de puissance. Le plus long → à démarrer jour 1.</p>
+        <ol>
+          <li>Dès le jour 1 : quête <b>« Technological Advancements »</b> (PNJ Lonndar&nbsp;Eadwinn, Fournitures).</li>
+          <li>Achète <b>2 implants légendaires DIFFÉRENTS</b> (≈ 6&nbsp;500 Fragments Tech + 100 Emblèmes + 25&nbsp;000 crédits chacun). Jamais 2 fois le même (effets non cumulables).</li>
+          <li>Monte-les de <b>326 → 340</b> (Fragments Tech ; ~65k pour le 1er, bien moins cher pour le 2e une fois la remise débloquée).</li>
+        </ol>
+        <div class="t-items"><b>Items concernés :</b> 2 implants (= tes 2 emplacements de set bonus).</div>
+        <div class="t-cur">Monnaie : Fragments Tech (+ Emblèmes)</div>
       </div>
 
-      <div class="step">
-        <div class="badge-n">2</div>
-        <div class="body">
-          <h3>Implants légendaires = ton set bonus <span class="time">1er jour</span></h3>
-          <ul>
-            <li>Termine la quête, puis achète <b>2 implants légendaires DIFFÉRENTS</b> (≈ 6&nbsp;500 Fragments Tech + 100 Emblèmes + 25&nbsp;000 crédits chacun).</li>
-            <li>Ils démarrent en <b>326</b> et montent jusqu'à <b>340</b>. Ne prends jamais 2 fois le même : les effets ne se cumulent pas.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="badge-n">3</div>
-        <div class="body">
-          <h3>Monte les accessoires à 338 <span class="time">passif</span></h3>
-          <ul>
-            <li>Avec ~<b>2&nbsp;000 Emblèmes de Conquête</b>, upgrade <b>oreillette + 2 reliques + 2 implants</b> jusqu'à ~338.</li>
-            <li>Étape lente mais tranquille, qui rend toutes les suivantes bien plus rapides.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="step hot">
-        <div class="badge-n">4</div>
-        <div class="body">
-          <h3>Obtiens UNE pièce bleue 340 <span class="time">clé</span></h3>
-          <ul>
-            <li>Le plus rapide : enchaîne les <b>Flashpoints Vétéran</b> (weeklies) pour les Stabilisateurs FP-1, ou tente les drops (≈ 5 chances sur 14 par boss).</li>
-            <li>Alternative garantie : <b>1 Opération Vétéran</b>.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="step hot">
-        <div class="badge-n">5</div>
-        <div class="body">
-          <h3>Débloque le set bleu 340 complet chez Hyde &amp; Zeek <span class="time">le tournant</span></h3>
-          <ul>
-            <li>Prends leur quête, puis <b>déconstruis ta pièce bleue 340</b> → accès à l'armure <b>bleue 340 moddable</b> pour tout le compte.</li>
-          </ul>
-          <span class="out">✓ 90 % des joueurs peuvent s'arrêter ici : largement suffisant pour tout le contenu.</span>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="badge-n">6</div>
-        <div class="body">
-          <h3>Optionnel — UNE pièce violette 340 → mods violets <span class="time">optionnel</span></h3>
-          <ul>
-            <li>Récupère une pièce <b>violette 340</b> (Ops Master/Vétéran, ou caisses d'amélioration) et re-déconstruis chez H&amp;Z pour débloquer les <b>enhancements violets</b> (le petit gain de stats final).</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="badge-n">7</div>
-        <div class="body">
-          <h3>Augments — la vraie dernière étape stat <span class="time">gros crédits</span></h3>
-          <ul>
-            <li><b>14 emplacements.</b> Mets des <b>Augments Avancés 74</b> (rapport qualité/prix imbattable) ; réserve les <b>Supérieurs 77</b> au contenu Master.</li>
-            <li>N'augmente qu'<b>une fois ton item rating et ta qualité finaux atteints</b>.</li>
-          </ul>
-          <span class="warnline">⚠ Augmenter trop tôt = kits gaspillés à chaque upgrade de pièce.</span>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="badge-n">8</div>
-        <div class="body">
-          <h3>Hardcore only — Set Rakata 344 <span class="time">semaines</span></h3>
-          <ul>
-            <li>12 pièces, chacune = des semaines de farm en Opérations. À ne viser que si tu <b>raid en Master</b>. Sinon, temps perdu pour un gain minime.</li>
-          </ul>
-        </div>
+      <div class="track end">
+        <div class="t-head"><span class="t-tag">Raiders seulement</span></div>
+        <h3>Voie end-game · Rakata 344 / violet</h3>
+        <p class="t-goal">Objectif : le dernier % de stats. Uniquement si tu fais des <b>Opérations Vétéran/Master</b>.</p>
+        <ol>
+          <li>Farme les <b>Opérations</b> (weeklies + boss) pour les <b>Catalyseurs OP-1</b> (~75/run, ~140 avec le weekly Vétéran).</li>
+          <li>Récupère une pièce <b>violette 340</b> → <b>2e quête Zeek</b> → débloque l'achat des <b>enhancements violets</b> (~200k pièce). Seuls les enhancements passent violets → remplace-les (petit gain offensif).</li>
+          <li>Set <b>Rakata 344</b> : achète les pièces chez le <b>vendeur Opérations</b> (démarrent ~324), monte-les à <b>344</b> avec les OP-1 (moddables). ~12 pièces, chacune = semaines de farm.</li>
+        </ol>
+        <div class="t-items"><b>Items concernés :</b> pièces Rakata (armures + armes) 340→344 ; + 1 pièce violette 340 pour les enhancements.</div>
+        <div class="t-cur">Monnaie : Catalyseurs OP-1 (Opérations)</div>
       </div>
 
     </div>
+    <p class="tracks-note">Les voies <b>Fond</b> et <b>Rapide</b> se lancent le jour 1 en parallèle. La voie <b>End-game</b> ne concerne que les raiders — ne la commence pas si tu ne fais pas d'Ops Vétéran+.</p>
   </section>
 
   <!-- CADENCE -->
@@ -444,6 +442,7 @@ td b{color:var(--ink);font-weight:600}
       <div class="pit stop"><span class="ic">STOP</span><p><b>Ne cours pas après le 344 Rakata</b> si tu ne raid pas en Master : des semaines de farm pour un gain de stats minime.</p></div>
       <div class="pit watch"><span class="ic">ATTENTION</span><p><b>N'augmente pas trop tôt.</b> Les augments se détruisent à chaque upgrade de pièce — attends ton item rating final.</p></div>
       <div class="pit watch"><span class="ic">ATTENTION</span><p><b>DPS : vise 110 % de précision</b> avant les Opérations vétéran/master, sinon tes attaques ratent.</p></div>
+      <div class="pit tip"><span class="ic">ASTUCE</span><p><b>Full moddable sans risque</b> — en 7.0+, ton set bonus vient des 2 <b>implants légendaires</b>, pas de tes pièces d'armure : tu peux tout passer en coques moddables 340 sans jamais perdre ton bonus de set.</p></div>
       <div class="pit tip"><span class="ic">ASTUCE</span><p><b>« Accessory trick »</b> : garde des accessoires 338 à bord vert équipés pour déclencher de meilleures récompenses dans les caisses d'amélioration d'Opérations.</p></div>
       <div class="pit tip"><span class="ic">ASTUCE</span><p><b>Mélange les activités.</b> Conquête, journalières, héroïques et FP alimentent tous le même pool de monnaie.</p></div>
       <div class="pit tip"><span class="ic">ASTUCE</span><p><b>Flashpoints en furtif :</b> un groupe de 4 qui stealth et skip les cinématiques boucle un FP Vétéran en quelques minutes.</p></div>
@@ -453,7 +452,7 @@ td b{color:var(--ink);font-weight:600}
 </main>
 
 <footer class="footer">
-  <p class="resume"><b>Résumé express</b> — 1 Conquête → set 324 → 2 implants légendaires → 1 pièce bleue 340 → Hyde &amp; Zeek → set 340 complet → augments 74. Le reste est optionnel.</p>
+  <p class="resume"><b>Résumé express</b> — déjà ~324 → implants (fond) + 1 pièce bleue 340 (rapide) → Zeek → achat des mods 340 au crédit (~2,5 M) → coques Legacy → augments.</p>
   <div class="src">
     <span style="color:var(--muted)">Sources :</span>
     <a href="https://swtorista.com/articles/swtor-level-80-gearing-guide/">Swtorista — Gearing 80</a>
@@ -461,6 +460,8 @@ td b{color:var(--ink);font-weight:600}
     <a href="https://swtorista.com/articles/legendary-implants/">Legendary Implants</a>
     <a href="https://vulkk.com/2023/01/14/swtor-7-2-endgame-gearing-guide/">VULKK — Endgame Gearing</a>
     <a href="https://huttspawn.com/explainers/gearing/augments">Huttspawn — Augments</a>
+    <a href="https://ivano1337.substack.com/p/swtor-75-gearing-guide-how-to-unlock">Ivano1337 — Débloquer les mods 340</a>
+    <a href="https://www.admiralnicksswtorguides.com/gearing-guides/gearing-to-340">Admiral Nick's — Gearing to 340</a>
   </div>
   <p>Aide-mémoire non officiel · à jour du patch 7.9.1 (août 2026). Le prochain palier arrivera avec l'extension 8.0 (en test / PTS). Star Wars: The Old Republic™ appartient à BioWare / Electronic Arts / Lucasfilm.</p>
 </footer>
