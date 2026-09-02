@@ -11,7 +11,7 @@
 :root{
   --bg:#eef1f7;--surface:#fff;--surface-2:#f4f7fc;--border:#d9deea;--border-strong:#c1cbdd;
   --ink:#171c27;--muted:#586074;--faint:#8b93a6;--brand:#0d7fa4;--brand-2:#0b6787;
-  --dps:#c67a3d;--heal:#2c8a58;--tank:#4f8fce;--purple:#7a5bd0;--gear:#b07d1a;
+  --dps:#c67a3d;--heal:#2c8a58;--tank:#4f8fce;--purple:#7a5bd0;--gear:#b07d1a;--craft:#1f9e6e;--craft-2:#177c57;
   --shadow:0 1px 2px rgba(20,28,45,.06),0 10px 30px rgba(20,28,45,.10);
   --shadow-sm:0 1px 2px rgba(20,28,45,.06);
   --fd:'Chakra Petch',ui-sans-serif,system-ui,sans-serif;--fb:'Barlow',ui-sans-serif,system-ui,sans-serif;
@@ -20,13 +20,13 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#0a0d15;--surface:#111725;--surface-2:#0d121e;--border:#212a3e;--border-strong:#31405a;
   --ink:#e6ecf6;--muted:#98a4bc;--faint:#697488;--brand:#54c6e8;--brand-2:#7ad3ef;
-  --dps:#e6a066;--heal:#5fc186;--tank:#8bc0ec;--purple:#a98be6;--gear:#e2ad4e;
+  --dps:#e6a066;--heal:#5fc186;--tank:#8bc0ec;--purple:#a98be6;--gear:#e2ad4e;--craft:#4fd0a0;--craft-2:#74e0ba;
   --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 40px rgba(0,0,0,.55);--shadow-sm:0 1px 2px rgba(0,0,0,.4);
 }}
 :root[data-theme="dark"]{
   --bg:#0a0d15;--surface:#111725;--surface-2:#0d121e;--border:#212a3e;--border-strong:#31405a;
   --ink:#e6ecf6;--muted:#98a4bc;--faint:#697488;--brand:#54c6e8;--brand-2:#7ad3ef;
-  --dps:#e6a066;--heal:#5fc186;--tank:#8bc0ec;--purple:#a98be6;--gear:#e2ad4e;
+  --dps:#e6a066;--heal:#5fc186;--tank:#8bc0ec;--purple:#a98be6;--gear:#e2ad4e;--craft:#4fd0a0;--craft-2:#74e0ba;
   --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 40px rgba(0,0,0,.55);--shadow-sm:0 1px 2px rgba(0,0,0,.4);
 }
 *{box-sizing:border-box}html{scroll-behavior:smooth}
@@ -97,6 +97,19 @@ a{color:inherit;text-decoration:none}
         <h3>Codex du Gearing 80</h3>
         <p class="desc">La route la plus rapide pour équiper un perso frais au niveau 80 : roadmap étape par étape, l'astuce Hyde &amp; Zeek, la routine quotidienne &amp; hebdo, les monnaies, les paliers d'item rating et les augments.</p>
         <div class="meta"><span class="pill">Route rapide</span><span class="pill">Quotidien &amp; hebdo</span><span class="pill">Patch 7.9.1</span></div>
+        <div class="cta">Ouvrir le codex →</div>
+      </a>
+    </div>
+  </section>
+
+  <section class="grp">
+    <h2>Artisanat <span class="tag">Craft</span></h2>
+    <div class="cards">
+      <a class="card link" href="craft.html" style="--accent:var(--craft)">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v6L4 20a2 2 0 0 0 2 3h12a2 2 0 0 0 2-3l-6-12V2"/><path d="M8.5 14h7"/></svg></div>
+        <h3>Codex de craft</h3>
+        <p class="desc">Quels métiers d'artisanat valent vraiment le coup en end-game : les consommables réutilisables de Biochem et les augments (Armstech / Armormech / Synthtissage), avec le setup de persos conseillé.</p>
+        <div class="meta"><span class="pill">Biochem</span><span class="pill">Augments</span><span class="pill">Patch 7.x</span></div>
         <div class="cta">Ouvrir le codex →</div>
       </a>
     </div>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Codex de craft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Barlow:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#eef1f7;--surface:#fff;--surface-2:#f4f7fc;--raised:#fff;
+  --border:#d9deea;--border-strong:#c1cbdd;
+  --ink:#171c27;--muted:#586074;--faint:#8b93a6;
+  --brand:#0d7fa4;--brand-2:#0b6787;
+  --craft:#1f9e6e;--craft-2:#177c57;
+  --good:#2c8a58;--good-bg:rgba(44,138,88,.10);
+  --warn:#a8720f;--warn-bg:rgba(168,114,15,.12);
+  --crit:#c23a3a;--crit-bg:rgba(194,58,58,.09);
+  --shadow:0 1px 2px rgba(20,28,45,.06),0 8px 24px rgba(20,28,45,.08);
+  --shadow-sm:0 1px 2px rgba(20,28,45,.06);
+  --fd:'Chakra Petch',ui-sans-serif,system-ui,sans-serif;
+  --fb:'Barlow',ui-sans-serif,system-ui,-apple-system,sans-serif;
+  --fm:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --maxw:1040px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0a0d15;--surface:#111725;--surface-2:#0d121e;--raised:#151d2e;
+  --border:#212a3e;--border-strong:#31405a;
+  --ink:#e6ecf6;--muted:#98a4bc;--faint:#697488;
+  --brand:#54c6e8;--brand-2:#7ad3ef;
+  --craft:#4fd0a0;--craft-2:#74e0ba;
+  --good:#5fc186;--good-bg:rgba(95,193,134,.13);
+  --warn:#e4a63f;--warn-bg:rgba(228,166,63,.13);
+  --crit:#ef5f59;--crit-bg:rgba(239,95,89,.12);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 34px rgba(0,0,0,.5);--shadow-sm:0 1px 2px rgba(0,0,0,.4);
+}}
+:root[data-theme="dark"]{
+  --bg:#0a0d15;--surface:#111725;--surface-2:#0d121e;--raised:#151d2e;
+  --border:#212a3e;--border-strong:#31405a;
+  --ink:#e6ecf6;--muted:#98a4bc;--faint:#697488;
+  --brand:#54c6e8;--brand-2:#7ad3ef;
+  --craft:#4fd0a0;--craft-2:#74e0ba;
+  --good:#5fc186;--good-bg:rgba(95,193,134,.13);
+  --warn:#e4a63f;--warn-bg:rgba(228,166,63,.13);
+  --crit:#ef5f59;--crit-bg:rgba(239,95,89,.12);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 34px rgba(0,0,0,.5);--shadow-sm:0 1px 2px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--fb);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body{
+  background-image:radial-gradient(1200px 620px at 78% -8%,rgba(84,198,232,.09),transparent 60%),radial-gradient(900px 500px at 8% 4%,rgba(79,208,160,.09),transparent 60%);background-attachment:fixed}}
+:root[data-theme="dark"] body{
+  background-image:radial-gradient(1200px 620px at 78% -8%,rgba(84,198,232,.09),transparent 60%),radial-gradient(900px 500px at 8% 4%,rgba(79,208,160,.09),transparent 60%);background-attachment:fixed}
+a{color:var(--brand);text-decoration:none}a:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px;border-radius:6px}
+h1,h2,h3,h4{font-family:var(--fd);font-weight:600;text-wrap:balance;margin:0;line-height:1.18}
+
+/* topbar (identique au site) */
+.topbar{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.topbar-in{max-width:var(--maxw);margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.crest{width:38px;height:38px;flex:none;border-radius:9px;display:grid;place-items:center;background:linear-gradient(150deg,var(--craft),color-mix(in srgb,var(--craft) 40%,#0d7fa4));color:#04140f;font-family:var(--fd);font-weight:700;font-size:15px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+.wordmark{display:flex;flex-direction:column;line-height:1.05;min-width:0}
+.wordmark b{font-family:var(--fd);font-weight:700;font-size:1.05rem;letter-spacing:.3px}
+.wordmark span{font-family:var(--fm);font-size:.64rem;letter-spacing:.15em;text-transform:uppercase;color:var(--faint)}
+.top-spacer{flex:1 1 auto}
+.verbadge{font-family:var(--fm);font-size:.68rem;font-weight:600;letter-spacing:.08em;color:var(--craft);border:1px solid color-mix(in srgb,var(--craft) 40%,transparent);border-radius:7px;padding:5px 9px;white-space:nowrap}
+.iconbtn{width:38px;height:38px;flex:none;border-radius:9px;border:1px solid var(--border);background:var(--surface-2);color:var(--muted);cursor:pointer;display:grid;place-items:center;transition:.15s}
+.iconbtn:hover{color:var(--ink);border-color:var(--border-strong);text-decoration:none}
+
+/* layout */
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+.main{padding:24px 0 80px}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border:1px solid var(--border);border-radius:16px;background:linear-gradient(135deg,color-mix(in srgb,var(--craft) 13%,var(--surface)),var(--surface) 62%);padding:26px 26px;box-shadow:var(--shadow)}
+.hero::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--craft),transparent 48%)}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(620px 220px at 92% -30%,color-mix(in srgb,var(--craft) 20%,transparent),transparent 70%);pointer-events:none}
+.hero .ey{font-family:var(--fm);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--craft-2);display:flex;align-items:center;gap:10px;position:relative;z-index:1}
+.hero .ey .dot{width:7px;height:7px;border-radius:50%;background:var(--craft)}
+.hero h1{font-size:clamp(1.9rem,4.6vw,2.7rem);margin:13px 0 6px;letter-spacing:.3px;position:relative;z-index:1}
+.hero p{color:var(--muted);max-width:64ch;position:relative;z-index:1;margin:0}
+.hero .badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px;position:relative;z-index:1}
+.badge{font-size:.82rem;font-family:var(--fm);background:color-mix(in srgb,var(--surface) 72%,transparent);border:1px solid var(--border);border-radius:9px;padding:6px 11px;color:var(--muted)}
+.badge b{color:var(--craft-2);font-weight:600}
+
+/* section head */
+.sec{margin-top:32px}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:var(--fm);font-weight:600;font-size:.72rem;color:var(--craft-2);border:1px solid color-mix(in srgb,var(--craft) 42%,transparent);border-radius:6px;padding:3px 7px;flex:none}
+.sec-head h2{font-family:var(--fd);font-weight:600;font-size:1.2rem}
+.sec-note{color:var(--faint);font-size:.92rem;margin:0 0 16px}
+
+/* key insight */
+.keybox{position:relative;overflow:hidden;border:1px solid color-mix(in srgb,var(--craft) 32%,var(--border));border-radius:15px;background:linear-gradient(135deg,color-mix(in srgb,var(--craft) 10%,var(--surface)),var(--surface) 65%);padding:22px 24px;box-shadow:var(--shadow-sm);margin-top:26px}
+.keybox::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(var(--craft),var(--craft-2))}
+.keybox .k-lab{font-family:var(--fm);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--craft-2);font-weight:600}
+.keybox h3{font-family:var(--fd);font-size:1.32rem;font-weight:600;margin:8px 0 9px}
+.keybox p{margin:0;color:var(--muted)}
+.keybox p b{color:var(--ink)}
+
+/* cards / grid */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px}
+.card{border:1px solid var(--border);border-radius:15px;background:var(--surface);padding:22px;box-shadow:var(--shadow-sm)}
+.card .ch{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.card h3{font-family:var(--fd);font-size:1.22rem;font-weight:600}
+.card .tag{font-family:var(--fm);font-size:.68rem;letter-spacing:.04em;color:var(--faint);display:block;margin-top:3px}
+.card .reset{font-family:var(--fm);font-size:.68rem;color:var(--brand);background:color-mix(in srgb,var(--brand) 10%,transparent);border:1px solid color-mix(in srgb,var(--brand) 30%,transparent);padding:3px 9px;border-radius:999px;white-space:nowrap}
+.checklist{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:2px}
+.checklist label{display:flex;gap:11px;align-items:flex-start;cursor:pointer;padding:9px 8px;border-radius:9px;transition:background .15s}
+.checklist label:hover{background:var(--surface-2)}
+.checklist input{appearance:none;-webkit-appearance:none;flex:0 0 auto;margin-top:2px;width:18px;height:18px;border-radius:5px;border:1.5px solid var(--border-strong);background:var(--surface-2);cursor:pointer;position:relative;transition:.15s}
+.checklist input:checked{background:var(--craft);border-color:var(--craft)}
+.checklist input:checked::after{content:"";position:absolute;left:5.5px;top:2px;width:5px;height:9px;border:solid #04140f;border-width:0 2px 2px 0;transform:rotate(42deg)}
+.checklist input:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.checklist .txt{font-size:.93rem;color:var(--muted);transition:.15s}
+.checklist input:checked ~ .txt{color:var(--faint);text-decoration:line-through;text-decoration-color:var(--border-strong)}
+.checklist .txt b{color:var(--ink);font-weight:600}
+.checklist input:checked ~ .txt b{color:var(--faint)}
+.plain{pointer-events:none}
+.plain li::before{content:none}
+.plain label{padding:7px 0}
+
+/* tables */
+.twrap{overflow-x:auto;border:1px solid var(--border);border-radius:15px;box-shadow:var(--shadow-sm);margin-top:6px}
+table{border-collapse:collapse;width:100%;min-width:560px;background:var(--surface)}
+thead th{font-family:var(--fm);font-weight:600;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;text-align:left;color:var(--faint);padding:12px 15px;background:var(--surface-2);border-bottom:1px solid var(--border-strong);white-space:nowrap}
+tbody td{padding:12px 15px;border-bottom:1px solid var(--border);font-size:.92rem;color:var(--muted);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:color-mix(in srgb,var(--ink) 4%,transparent)}
+td b{color:var(--ink);font-weight:600}
+.ir{font-family:var(--fm);font-weight:600;color:var(--craft-2);white-space:nowrap}
+.star{color:var(--craft-2);letter-spacing:1px;white-space:nowrap}
+.cap{font-family:var(--fm);font-variant-numeric:tabular-nums;color:var(--muted)}
+
+/* slots */
+.slots{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:13px;margin-top:6px}
+.slot{border:1px solid var(--border);border-radius:13px;background:var(--surface);padding:16px 17px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
+.slot::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--craft)}
+.slot .t{font-family:var(--fd);font-weight:600;margin:0 0 3px;font-size:1rem;color:var(--ink)}
+.slot p{margin:0;font-size:.86rem;color:var(--faint)}
+.slot p b{color:var(--muted)}
+.slots-note{margin:14px 0 0;font-size:.9rem;color:var(--faint)}
+.slots-note b{color:var(--muted)}
+
+/* verdict */
+.verdict{margin-top:14px;font-size:.93rem;color:var(--good);background:var(--good-bg);border-radius:9px;padding:10px 14px;display:inline-block}
+.verdict b{color:inherit}
+
+/* pitfalls */
+.pits{display:flex;flex-direction:column;gap:11px;margin-top:6px}
+.pit{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:15px 17px;box-shadow:var(--shadow-sm)}
+.pit .ic{font-family:var(--fm);font-weight:600;font-size:.64rem;letter-spacing:.06em;padding:4px 8px;border-radius:7px;white-space:nowrap;margin-top:1px}
+.pit.stop .ic{color:var(--crit);background:var(--crit-bg)}
+.pit.tip .ic{color:var(--brand);background:color-mix(in srgb,var(--brand) 10%,transparent)}
+.pit.watch .ic{color:var(--warn);background:var(--warn-bg)}
+.pit p{margin:0;font-size:.93rem;color:var(--muted)}
+.pit p b{color:var(--ink)}
+
+/* footer */
+.footer{max-width:var(--maxw);margin:20px auto 0;padding:22px 20px 46px;color:var(--faint);font-size:.82rem;border-top:1px solid var(--border)}
+.footer .resume{color:var(--muted);margin-bottom:12px}
+.footer .resume b{color:var(--ink)}
+.footer .src{display:flex;flex-wrap:wrap;gap:7px 16px;margin-bottom:12px}
+.footer .src a{color:var(--brand)}
+
+@media (max-width:720px){
+  .grid2{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="topbar-in">
+  <div class="brand"><div class="crest"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v6L4 20a2 2 0 0 0 2 3h12a2 2 0 0 0 2-3l-6-12V2"/><path d="M8.5 14h7"/></svg></div><div class="wordmark"><b>Codex de craft</b><span>SWTOR · Artisanat &amp; augments</span></div></div>
+  <div class="top-spacer"></div>
+  <span class="verbadge">Patch 7.7</span>
+  <a class="iconbtn" href="index.html" title="Accueil" aria-label="Accueil"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></a>
+  <button class="iconbtn" id="themeToggle" aria-label="Thème clair / sombre"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+</div></div>
+
+<main class="wrap main">
+
+  <header class="hero">
+    <div class="ey"><span class="dot"></span> Star Wars: The Old Republic</div>
+    <h1>Métiers d'artisanat &amp; Augments</h1>
+    <p>Le craft n'est plus la voie vers le meilleur stuff depuis la 7.0 — mods, armures et armes viennent surtout des vendeurs (Hyde &amp; Zeek) et des opérations. Mais deux usages restent réellement rentables en end-game : les consommables réutilisables de Biochem, et les augments à slotter. Ce codex explique quoi prendre, sur quel perso, et pourquoi.</p>
+    <div class="badges">
+      <span class="badge">Métier clé <b>Biochem</b></span>
+      <span class="badge">Slot <b>Augments MK-11</b></span>
+      <span class="badge">Version <b>Patch 7.x</b></span>
+    </div>
+  </header>
+
+  <!-- KEY -->
+  <div class="keybox">
+    <div class="k-lab">◆ Le point clé</div>
+    <h3>Le craft end-game utile = consommables + augments</h3>
+    <p>Trois familles de compétences d'équipage : <b>Artisanat</b> (craft), <b>Récolte</b>, <b>Mission</b>. Maximum <b>3 compétences par perso</b> — en général <b>1 craft + sa récolte + sa mission</b>. Depuis la <b>7.0</b>, le stuff et les mods end-game viennent des vendeurs et des opérations, <b>pas du craft</b>. Aujourd'hui, le craft utile en end-game se résume à deux usages : les <b>consommables réutilisables</b> de Biochem, et les <b>augments</b> (Armstech / Armormech / Synthtissage). Tout le reste — mods, armures, armes — c'est surtout du <b>cosmétique et du marché GTN</b>.</p>
+  </div>
+
+  <!-- METIERS -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-num">01</span><h2>Quels métiers valent le coup</h2></div>
+    <p class="sec-note">Sur 6 métiers d'artisanat, seuls 4 ont un vrai intérêt end-game — et un seul est prioritaire.</p>
+    <div class="twrap">
+      <table>
+        <thead><tr><th>Métier de craft</th><th>Ce qu'il produit d'utile</th><th>Intérêt</th><th>Récolte</th><th>Mission</th></tr></thead>
+        <tbody>
+          <tr><td><b>Biochem</b></td><td>Stims, dopants, medpacs <b>réutilisables</b></td><td class="star">⭐⭐⭐</td><td>Bio-analyse</td><td>Diplomatie</td></tr>
+          <tr><td><b>Armstech</b></td><td>Augments (Précision, Bouclier, Maîtrise) + canons</td><td class="star">⭐⭐</td><td>Piratage</td><td>Trafic clandestin</td></tr>
+          <tr><td><b>Armormech</b></td><td>Augments (Alacrité, Absorption)</td><td class="star">⭐⭐</td><td>Récupération</td><td>Trafic clandestin</td></tr>
+          <tr><td><b>Synthtissage</b></td><td>Augments (Critique, Défense)</td><td class="star">⭐⭐</td><td>Prospection archéo.</td><td>Trafic clandestin</td></tr>
+          <tr><td><b>Cybertech</b></td><td>Grenades, composants, oreillettes</td><td class="star">⭐</td><td>Récupération</td><td>Investigation</td></tr>
+          <tr><td><b>Artifice</b></td><td>Cristaux de couleur, reliques, teintures + raffinage de mats de boss</td><td class="star">⭐</td><td>Prospection archéo.</td><td>Chasse au trésor</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pits" style="margin-top:14px">
+      <div class="pit watch"><span class="ic">ATTENTION</span><p><b>Un perso = un seul craft.</b> Aucun métier ne couvre tout : pour être 100&nbsp;% autonome (Biochem <b>et</b> tous les augments), il faut <b>plusieurs persos</b> — sinon on complète au <b>GTN</b>.</p></div>
+    </div>
+  </section>
+
+  <!-- BIOCHEM -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Biochem — à mettre sur le main</h2></div>
+    <div class="grid2">
+      <div class="card">
+        <h3>Ce qu'il fabrique</h3>
+        <ul class="checklist plain">
+          <li><label><span class="txt"><b>Medpacs</b> — soin d'urgence en combat.</span></label></li>
+          <li><label><span class="txt"><b>Stims</b> — buff de stat longue durée (persiste à la mort avec les versions actuelles).</span></label></li>
+          <li><label><span class="txt"><b>Dopants (Adrenals)</b> — burst de stat court, sur cooldown.</span></label></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Le vrai intérêt : les réutilisables</h3>
+        <p style="margin:0;color:var(--muted);font-size:.95rem">Débloquées à <b style="color:var(--ink)">Biochem&nbsp;700</b> (le niveau max), les versions réutilisables <b style="color:var(--ink)">ne se consomment jamais</b>, mais exigent d'avoir Biochem pour être utilisées. En opé ou en JcJ, où l'on en consomme des dizaines, c'est une <b style="color:var(--ink)">énorme économie</b> et zéro rachat.</p>
+        <p class="slots-note" style="margin-top:12px"><b>Grade actuel : 11</b> (7.x) — cohérent avec la Bio-analyse grade 11. Les <b>implants légendaires sont des drops</b> en end-game, pas une raison de prendre Biochem.</p>
+      </div>
+    </div>
+    <div class="pits" style="margin-top:14px">
+      <div class="pit tip"><span class="ic">ASTUCE</span><p><b>Synergie récolte :</b> la Bio-analyse récolte exactement les mêmes ressources que l'Extrait virulent premium (cadavres de créatures + nœuds, Onderon / Mek-Sha / Ossus, marchand Jawa <b>Hadiir</b>). Biochem + Bio-analyse se nourrissent tout seuls.</p></div>
+    </div>
+    <p class="verdict"><b>Verdict :</b> Biochem sur le main. C'est le seul craft dont le bénéfice est lié au perso — tout le reste peut vivre sur un alt ou au GTN.</p>
+  </section>
+
+  <!-- AUGMENTS -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-num">03</span><h2>Augments — « mettre des améliorations »</h2></div>
+    <p class="sec-note">Deux objets bien distincts à ne pas confondre : le slot, et l'augment lui-même.</p>
+    <div class="slots">
+      <div class="slot">
+        <div class="t">a) Le slot — Kit MK-11</div>
+        <p>L'<b>emplacement</b> ouvert sur une pièce à la table de modification d'objet. <b>Craftable par n'importe lequel des 6 métiers</b> d'artisanat. Nécessite des composants d'emplacement MK-11 (déconstruction d'objets craftés) — le <b>Piratage</b> aide pour les composants et les crédits. <b>MK-11 = le tier courant.</b></p>
+      </div>
+      <div class="slot">
+        <div class="t">b) L'augment — 3 métiers seulement</div>
+        <p>La stat elle-même n'est craftable que par <b>Armstech, Armormech ou Synthtissage</b>, selon la stat visée (table ci-dessous).</p>
+      </div>
+    </div>
+
+    <p class="sec-note" style="margin-top:22px">Répartition stat ↔ métier :</p>
+    <div class="twrap">
+      <table>
+        <thead><tr><th>Stat de l'augment</th><th>Métier</th></tr></thead>
+        <tbody>
+          <tr><td><b>Maîtrise</b> (Versatile)</td><td>Armstech</td></tr>
+          <tr><td><b>Précision</b> (Accuracy)</td><td>Armstech</td></tr>
+          <tr><td><b>Bouclier</b> (Shield)</td><td>Armstech</td></tr>
+          <tr><td><b>Alacrité</b> (Alacrity)</td><td>Armormech</td></tr>
+          <tr><td><b>Absorption</b> (Absorb)</td><td>Armormech</td></tr>
+          <tr><td><b>Critique</b> (Critical)</td><td>Synthtissage</td></tr>
+          <tr><td><b>Défense</b> (Redoubt)</td><td>Synthtissage</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="slots-note">Les augments <b>Puissance/Reflex</b> et <b>Endurance/Fortitude</b> existent aussi et sont répartis entre ces mêmes 3 métiers.</p>
+
+    <p class="sec-note" style="margin-top:22px">Tiers d'augments actuels (7.6 → 7.7) :</p>
+    <div class="twrap">
+      <table>
+        <thead><tr><th>Rareté / nom</th><th>Item rating</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><b>Or « Supérieur … 86 »</b></td><td class="ir">318</td><td>BiS absolu (7.7), cher, gain marginal → min-max hardcore</td></tr>
+          <tr><td><b>Violet « Avancé … 86 »</b></td><td class="ir">310</td><td>Ajouté en 7.6 — cible pratique pour la plupart</td></tr>
+          <tr><td>Bleu « … 86 »</td><td class="ir">302</td><td>Alternative éco</td></tr>
+          <tr><td>Bleu « … 83 »</td><td class="ir">296</td><td>Alternative éco</td></tr>
+          <tr><td>(ancien Or « … 77 »)</td><td class="ir">300</td><td>Ancien BiS, encore très correct</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="slots-note">Tous utilisent le <b>Kit MK-11</b>. Les tiers or/violet demandent des mats raffinés de boss (raffinés via Biochem ou Artifice) + composants CM-1337. <b>Reco : viser le violet 310</b> (rapport gain/prix idéal) — l'or 318 n'apporte qu'un mince surplus, réservé au end-game très poussé. Pour caler les stats tertiaires une fois les augments choisis, voir le <a href="fiches-optimisation-7.7.html">Codex de l'Optimisation</a>.</p>
+
+    <div class="pits" style="margin-top:14px">
+      <div class="pit watch"><span class="ic">ATTENTION</span><p><b>À revérifier en jeu au moment de crafter :</b> les guides divergent sur l'attribution exacte stat↔métier (mapping ci-dessus d'après Aike's Archive). Sur le GTN, l'augment indique de toute façon la stat directement.</p></div>
+    </div>
+  </section>
+
+  <!-- SETUP -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Setup de persos conseillé</h2></div>
+    <p class="sec-note">Coche au fur et à mesure — ta progression est mémorisée sur cet appareil.</p>
+    <div class="card">
+      <ul class="checklist" data-store="setup">
+        <li><label><input type="checkbox"><span class="txt"><b>Main → Biochem</b> (+ Bio-analyse + Diplomatie) : réutilisables, et récolte alignée avec le farm Onderon/Jawa.</span></label></li>
+        <li><label><input type="checkbox"><span class="txt"><b>Alt(s) → Armstech / Synthtissage / Armormech</b> selon les stats d'augments les plus utilisées (ou tout acheter au GTN pour rester à un seul perso crafteur).</span></label></li>
+        <li><label><input type="checkbox"><span class="txt"><b>Kits MK-11</b> : n'importe quel perso crafteur, ou GTN.</span></label></li>
+        <li><label><input type="checkbox"><span class="txt"><b>Piratage (Slicing)</b> : pratique pour les composants d'augment et les crédits.</span></label></li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p class="resume"><b>Résumé express</b> — Biochem sur le main pour les consommables réutilisables. Augments (Armstech/Armormech/Synthtissage) sur un alt ou au GTN. Kits MK-11 par n'importe quel crafteur. Le reste du craft (mods, armures) est surtout cosmétique.</p>
+  <div class="src">
+    <span style="color:var(--muted)">Sources :</span>
+    <span>Swtorista — Biochem, Augments</span>
+    <span>VULKK — Augments 7.6 / 7.8</span>
+    <span>Aike's Archive — mapping augments</span>
+    <span>lootstrategist — Best Crew Skills 2026</span>
+  </div>
+  <p>Aide-mémoire non officiel. Chiffres exacts (grades, item ratings, attribution stat↔métier) à confirmer en jeu / sur le GTN au moment de crafter. Star Wars: The Old Republic™ appartient à BioWare / Electronic Arts / Lucasfilm.</p>
+</footer>
+
+<script>
+  const root=document.documentElement, tkey='swtor-codex-theme';
+  try{const s=localStorage.getItem(tkey);if(s)root.setAttribute('data-theme',s);}catch(e){}
+  document.getElementById('themeToggle').addEventListener('click',()=>{
+    const cur=root.getAttribute('data-theme');
+    const dark=cur?cur==='dark':window.matchMedia('(prefers-color-scheme:dark)').matches;
+    const next=dark?'light':'dark';root.setAttribute('data-theme',next);
+    try{localStorage.setItem(tkey,next);}catch(e){}
+  });
+  document.querySelectorAll('.checklist[data-store]').forEach(function(list){
+    const key='swtor-craft-chk-'+list.getAttribute('data-store');
+    const boxes=list.querySelectorAll('input[type=checkbox]');
+    let stored=[];try{stored=JSON.parse(localStorage.getItem(key)||'[]');}catch(e){stored=[];}
+    boxes.forEach(function(b,i){ if(stored[i]) b.checked=true;
+      b.addEventListener('change',function(){
+        const state=[];boxes.forEach(x=>state.push(x.checked));
+        try{localStorage.setItem(key,JSON.stringify(state));}catch(e){}
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
